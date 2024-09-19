@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://iuclid6.echa.europa.eu/namespaces/manifest/v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink"
+	attributeFormDefault="unqualified" elementFormDefault="qualified"
+	targetNamespace="http://iuclid6.echa.europa.eu/namespaces/manifest/v1">
+	<xs:annotation>
+		<xs:appinfo>Manifest XML Schema Definition</xs:appinfo>
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+
+	<!-- General Information -->
+	<xs:complexType name="general-informationType">
+		<xs:annotation>
+			<xs:documentation>Holds the elements under the "general-information" section</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="string2000" name="title">
+				<xs:annotation>
+					<xs:documentation>The name that should be displayed as a first element, once opening the XML file via a web browser. For the time being, it is hardcoded to "IUCLID 6 container manifest file"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="created">
+				<xs:annotation>
+					<xs:documentation>The creation date of the i6z file</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="author">
+				<xs:annotation>
+					<xs:documentation>The IUCLID user (i.e. concatenation of "First name " and "Last name") that created the i6z file</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="application">
+				<xs:annotation>
+					<xs:documentation>It is by default “IUCLID6” and in a parenthesis the release version and build date/time are mentioned</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="submission-type">
+				<xs:annotation>
+					<xs:documentation>The submission type of the dataset. The list of valid submission types is defined by the legislation elements available in a given IUCLID instance. Indicative values are:
+<ul>
+<li>ENDP</li>
+<li>EXPERIMENTAL_DATA</li>
+<li>OECD</li>
+<li>OECD_HT</li>
+<li>R_AUTH_APPL</li>
+<li>R_DU_REPORT</li>
+<li>R_INQUIRY</li>
+<li>R_PPORD</li>
+<li>R_SIA_NOTIF</li>
+<li>R_SUB_EVAL</li>
+<li>R_A15_REST</li>
+<li>R_A15_SVHC</li>
+<li>CLP_ALTERNATIVE_NAME</li>
+<li>CLP_NOTIF</li>
+<li>CLP_CLH</li>
+<li>R_1-10_PC</li>
+<li>R_1-10_STD</li>
+<li>R_10-100</li>
+<li>R_100-1000</li>
+<li>R_ABOVE_1000</li>
+<li>R_INT_ONSITE</li>
+<li>R_INT_TR_1-1000</li>
+<li>R_INT_TR_ABOVE_1000</li>
+<li>R_JS_MBER</li>
+<li>R_INT_JS_MBER</li>
+<li>BIOC_ACTIVE_SUBSTANCE</li>
+<li>BIOC_ACTIVE_SUBSTANCE_FOR_MIXTURES</li>
+<li>BIOC_BASIC_INFORMATION</li>
+<li>BIOC_BASIC_INFORMATION_MIXTURE</li>
+<li>BIOC_BIOCIDAL_PRODUCT</li>
+<li>BIOC_SUBSTANCE_OF_CONCERN</li>
+</ul></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="archive-type">
+				<xs:annotation>
+					<xs:documentation>Indicates the type of the documents included in the archive</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="RAW_DATA"/>
+						<xs:enumeration value="DOSSIER_DATA"/>
+						<xs:enumeration value="CHEMICAL_INVENTORY"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element type="xs:boolean" name="partial" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates whether the exported dossier  of the documents included in the archive is light.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="legislations-info">
+				<xs:annotation>
+					<xs:documentation>Contains an optional list of legislation elements. This section mentions information relevant to the IUCLID legislations; in this section, the legislations that provide the documents (found within the i6z file) are listed</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="legislation">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="id" type="xs:string"/>
+									<xs:element name="version" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Name Type -->
+	<xs:complexType name="nameType">
+		<xs:annotation>
+			<xs:documentation>It is the name of the document as specified by the user. The xlink:href attribute of the element specifies the name of the XML file (*.i6d) that contains the actual content of this document</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute ref="xlink:type"/>
+				<xs:attribute ref="xlink:href"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<!-- Link type -->
+	<xs:complexType name="linkType">
+		<xs:annotation>
+			<xs:documentation>A single link between two documents</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="xs:string" name="ref-uuid"/>
+			<xs:element name="ref-type">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="PARENT"/>
+						<xs:enumeration value="CHILD"/>
+						<xs:enumeration value="REFERENCE"/>
+						<xs:enumeration value="USES_TEMPLATE"/>
+						<xs:enumeration value="REQUIRED_LEGAL_ENTITY"/>
+						<xs:enumeration value="CATEGORY"/>
+						<xs:enumeration value="ATTACHMENT"/>
+						<xs:enumeration value="DOSSIER_SUBJECT"/>
+						<xs:enumeration value="ANNOTATION"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Links type -->
+	<xs:complexType name="linksType">
+		<xs:annotation>
+			<xs:documentation>It contains a list of the documents that are referenced from/linked to the given document</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="linkType" name="link" maxOccurs="unbounded" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A single link between two documents</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!--  Strings up to 255 chars -->
+	<xs:simpleType name="string255">
+		<xs:annotation>
+			<xs:documentation>Textual type with maximum length of 255 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!--  Strings up to 2000 chars -->
+	<xs:simpleType name="string2000">
+		<xs:annotation>
+			<xs:documentation>Textual type with maximum length of 2000 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2000"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Reference substance type -->
+	<xs:complexType name="referenceSubstanceType">
+		<xs:annotation>
+			<xs:documentation>The ReferenceSubstance-specific elements included under the representation element</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="xs:string" name="name"/>
+			<xs:element type="xs:string" name="IUPAC-name"/>
+			<xs:element type="xs:string" name="CAS-number"/>
+			<xs:element type="xs:string" name="inventory-number"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Legal Entity type -->
+	<xs:complexType name="legalEntityType">
+		<xs:annotation>
+			<xs:documentation>The LegalEntity-specific elements included under the representation element</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="string255" name="name"/>
+			<xs:element type="string255" name="town"/>
+			<xs:element type="xs:string" name="country"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Iuclid6 Documents type -->
+	<xs:simpleType name="iuclid6DocumentsType">
+		<xs:annotation>
+			<xs:documentation>Holds the list of the available IUCLID6 document types</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ANNOTATION"/>
+			<xs:enumeration value="ARTICLE"/>
+			<xs:enumeration value="CATEGORY"/>
+			<xs:enumeration value="DOSSIER"/>
+			<xs:enumeration value="FIXED_RECORD"/>
+			<xs:enumeration value="FLEXIBLE_RECORD"/>
+			<xs:enumeration value="ENDPOINT_STUDY_RECORD"/>
+			<xs:enumeration value="FLEXIBLE_SUMMARY"/>
+			<xs:enumeration value="ENDPOINT_SUMMARY"/>
+			<xs:enumeration value="ASSESSMENT_ENTITY"/>
+			<xs:enumeration value="LEGAL_ENTITY"/>
+			<xs:enumeration value="MIXTURE"/>
+			<xs:enumeration value="REFERENCE_SUBSTANCE"/>
+			<xs:enumeration value="SITE"/>
+			<xs:enumeration value="CONTACT"/>
+			<xs:enumeration value="LITERATURE"/>
+			<xs:enumeration value="SUBSTANCE"/>
+			<xs:enumeration value="TEMPLATE"/>
+			<xs:enumeration value="TEST_MATERIAL_INFORMATION"/>
+			<xs:enumeration value="INVENTORY"/>
+			<xs:enumeration value="CUSTOM_ENTITY"/>
+			<xs:enumeration value="CUSTOM_SECTION"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+	<!-- Parent type -->
+	<xs:complexType name="parentType">
+		<xs:annotation>
+			<xs:documentation>Holds information (document type and name) of the parent document of the specific document</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="iuclid6DocumentsType" name="type"/>
+			<xs:element type="xs:string" name="name"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Representation type -->
+	<xs:complexType name="representationType">
+		<xs:annotation>
+			<xs:documentation>Holds all the elements under the "representation" element inside the "document" element</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="xs:string" name="subject-type" minOccurs="0"/>
+			<xs:element type="string255" name="last-name" minOccurs="0"/>
+			<xs:element type="string255" name="first-name" minOccurs="0"/>
+			<xs:element type="string255" name="organisation" minOccurs="0"/>
+			<xs:element type="parentType" name="parent" minOccurs="0"/>
+			<xs:element type="referenceSubstanceType" name="reference-substance" minOccurs="0"/>
+			<xs:element type="xs:string" name="name" minOccurs="0"/>
+			<xs:element type="string255" name="town" minOccurs="0"/>
+			<xs:element type="xs:string" name="country" minOccurs="0"/>
+			<xs:element type="legalEntityType" name="legal-entity" minOccurs="0"/>
+			<xs:element type="xs:string" name="IUPAC-name" minOccurs="0"/>
+			<xs:element type="xs:string" name="CAS-number" minOccurs="0"/>
+			<xs:element type="xs:string" name="inventory-number" minOccurs="0"/>
+			<xs:element type="string2000" name="title" minOccurs="0"/>
+			<xs:element type="xs:string" name="author" minOccurs="0"/>
+			<xs:element type="xs:string" name="reference-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Linked doc Type -->
+	<xs:complexType name="linked-docType">
+		<xs:annotation>
+			<xs:documentation>Element linking to the actual attachment content location</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute ref="xlink:type"/>
+				<xs:attribute ref="xlink:href"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<!-- Linked attachments type -->
+	<xs:complexType name="linked-attachmentsType">
+		<xs:annotation>
+			<xs:documentation>Holds the element indicating the location of the actual attachment content</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="linked-docType" name="linked-doc" maxOccurs="unbounded" minOccurs="0"
+			/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Document type -->
+	<xs:complexType name="documentType">
+		<xs:annotation>
+			<xs:documentation>Holds the elements under the "document" element inside the "contained-documents" section</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="iuclid6DocumentsType" name="type">
+				<xs:annotation>
+					<xs:documentation>The type of the document</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="subtype" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The subtype in case of section document. This information is not applicable to entity documents. "type"."subtype" uniquely identifies the section document type and represent the document definition identifier</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="nameType" name="name" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>It is the name of the document as specified by the user. The xlink:href attribute of the element specifies the name of the XML file (*.i6d) that contains the actual content of this document</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:dateTime" name="first-modification-date">
+				<xs:annotation>
+					<xs:documentation>The date that the document was created</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:dateTime" name="last-modification-date">
+				<xs:annotation>
+					<xs:documentation>The last modification date of the document</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="uuid">
+				<xs:annotation>
+					<xs:documentation>The unique identifier of the document</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="linksType" name="links" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>It contains a list of the documents that are referenced from/linked to the given document</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="representationType" name="representation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Additional metadata per document needed to produce the document's representation in the IUCLID 6 Swing UI.
+<br/><br/>
+Not all elements are applicable to all document types. Only a subset of them are filled per case.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="linked-documents" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="id">
+			<xs:annotation>
+				<xs:documentation>The unique identifier of the document</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<!-- Attachment type -->
+	<xs:complexType name="attachmentType">
+		<xs:annotation>
+			<xs:documentation>Holds the elements under the "attachment" element inside the "contained-documents" section</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="nameType" name="name" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>It is the name of the attachment as specified by the user. The xlink:href attribute of the element specifies the name of the XML file (*.i6d) that contains the actual content of this document</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:dateTime" name="first-modification-date">
+				<xs:annotation>
+					<xs:documentation>The date that the attachment was created</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:dateTime" name="last-modification-date">
+				<xs:annotation>
+					<xs:documentation>The last modification date of the attachment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="uuid">
+				<xs:annotation>
+					<xs:documentation>The unique identifier of the attachment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="container-uuid">
+				<xs:annotation>
+					<xs:documentation>The unique identifier of the document the attachment is linked to</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:boolean" name="symbolic" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates that the actual attachment file is not included in the i6z file</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="md5" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The file's md5 hash</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="linked-attachmentsType" name="linked-attachments" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The links to the actual attachment content</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="id" use="required">
+			<xs:annotation>
+				<xs:documentation>The unique identifier of the attachment</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="contained-documentsType">
+		<xs:annotation>
+			<xs:documentation>Defines the "document" and "attachment" elements under the "contained-documents" section</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="documentType" name="document" maxOccurs="unbounded" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Element that holds the metadata of IUCLID6 documents</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="attachmentType" name="attachment" maxOccurs="unbounded" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Element that holds the metadata of IUCLID6 attachments</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="manifestType">
+		<xs:annotation>
+			<xs:documentation>Specifies the elements inside the manifest.xml</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="general-informationType" name="general-information">
+				<xs:annotation>
+					<xs:documentation>Contains the top-level information of the i6z archive file</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="comment" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Optional field that contains the user-defined text during the export operation of the specific dataset or dossier</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="base-document-uuid">
+				<xs:annotation>
+					<xs:documentation>Holds the key of the document the export operation was initiated from. The following cases should be mentioned:
+<ul>
+<li>Dossier export: the key of the dossier header snapshot_uuid/snapshot_uuid</li>
+<li>Entity export: the key of the entity (substance, mixture, template, legal entity, reference substance, etc) to be exported</li>
+<li>Document export: the key of the section document the export operation initiated from</li>
+</ul></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="contained-documentsType" name="contained-documents">
+				<xs:annotation>
+					<xs:documentation>Lists the metadata of all the documents and attachments included in the archive. It consists of a list of the following two subsection elements:
+<ul>
+<li>document: This element contains the metadata and top-level information of all IUCLID6 documents included in the archive</li>
+<li>attachment: This element contains the metadata of all the attachments included in the archive</li>
+</ul></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="manifest" type="manifestType"/>
+
+</xs:schema>

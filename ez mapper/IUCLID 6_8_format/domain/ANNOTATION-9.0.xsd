@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://iuclid6.echa.europa.eu/namespaces/ANNOTATION/9.0" xmlns:ct="http://iuclid6.echa.europa.eu/namespaces/domain/v9" xmlns:i6="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://iuclid6.echa.europa.eu/namespaces/ANNOTATION/9.0">
+    <xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1" schemaLocation="platform-fields.xsd"/>
+    <xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/domain/v9" schemaLocation="commonTypesDomainV9.xsd"/>
+    <xs:element name="ANNOTATION">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="AnnotatedDocuments">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="AnnotatedDocument">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Type" type="xs:string"/>
+                                        <xs:element name="Key" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="AdminInfo">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="DataProtection">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:baseDataProtectionField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="confidentiality" type="ct:N64"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="justification" type="i6:multilingualTextField"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="legislation">
+                                                    <xs:complexType>
+                                                        <xs:sequence>
+                                                            <xs:element minOccurs="0" name="value" type="ct:N78"/>
+                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                        </xs:sequence>
+                                                    </xs:complexType>
+                                                </xs:element>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Name">
+                                <xs:simpleType>
+                                    <xs:restriction base="i6:textFieldSmall">
+                                        <xs:minLength value="1"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="Authority" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="AnnotationStatus">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:N16"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="AnnotationType">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:PG6_61006"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="Remarks" type="i6:multilingualTextField"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="AttachedRegulatoryAuthoritiesEvaluation">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="Evaluation" type="i6:attachmentListField"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="EvalInfo">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="AgreementWithApplicantsSummary">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:A03"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="DataWaiverAcceptable">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:N19"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="Reliability">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:N17"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="Remarks" type="i6:multilingualTextFieldLarge"/>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="CrossReferenceToOtherStudy" type="i6:multilingualTextFieldSmall"/>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="Conclusions" type="i6:multilingualTextFieldLarge"/>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="ExecutiveSummary" type="i6:multilingualTextField"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

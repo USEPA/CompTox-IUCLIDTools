@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 	xmlns="http://iuclid6.echa.europa.eu/namespaces/inventory/v1"
+        targetNamespace="http://iuclid6.echa.europa.eu/namespaces/inventory/v1"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
+        
+ <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+   <xs:element name="Inventory">    
+     <xs:complexType>
+      <xs:sequence>
+        <xs:element name="versionInfo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="version" type="xs:string" />
+              <xs:element name="date" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventoryCode" type="xs:string" />
+        <xs:element name="name" type="xs:string" />
+        <xs:element name="inventoryEntries">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="inventoryEntry" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="inventoryNumber" type="xs:string" />
+                    <xs:element name="inventoryNames" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="inventoryName" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="casNumber" minOccurs="0" type="xs:string" />
+                    <xs:element name="molecularFormula" minOccurs="0" type="xs:string" />
+                   <xs:element name="descriptions" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="description" minOccurs="0">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute ref="xml:lang"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>                    
+                  </xs:sequence>
+                  <xs:attribute name="creationDate" type="xs:dateTime" />
+                  <xs:attribute name="lastModificationDate" type="xs:dateTime" />
+                  <xs:attribute name="status" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="scope"/>
+      <xs:attribute ref="xml:lang" />
+      <xs:attribute name="exportDate"/>
+    </xs:complexType>
+    </xs:element>  
+</xs:schema>

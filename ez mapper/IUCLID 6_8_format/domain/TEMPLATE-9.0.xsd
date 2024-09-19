@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://iuclid6.echa.europa.eu/namespaces/TEMPLATE/9.0" xmlns:ct="http://iuclid6.echa.europa.eu/namespaces/domain/v9" xmlns:i6="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://iuclid6.echa.europa.eu/namespaces/TEMPLATE/9.0">
+    <xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1" schemaLocation="platform-fields.xsd"/>
+    <xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/domain/v9" schemaLocation="commonTypesDomainV9.xsd"/>
+    <xs:element name="TEMPLATE">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="TemplateName">
+                    <xs:simpleType>
+                        <xs:restriction base="i6:textFieldSmall">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="Remarks" type="i6:multilingualTextFieldLarge"/>
+                <xs:element minOccurs="0" name="OwnerLegalEntityProtection">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="i6:baseDataProtectionField">
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="confidentiality" type="ct:N64"/>
+                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="justification" type="i6:multilingualTextField"/>
+                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="legislation">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:N78"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="OwnerLegalEntity" type="i6:documentReferenceField"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

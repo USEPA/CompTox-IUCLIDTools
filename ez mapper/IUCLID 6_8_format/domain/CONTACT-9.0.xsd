@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://iuclid6.echa.europa.eu/namespaces/CONTACT/9.0" xmlns:ct="http://iuclid6.echa.europa.eu/namespaces/domain/v9" xmlns:i6="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://iuclid6.echa.europa.eu/namespaces/CONTACT/9.0">
+    <xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1" schemaLocation="platform-fields.xsd"/>
+    <xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/domain/v9" schemaLocation="commonTypesDomainV9.xsd"/>
+    <xs:element name="CONTACT">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="GeneralInfo">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="ContactType">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:A37"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="LastName">
+                                <xs:simpleType>
+                                    <xs:restriction base="i6:textFieldSmall">
+                                        <xs:minLength value="1"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="FirstName" type="i6:textFieldSmall"/>
+                            <xs:element name="Organisation">
+                                <xs:simpleType>
+                                    <xs:restriction base="i6:textFieldSmall">
+                                        <xs:minLength value="1"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="Department" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="Title" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="Phone" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="Mobile" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="Fax" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="Email" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="Address1" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="Address2" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="Postal" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="Town" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="Region" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="Country">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:A31"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="Remarks" type="i6:multilingualTextFieldLarge"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

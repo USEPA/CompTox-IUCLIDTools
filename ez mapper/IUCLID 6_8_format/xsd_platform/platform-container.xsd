@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://iuclid6.echa.europa.eu/namespaces/platform-container/v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:pm="http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1"
+	xmlns:att="http://iuclid6.echa.europa.eu/namespaces/platform-attachment/v1"
+	xmlns:mh="http://iuclid6.echa.europa.eu/namespaces/platform-modification-history/v1"
+	targetNamespace="http://iuclid6.echa.europa.eu/namespaces/platform-container/v1"
+	elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1" schemaLocation="platform-metadata.xsd"/>
+	<xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/platform-attachment/v1" schemaLocation="platform-attachment.xsd"/>
+	<xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/platform-modification-history/v1" schemaLocation="platform-modification-history.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>XML Schema Definition of the IUCLID6 Document entity</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="Document">
+		<xs:annotation>
+			<xs:documentation>Contains top-level information concerning the IUCLID6 document along with the document's actual chemical information content</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PlatformMetadata">
+					<xs:annotation>
+						<xs:documentation>Contains the top-level information of a IUCLID6 document such as document identifier, name, type and subtype, etc.
+							<br/><br/>
+							The elements are included in the platform-metadata.xsd</xs:documentation>
+					</xs:annotation>
+					<xs:complexType >
+						<xs:sequence minOccurs="0" maxOccurs="unbounded">
+							<xs:element ref="pm:iuclidVersion" minOccurs="0" />
+							<xs:element ref="pm:documentKey" minOccurs="0"  />
+							<xs:element ref="pm:documentType" minOccurs="0"  />
+							<xs:element ref="pm:definitionVersion" minOccurs="0"  />
+							<xs:element ref="pm:creationDate" minOccurs="0"  />
+							<xs:element ref="pm:lastModificationDate" minOccurs="0" />
+							<xs:element ref="pm:name" minOccurs="0" />
+							<xs:element ref="pm:documentSubType" minOccurs="0" />
+							<xs:element ref="pm:parentDocumentKey" minOccurs="0"  />
+							<xs:element ref="pm:orderInSectionNo" minOccurs="0" />
+							<xs:element ref="pm:submissionType"  minOccurs="0" />
+							<xs:element ref="pm:submissionTypeVersion" minOccurs="0" />
+							<xs:element ref="pm:submittingLegalEntity" minOccurs="0" />
+							<xs:element ref="pm:dossierSubject" minOccurs="0" />
+							<xs:element ref="pm:i5Origin" minOccurs="0" />
+							<xs:element ref="pm:creationTool" minOccurs="0" />
+							<xs:element ref="pm:snapshotCreationTool" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Content">
+					<xs:annotation>
+						<xs:documentation>Contains the chemical information of the specific IUCLID6 document.
+<br/><br/>
+The content is dynamic and is defined in the corresponding .xsd per document definition identifier. 
+in the form of "document_type"-"document_subtype"-"version".xsd.
+Example: ENDPOINT_STUDY_RECORD-Density-4.0.xsd</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any namespace="##other" processContents="strict" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Attachments" nillable="true">
+					<xs:annotation>
+						<xs:documentation>Lists the attachments that are directly linked to the document. The content of this section is an unbounded list of references to attachment identifiers that this document is linked to.
+<br/><br/>
+The elements are included in the platform-attachment.xsd</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence minOccurs="0" maxOccurs="unbounded" >
+							<xs:element ref="att:Attachment" minOccurs="0" />
+							<xs:element ref="att:AttachmentRef" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ModificationHistory" nillable="true">
+					<xs:annotation>
+						<xs:documentation>Lists the entries of the document's modification history. Every entry is a single operation that took place on the specific document and specifies the date of the action, the user that run the action, the submitting legal entity of the user and the modification remarks if any.
+
+<br/><br/>
+The elements are included in the platform-modification-history.xsd</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence minOccurs="0" maxOccurs="unbounded">
+							<xs:element ref="mh:Modification" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

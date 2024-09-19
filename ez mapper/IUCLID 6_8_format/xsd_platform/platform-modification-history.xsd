@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://iuclid6.echa.europa.eu/namespaces/platform-modification-history/v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://iuclid6.echa.europa.eu/namespaces/platform-modification-history/v1"
+	elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:annotation>
+		<xs:appinfo>XML Schema Definition of the "ModificationHistory" section</xs:appinfo>
+		<xs:documentation>This section lists the entries of the document's modification history. Every entry is a single operation that took place on the specific document and specifies the date of the action, the user that run the action, the submitting legal entity of the user and the modification remarks if any</xs:documentation>
+	</xs:annotation>
+	<xs:element name="Modification">
+		<xs:annotation>
+			<xs:documentation>Holds the information concerning the document's modification. Every entry is a single operation that took place on the specific document and specifies the date of the action, the user that run the action, the submitting legal entity of the user and the modification remarks if any</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="Date" type="xs:dateTime">
+					<xs:annotation>
+						<xs:documentation>The date the action was performed on the document</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Author" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>The userName of the user that performed the modification</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="LegalEntity" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>The description of the submitting legal entity of the user. This information contains the concatenated value of the LE name, city and localized country information</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Remarks" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>The modification comment</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

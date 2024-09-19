@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1"
+	elementFormDefault="qualified" attributeFormDefault="qualified">
+
+	<xs:annotation>
+		<xs:appinfo>XML Schema Definition of the main IUCLID6 data types</xs:appinfo>
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+
+	<xs:complexType name="sectionTypesField">
+		<xs:annotation>
+			<xs:documentation>Specifies the content of the section types field under Category document</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="documentDefinitionIdentifier" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="documentType" type="xs:string"/>
+						<xs:element name="documentSubType" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="inventoryEntry">
+		<xs:annotation>
+			<xs:documentation>Specifies the content of the chemical inventory field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="inventoryCode" type="xs:string"/>
+			<xs:element name="numberInInventory" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="addressField">
+		<xs:annotation>
+			<xs:documentation>Contains the elements constituting the AddressField type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="city" type="xs:string"/>
+			<xs:element name="country" type="picklistField"/>
+			<xs:element name="email" type="xs:string"/>
+			<xs:element name="fax" type="xs:string"/>
+			<xs:element name="phone" type="xs:string"/>
+			<xs:element name="state" type="xs:string"/>
+			<xs:element name="street1" type="xs:string"/>
+			<xs:element name="street2" type="xs:string"/>
+			<xs:element name="website" type="xs:string"/>
+			<xs:element name="zipcode" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="attachmentField">
+		<xs:annotation>
+			<xs:documentation>Holds the key of the attachment content attached to the specific field</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+	<xs:complexType name="attachmentListField">
+		<xs:annotation>
+			<xs:documentation>Holds the list of the attachment content identifiers/keys attached to the specific field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="key" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="booleanField">
+		<xs:annotation>
+			<xs:documentation>The value of IUCLID6 boolean fields</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+
+	<xs:complexType name="legislation">
+		<xs:annotation>
+			<xs:documentation>Elements that constitute the regulatory programme legislation information of a data protection field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" type="xs:string"/>
+			<xs:element name="other" minOccurs="0" maxOccurs="1" type="textFieldSmall"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="multilingualLegislation">
+		<xs:annotation>
+			<xs:documentation>The multilingual version of the legislation type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" type="xs:string"/>
+			<xs:element name="other" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualTextFieldSmall"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="dataProtectionField">
+		<xs:annotation>
+			<xs:documentation>The elements constituting the data protection field type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="confidentiality" type="xs:string"/>
+			<xs:element name="justification" type="textField"/>
+			<xs:element name="legislation" minOccurs="0" maxOccurs="unbounded" type="legislation"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="multilingualDataProtectionField">
+		<xs:annotation>
+			<xs:documentation>The multilingual version of the data protection field type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="confidentiality" type="xs:string"/>
+			<xs:element name="justification" maxOccurs="unbounded" type="multilingualTextField"/>
+			<xs:element name="legislation" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualLegislation"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="dateField">
+		<xs:annotation>
+			<xs:documentation>The value of IUCLID6 date/timestamp fields</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:dateTime"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="documentReferenceField">
+		<xs:annotation>
+			<xs:documentation>Holds the key of the IUCLID6 document that is referenced by the specific field</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+	<xs:complexType name="documentReferenceMultipleField">
+		<xs:annotation>
+			<xs:documentation>Multilingual version of the document reference field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="key" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="numericField">
+		<xs:annotation>
+			<xs:documentation>The value of IUCLID6 numeric fields</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>
+
+	<xs:complexType name="physicalQuantityField">
+		<xs:annotation>
+			<xs:documentation>Specifies the elements constituting the IUCLID6 physical quantity fields</xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+
+	<xs:simpleType name="lowerQualifier">
+		<xs:annotation>
+			<xs:documentation>Restricts the eligible values of the "lowerQualifier" element</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+            <xs:enumeration value="&gt;"/>
+            <xs:enumeration value="&gt;="/>
+			<xs:enumeration value="ca."/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="upperQualifier">
+		<xs:annotation>
+			<xs:documentation>Restricts the eligible values of the "upperQualifier" element</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;"/>
+			<xs:enumeration value="&lt;="/>
+			<xs:enumeration value="ca."/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="halfBoundedQualifier">
+		<xs:annotation>
+			<xs:documentation>Restricts the eligible values of the "halfBoundedQualifier" element</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&gt;"/>
+			<xs:enumeration value="&gt;="/>
+			<xs:enumeration value="&lt;"/>
+			<xs:enumeration value="&lt;="/>
+			<xs:enumeration value="ca."/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:group name="rangeQualifierDecimalGroup">
+		<xs:annotation>
+			<xs:documentation>Groups the qualifiers along with the decimal values of the physical quantity range field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lowerQualifier" minOccurs="0" type="lowerQualifier"/>
+			<xs:element name="upperQualifier" minOccurs="0" type="upperQualifier"/>
+			<xs:element name="lowerValue" type="xs:decimal" minOccurs="0"/>
+			<xs:element name="upperValue" type="xs:decimal" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:group name="rangeQualifierIntegerGroup">
+		<xs:annotation>
+			<xs:documentation>Groups the qualifiers along with the integer values of the physical quantity range field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lowerQualifier" minOccurs="0" type="lowerQualifier"/>
+			<xs:element name="upperQualifier" minOccurs="0" type="upperQualifier"/>
+			<xs:element name="lowerValue" type="xs:integer" minOccurs="0"/>
+			<xs:element name="upperValue" type="xs:integer" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:group name="halfBoundedRangeQualifierDecimalGroup">
+		<xs:annotation>
+			<xs:documentation>Groups the qualifier along with the decimal value of the half bounded physical quantity range field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qualifier" minOccurs="0" type="halfBoundedQualifier"/>
+			<xs:element name="value" type="xs:decimal" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:group name="halfBoundedRangeQualifierIntegerGroup">
+		<xs:annotation>
+			<xs:documentation>Groups the qualifier along with the integer value of the half bounded physical quantity range field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qualifier" minOccurs="0" type="halfBoundedQualifier"/>
+			<xs:element name="value" type="xs:integer" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:complexType name="physicalQuantityRangeField">
+		<xs:annotation>
+			<xs:documentation>Lists the elements constituting the decimal physical quantity range field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="unitCode" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="unitOther" minOccurs="0" type="textFieldSmall"/>
+			<xs:group ref="rangeQualifierDecimalGroup"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="multilingualPhysicalQuantityRangeField">
+		<xs:annotation>
+			<xs:documentation>The multilingual version of the physical quantity range field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="unitCode" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="unitOther" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualTextFieldSmall"/>
+			<xs:group ref="rangeQualifierDecimalGroup"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="physicalQuantityIntegerRangeField">
+		<xs:annotation>
+			<xs:documentation>Lists the elements constituting the integer physical quantity range field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="unitCode" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="unitOther" minOccurs="0" type="textFieldSmall"/>
+			<xs:group ref="rangeQualifierIntegerGroup"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="multilingualPhysicalQuantityIntegerRangeField">
+		<xs:annotation>
+			<xs:documentation>The multilingual version of the physical quantity range field with integer value</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="unitCode" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="unitOther" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualTextFieldSmall"/>
+			<xs:group ref="rangeQualifierIntegerGroup"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="physicalQuantityHalfBoundedField">
+		<xs:annotation>
+			<xs:documentation>Lists the elements constituting the decimal, hald-bounded physical quantity range field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="unitCode" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="unitOther" minOccurs="0" type="textFieldSmall"/>
+			<xs:group ref="halfBoundedRangeQualifierDecimalGroup"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="multilingualPhysicalQuantityHalfBoundedField">
+		<xs:annotation>
+			<xs:documentation>The multilingual version of the half bounded physical quantity range field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="unitCode" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="unitOther" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualTextFieldSmall"/>
+			<xs:group ref="halfBoundedRangeQualifierDecimalGroup"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="physicalQuantityIntegerHalfBoundedField">
+		<xs:annotation>
+			<xs:documentation>Lists the elements constituting the integer, half bounded physical quantity range field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="unitCode" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="unitOther" minOccurs="0" type="textFieldSmall"/>
+			<xs:group ref="halfBoundedRangeQualifierIntegerGroup"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="multilingualPhysicalQuantityIntegerHalfBoundedField">
+		<xs:annotation>
+			<xs:documentation>The multilingual version of the half bounded physical quantity range field with integer value</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="unitCode" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="unitOther" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualTextFieldSmall"/>
+			<xs:group ref="halfBoundedRangeQualifierIntegerGroup"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="textField">
+		<xs:annotation>
+			<xs:documentation>Indicates that a field holds textual content</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+	<xs:complexType name="multilingualTextField">
+		<xs:annotation>
+			<xs:documentation>Indicates that a field holds multilingual textual content</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="textField">
+				<xs:attribute ref="xml:lang" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:simpleType name="textFieldSmall">
+		<xs:annotation>
+			<xs:documentation>Indicates that a field holds textual content with a maximum of 255 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="multilingualTextFieldSmall">
+		<xs:annotation>
+			<xs:documentation>Indicates that a field holds multilingual textual content with a maximum of 255 characters</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="textFieldSmall">
+				<xs:attribute ref="xml:lang" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:simpleType name="textFieldLarge">
+		<xs:annotation>
+			<xs:documentation>Indicates that a field holds textual content with a maximum of 32768 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="32768"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="multilingualTextFieldLarge">
+		<xs:annotation>
+			<xs:documentation>Indicates that a field holds multilingual textual content with a maximum of 32768 characters</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="textFieldLarge">
+				<xs:attribute ref="xml:lang" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:simpleType name="textFieldMultiLine">
+		<xs:annotation>
+			<xs:documentation>Indicates that a field holds textual content with a maximum of 2000 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2000"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="multilingualTextFieldMultiLine">
+		<xs:annotation>
+			<xs:documentation>Indicates that a field holds multilingual textual content with a maximum of 2000 characters</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="textFieldMultiLine">
+				<xs:attribute ref="xml:lang" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="picklistField">
+		<xs:annotation>
+			<xs:documentation>Lists the elements (phrase code and other text) constituting the IUCLID6 picklist field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="other" minOccurs="0" type="textFieldSmall"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="multilingualPicklistField">
+		<xs:annotation>
+			<xs:documentation>The multilingual version of the picklist field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="other" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualTextFieldSmall"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="picklistFieldWithSmallTextRemarks">
+		<xs:annotation>
+			<xs:documentation>Lists the elements (phrase code, other text and remarks) constituting the IUCLID6 picklist field - remarks information can be up to 255 characters</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="other" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="remarks" minOccurs="0" type="textFieldSmall"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="multilingualPicklistFieldWithSmallTextRemarks">
+		<xs:annotation>
+			<xs:documentation>The multilingual version of the picklist field including remarks information up to 255 characters</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="other" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualTextFieldSmall"/>
+			<xs:element name="remarks" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualTextFieldSmall"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="picklistFieldWithLargeTextRemarks">
+		<xs:annotation>
+			<xs:documentation>Lists the elements (phrase code, other text and remarks) constituting the IUCLID6 picklist field - remarks information can be up to 32768 characters</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="other" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="remarks" minOccurs="0" type="textFieldLarge"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="multilingualPicklistFieldWithLargeTextRemarks">
+		<xs:annotation>
+			<xs:documentation>The multilingual version of the picklist field including remarks information up to 32768 characters</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="other" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualTextFieldSmall"/>
+			<xs:element name="remarks" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualTextFieldLarge"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="picklistFieldWithMultiLineTextRemarks">
+		<xs:annotation>
+			<xs:documentation>Lists the elements (phrase code, other text and remarks) constituting the IUCLID6 picklist field - remarks information can be up to 2000 characters</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="other" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="remarks" minOccurs="0" type="textFieldMultiLine"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="multilingualPicklistFieldWithMultiLineTextRemarks">
+		<xs:annotation>
+			<xs:documentation>The multilingual version of the picklist field including remarks information up to 2000 characters</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" minOccurs="0" type="textFieldSmall"/>
+			<xs:element name="other" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualTextFieldSmall"/>
+			<xs:element name="remarks" minOccurs="0" maxOccurs="unbounded"
+				type="multilingualTextFieldMultiLine"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="repeatableEntryType">
+		<xs:annotation>
+			<xs:documentation>Specifies the multiplicity and attribute of a repeatable block</xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+		<xs:attribute name="uuid" type="uuidAttribute" use="required"/>
+	</xs:complexType>
+
+	<xs:simpleType name="uuidAttribute">
+		<xs:annotation>
+			<xs:documentation>Attribute used to hold unique identifier information</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+	<xs:complexType name="basePicklistField">
+		<xs:annotation>
+			<xs:documentation>An empty complex type that is extended by the picklist fields which are defined inline in the auto-generated document xsds. 
+<br/><br/>
+The picklist fields contain the following elements:
+<ul>
+<li>value</li>
+<li>other</li>
+<li>remarks</li>
+</ul>
+<br/><br/>
+The inline definition of the fields take place in order to:
+<ul>
+<li>restrict the eligible phrase codes per picklist field</li>
+<li>conditionally define or omit the "other" element based on the configured phrasegroup (open, close)</li>
+<li>based on the picklist definition, properly define the multilingual behavior of the textual elements "other" and "remarks" elements </li>
+<li>based on the picklist definition, properly define the length restriction of the "remarks" elements </li>
+</ul></xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+
+	<xs:complexType name="basePhysicalQuantityField">
+		<xs:annotation>
+			<xs:documentation>An empty complex type that is extended by the physical quantity fields which are defined inline in the auto-generated document xsds. 
+<br/><br/>
+The physical quantity fields contain the following elements:
+<ul>
+<li>unitCode</li>
+<li>unitOther</li>
+<li>value</li>
+</ul>
+<br/><br/>
+The inline definition of the fields take place in order to:
+<ul>
+<li>restrict the eligible phrase codes for the "unitCode" element</li>
+<li>conditionally define or omit the "unitOther" element based on the configured phrasegroup (open, close)</li>
+<li>based on the field definition, properly define the multilingual behavior of the textual "unitOther" element</li>
+</ul></xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+
+	<xs:complexType name="basePhysicalQuantityRangeField">
+		<xs:annotation>
+			<xs:documentation>An empty complex type that is extended by the physical quantity range fields which are defined inline in the auto-generated document xsds. 
+<br/><br/>
+The physical quantity range fields contain the following elements:
+<ul>
+<li>unitCode</li>
+<li>unitOther</li>
+<li>lowerQualifier</li>
+<li>upperQualifier</li>
+<li>lowerValue</li>
+<li>upperValue</li>
+<li>qualifier: in case of half-bounded</li>
+<li>value: in case of half-bounded</li>
+</ul>
+<br/><br/>
+The inline definition of the fields take place in order to:
+<ul>
+<li>restrict the eligible phrase codes for the "unitCode" element</li>
+<li>conditionally define or omit the "unitOther" element based on the configured phrasegroup (open, close)</li>
+<li>based on the field definition, properly define the multilingual behavior of the textual "unitOther" element</li>
+<li>based on the field definition, dynamically setup the bounded- or half-boudnded-related elements</li>
+</ul></xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+
+	<xs:complexType name="baseDataProtectionField">
+		<xs:annotation>
+			<xs:documentation>An empty complex type that is extended by the data protection fields which are defined inline in the auto-generated document xsds. 
+<br/><br/>
+The data protection fields contain the following elements:
+<ul>
+<li>confidentiality</li>
+<li>justification</li>
+<li>legislation</li>
+<ul>
+<li>value</li>
+<li>other</li>
+</ul>
+</ul>
+<br/><br/>
+The inline definition of the fields take place in order to:
+<ul>
+<li>restrict the eligible phrase codes for the "confidentiality" and "value" element</li>
+<li>based on the field definition, properly define the multilingual behavior of the textual "justification" and "other" elements</li>
+</ul>			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+
+</xs:schema>

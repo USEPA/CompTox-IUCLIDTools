@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_SUMMARY-ShortTermToxicityToFish/9.0" xmlns:ct="http://iuclid6.echa.europa.eu/namespaces/oecd/v9" xmlns:i6="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_SUMMARY-ShortTermToxicityToFish/9.0">
+    <xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1" schemaLocation="platform-fields.xsd"/>
+    <xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/oecd/v9" schemaLocation="commonTypesOecdV9.xsd"/>
+    <xs:element name="ENDPOINT_SUMMARY.ShortTermToxicityToFish">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="AdministrativeDataSummary">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="DataProtection">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:baseDataProtectionField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="confidentiality" type="ct:N64"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="justification" type="i6:multilingualTextField"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="legislation">
+                                                    <xs:complexType>
+                                                        <xs:sequence>
+                                                            <xs:element minOccurs="0" name="value" type="ct:N78"/>
+                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                        </xs:sequence>
+                                                    </xs:complexType>
+                                                </xs:element>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="KeyInformation">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="KeyInformation" type="i6:multilingualTextField"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="KeyValueForChemicalSafetyAssessment">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="FreshWaterFish">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element minOccurs="0" name="Link" type="i6:documentReferenceMultipleField"/>
+                                        <xs:element minOccurs="0" name="DoseDescriptor">
+                                            <xs:complexType>
+                                                <xs:complexContent>
+                                                    <xs:extension base="i6:basePicklistField">
+                                                        <xs:sequence>
+                                                            <xs:element minOccurs="0" name="value" type="ct:AquaticToxicity_ShortTerm_60786"/>
+                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                        </xs:sequence>
+                                                    </xs:extension>
+                                                </xs:complexContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element minOccurs="0" name="EffectConcentration">
+                                            <xs:complexType>
+                                                <xs:complexContent>
+                                                    <xs:extension base="i6:basePhysicalQuantityRangeField">
+                                                        <xs:sequence>
+                                                            <xs:element minOccurs="0" name="unitCode" type="ct:TD_Micro_61172"/>
+                                                            <xs:element minOccurs="0" name="qualifier" type="i6:halfBoundedQualifier"/>
+                                                            <xs:element minOccurs="0" name="value" type="xs:decimal"/>
+                                                        </xs:sequence>
+                                                    </xs:extension>
+                                                </xs:complexContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="MarineWaterFish">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element minOccurs="0" name="LinkToRelevantStudyRecord" type="i6:documentReferenceMultipleField"/>
+                                        <xs:element minOccurs="0" name="DoseDescriptor">
+                                            <xs:complexType>
+                                                <xs:complexContent>
+                                                    <xs:extension base="i6:basePicklistField">
+                                                        <xs:sequence>
+                                                            <xs:element minOccurs="0" name="value" type="ct:AquaticToxicity_ShortTerm_60786"/>
+                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                        </xs:sequence>
+                                                    </xs:extension>
+                                                </xs:complexContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element minOccurs="0" name="EffectConcentration">
+                                            <xs:complexType>
+                                                <xs:complexContent>
+                                                    <xs:extension base="i6:basePhysicalQuantityRangeField">
+                                                        <xs:sequence>
+                                                            <xs:element minOccurs="0" name="unitCode" type="ct:TD_Micro_61172"/>
+                                                            <xs:element minOccurs="0" name="qualifier" type="i6:halfBoundedQualifier"/>
+                                                            <xs:element minOccurs="0" name="value" type="xs:decimal"/>
+                                                        </xs:sequence>
+                                                    </xs:extension>
+                                                </xs:complexContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="HigherTierTesting">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element minOccurs="0" name="LinkToRelevantStudyRecord" type="i6:documentReferenceMultipleField"/>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="KeyInformationFromHigherTierTesting" type="i6:multilingualTextField"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="Discussion">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="Discussion" type="i6:multilingualTextField"/>
+                            <xs:element minOccurs="0" name="AttachedBackgroundMaterial">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                            <xs:complexType>
+                                                <xs:complexContent>
+                                                    <xs:extension base="i6:repeatableEntryType">
+                                                        <xs:sequence>
+                                                            <xs:element minOccurs="0" name="AttachedDocument" type="i6:attachmentField"/>
+                                                            <xs:element minOccurs="0" name="AttachedSanitisedDocsForPublication" type="i6:attachmentField"/>
+                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="Remarks" type="i6:multilingualTextFieldSmall"/>
+                                                        </xs:sequence>
+                                                    </xs:extension>
+                                                </xs:complexContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

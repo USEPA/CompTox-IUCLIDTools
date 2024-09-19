@@ -1,0 +1,1313 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://iuclid6.echa.europa.eu/namespaces/FLEXIBLE_RECORD-ProfessionalWorkers/9.0" xmlns:ct="http://iuclid6.echa.europa.eu/namespaces/oecd/v9" xmlns:i6="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://iuclid6.echa.europa.eu/namespaces/FLEXIBLE_RECORD-ProfessionalWorkers/9.0">
+    <xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1" schemaLocation="platform-fields.xsd"/>
+    <xs:import namespace="http://iuclid6.echa.europa.eu/namespaces/oecd/v9" schemaLocation="commonTypesOecdV9.xsd"/>
+    <xs:element name="FLEXIBLE_RECORD.ProfessionalWorkers">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="UsesByProfessionalWorkers">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="DataProtection">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:baseDataProtectionField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="confidentiality" type="ct:N64"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="justification" type="i6:multilingualTextField"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="legislation">
+                                                    <xs:complexType>
+                                                        <xs:sequence>
+                                                            <xs:element minOccurs="0" name="value" type="ct:N78"/>
+                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                        </xs:sequence>
+                                                    </xs:complexType>
+                                                </xs:element>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="RegistrationNotificationStatusForTheUse">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:PG6_60374"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="IdentifiedUseNumber" nillable="true">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:integer"/>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="IdentifiedUseName" type="i6:multilingualTextFieldMultiLine"/>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="Description" type="i6:multilingualTextField"/>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="SubstitutionActivities" type="i6:multilingualTextFieldLarge"/>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="RegulatoryStatus">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:PG6_60372"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="ExplanationForTheRegulatoryStatus" type="i6:multilingualTextFieldLarge"/>
+                            <xs:element minOccurs="0" name="OwnSupplyChainUse" nillable="true" type="i6:booleanField"/>
+                            <xs:element minOccurs="0" name="AuthorisationNumber" type="i6:textFieldSmall"/>
+                            <xs:element minOccurs="0" name="LinkToThePrecursorUse" type="i6:documentReferenceMultipleField"/>
+                            <xs:element minOccurs="0" name="RelatedComposition" type="i6:documentReferenceMultipleField"/>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="ProductCategories">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:N35"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="SectorUses">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:N34"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="TechnicalFunctions">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:TD490"/>
+                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="UseInForms">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:TD440"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="ConcentrationOfTheSubstanceInTheProductMixtureSuppliedForThisUse">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePhysicalQuantityRangeField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="unitCode" type="ct:PG6_60764"/>
+                                                <xs:element minOccurs="0" name="qualifier" type="i6:halfBoundedQualifier"/>
+                                                <xs:element minOccurs="0" name="value" type="xs:decimal"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="SubServiceLifeRelevant">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:N21"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="LinkSubsequentServiceLife" type="i6:documentReferenceMultipleField"/>
+                            <xs:element minOccurs="0" name="TonnageUse">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                            <xs:complexType>
+                                                <xs:complexContent>
+                                                    <xs:extension base="i6:repeatableEntryType">
+                                                        <xs:sequence>
+                                                            <xs:element minOccurs="0" name="TonnageSubstance">
+                                                                <xs:complexType>
+                                                                    <xs:complexContent>
+                                                                        <xs:extension base="i6:basePhysicalQuantityRangeField">
+                                                                            <xs:sequence>
+                                                                                <xs:element minOccurs="0" name="lowerQualifier" type="i6:lowerQualifier"/>
+                                                                                <xs:element minOccurs="0" name="upperQualifier" type="i6:upperQualifier"/>
+                                                                                <xs:element minOccurs="0" name="lowerValue" type="xs:decimal"/>
+                                                                                <xs:element minOccurs="0" name="upperValue" type="xs:decimal"/>
+                                                                            </xs:sequence>
+                                                                        </xs:extension>
+                                                                    </xs:complexContent>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                            <xs:element minOccurs="0" name="Coverage">
+                                                                <xs:complexType>
+                                                                    <xs:complexContent>
+                                                                        <xs:extension base="i6:basePicklistField">
+                                                                            <xs:sequence>
+                                                                                <xs:element minOccurs="0" name="value" type="ct:PG6_61728"/>
+                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                            </xs:sequence>
+                                                                        </xs:extension>
+                                                                    </xs:complexContent>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnTonnageReported" type="i6:multilingualTextFieldLarge"/>
+                                                        </xs:sequence>
+                                                    </xs:extension>
+                                                </xs:complexContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="NumberWorkers">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                            <xs:complexType>
+                                                <xs:complexContent>
+                                                    <xs:extension base="i6:repeatableEntryType">
+                                                        <xs:sequence>
+                                                            <xs:element minOccurs="0" name="StaffUsingSubstance">
+                                                                <xs:complexType>
+                                                                    <xs:complexContent>
+                                                                        <xs:extension base="i6:basePhysicalQuantityRangeField">
+                                                                            <xs:sequence>
+                                                                                <xs:element minOccurs="0" name="lowerQualifier" type="i6:lowerQualifier"/>
+                                                                                <xs:element minOccurs="0" name="upperQualifier" type="i6:upperQualifier"/>
+                                                                                <xs:element minOccurs="0" name="lowerValue" type="xs:decimal"/>
+                                                                                <xs:element minOccurs="0" name="upperValue" type="xs:decimal"/>
+                                                                            </xs:sequence>
+                                                                        </xs:extension>
+                                                                    </xs:complexContent>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                            <xs:element minOccurs="0" name="RelevantRegion">
+                                                                <xs:complexType>
+                                                                    <xs:complexContent>
+                                                                        <xs:extension base="i6:basePicklistField">
+                                                                            <xs:sequence>
+                                                                                <xs:element minOccurs="0" name="value" type="ct:PG6_61589"/>
+                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                            </xs:sequence>
+                                                                        </xs:extension>
+                                                                    </xs:complexContent>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnNumberOfWorkers" type="i6:multilingualTextFieldLarge"/>
+                                                        </xs:sequence>
+                                                    </xs:extension>
+                                                </xs:complexContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="ContributingActivityTechniqueForTheEnvironment">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                            <xs:complexType>
+                                                <xs:complexContent>
+                                                    <xs:extension base="i6:repeatableEntryType">
+                                                        <xs:sequence>
+                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="NameOfActivityTechnique" type="i6:multilingualTextFieldMultiLine"/>
+                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="EnvironmentalReleaseCategoryERC">
+                                                                <xs:complexType>
+                                                                    <xs:complexContent>
+                                                                        <xs:extension base="i6:basePicklistField">
+                                                                            <xs:sequence>
+                                                                                <xs:element minOccurs="0" name="value" type="ct:U04"/>
+                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                            </xs:sequence>
+                                                                        </xs:extension>
+                                                                    </xs:complexContent>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                        </xs:sequence>
+                                                    </xs:extension>
+                                                </xs:complexContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="ContributingActivityTechniqueForWorkers">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                            <xs:complexType>
+                                                <xs:complexContent>
+                                                    <xs:extension base="i6:repeatableEntryType">
+                                                        <xs:sequence>
+                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="NameOfActivityTechnique" type="i6:multilingualTextFieldMultiLine"/>
+                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="ProcessCategoryPROC">
+                                                                <xs:complexType>
+                                                                    <xs:complexContent>
+                                                                        <xs:extension base="i6:basePicklistField">
+                                                                            <xs:sequence>
+                                                                                <xs:element minOccurs="0" name="value" type="ct:TD50"/>
+                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                            </xs:sequence>
+                                                                        </xs:extension>
+                                                                    </xs:complexContent>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                        </xs:sequence>
+                                                    </xs:extension>
+                                                </xs:complexContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="UseCoverageInCSR">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:U10"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="InsignificantExposureViaTheFollowingRoute">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:PG6_60397"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="ExplanationsOnInsignificantExposure" type="i6:multilingualTextFieldLarge"/>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="InsignificantReleaseViaTheFollowingRoute">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:PG6_60400"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="ExplanationsOnInsignificantRelease" type="i6:multilingualTextFieldLarge"/>
+                            <xs:element minOccurs="0" name="PatternOfExposure">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="i6:basePicklistField">
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" name="value" type="ct:TD04"/>
+                                            </xs:sequence>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="Remarks" type="i6:multilingualTextField"/>
+                            <xs:element minOccurs="0" name="UseTakesPlaceUnderRigorouslyContainedConditions">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element minOccurs="0" name="RigorouslyContainedSystemWithStrictControlForManualInterventions" nillable="true" type="i6:booleanField"/>
+                                        <xs:element minOccurs="0" name="RigorouslyContainedSystemWithMinimisationOfReleaseToTheEnvironment" nillable="true" type="i6:booleanField"/>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="DescriptionOfNonTechnicalMeansForStrictControl" type="i6:multilingualTextFieldLarge"/>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="TechnologiesToMinimiseEmissions" type="i6:multilingualTextField"/>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="TechnicalMeansForRigorousContainmentAndStrictControlForManualIntervention" type="i6:multilingualTextField"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="ContribScenEnvirWorker">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="ContribScenEnvirWorkerRep">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                            <xs:complexType>
+                                                <xs:complexContent>
+                                                    <xs:extension base="i6:repeatableEntryType">
+                                                        <xs:sequence>
+                                                            <xs:element minOccurs="0" name="DataProtection">
+                                                                <xs:complexType>
+                                                                    <xs:complexContent>
+                                                                        <xs:extension base="i6:baseDataProtectionField">
+                                                                            <xs:sequence>
+                                                                                <xs:element minOccurs="0" name="confidentiality" type="ct:N64"/>
+                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="justification" type="i6:multilingualTextField"/>
+                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="legislation">
+                                                                                    <xs:complexType>
+                                                                                        <xs:sequence>
+                                                                                            <xs:element minOccurs="0" name="value" type="ct:N78"/>
+                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                        </xs:sequence>
+                                                                                    </xs:complexType>
+                                                                                </xs:element>
+                                                                            </xs:sequence>
+                                                                        </xs:extension>
+                                                                    </xs:complexContent>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                            <xs:element minOccurs="0" name="LinkedCA" type="i6:textFieldSmall"/>
+                                                            <xs:element minOccurs="0" name="ConditionsOfUse">
+                                                                <xs:complexType>
+                                                                    <xs:sequence>
+                                                                        <xs:element minOccurs="0" name="ProdArtChar">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element minOccurs="0" name="ProdArtCharRep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="ProductArticleCharacteristic" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                        <xs:element minOccurs="0" name="AmountsUsedFreqDurationUse">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element minOccurs="0" name="DailyUseTonnesPerDay" nillable="true" type="i6:numericField"/>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnDailyUseAmount" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="AnnualUseTonnesPerYear" nillable="true" type="i6:numericField"/>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnAnnualUseAmount" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="NumberOfEmissionDays" nillable="true" type="i6:numericField"/>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnNumberOfEmissionDays" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="OtherConditionsRep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="OtherConditionsOfUse" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                        <xs:element minOccurs="0" name="TechCond">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element minOccurs="0" name="TechMinEmissionsRep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="TechnologiesToMinimiseEmissions" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                    <xs:element minOccurs="0" name="AdditionalInformationRelatedToTheTechnologiesMinimisingEmissions" type="i6:attachmentListField"/>
+                                                                                    <xs:element minOccurs="0" name="TechCondRep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="TechCondNotRelatedToBioSewageTreatment" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element minOccurs="0" name="EffectivenessRep">
+                                                                                                                        <xs:complexType>
+                                                                                                                            <xs:sequence>
+                                                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                                                    <xs:complexType>
+                                                                                                                                        <xs:complexContent>
+                                                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                                                <xs:sequence>
+                                                                                                                                                    <xs:element minOccurs="0" name="Effectiveness" nillable="true" type="i6:numericField"/>
+                                                                                                                                                    <xs:element minOccurs="0" name="RouteAffected">
+                                                                                                                                                        <xs:complexType>
+                                                                                                                                                            <xs:complexContent>
+                                                                                                                                                                <xs:extension base="i6:basePicklistField">
+                                                                                                                                                                    <xs:sequence>
+                                                                                                                                                                        <xs:element minOccurs="0" name="value" type="ct:PG6_60414"/>
+                                                                                                                                                                    </xs:sequence>
+                                                                                                                                                                </xs:extension>
+                                                                                                                                                            </xs:complexContent>
+                                                                                                                                                        </xs:complexType>
+                                                                                                                                                    </xs:element>
+                                                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnEffectiveness" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                                                </xs:sequence>
+                                                                                                                                            </xs:extension>
+                                                                                                                                        </xs:complexContent>
+                                                                                                                                    </xs:complexType>
+                                                                                                                                </xs:element>
+                                                                                                                            </xs:sequence>
+                                                                                                                        </xs:complexType>
+                                                                                                                    </xs:element>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                        <xs:element minOccurs="0" name="CondSTP">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element minOccurs="0" name="STPMunicipal">
+                                                                                        <xs:complexType>
+                                                                                            <xs:complexContent>
+                                                                                                <xs:extension base="i6:basePicklistField">
+                                                                                                    <xs:sequence>
+                                                                                                        <xs:element minOccurs="0" name="value" type="ct:PG6_60394"/>
+                                                                                                    </xs:sequence>
+                                                                                                </xs:extension>
+                                                                                            </xs:complexContent>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnSiteSpecificBiologicalSTP" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="STPDischargeRate" nillable="true" type="i6:numericField"/>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnDischargeRateOfTheSiteSpecificBiologicalSTP" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="STPSludgeOnAgriculturalSoil">
+                                                                                        <xs:complexType>
+                                                                                            <xs:complexContent>
+                                                                                                <xs:extension base="i6:basePicklistField">
+                                                                                                    <xs:sequence>
+                                                                                                        <xs:element minOccurs="0" name="value" type="ct:N21"/>
+                                                                                                    </xs:sequence>
+                                                                                                </xs:extension>
+                                                                                            </xs:complexContent>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnApplicationOfSiteSpecificBiologicalSTPSludge" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="OtherConditionsOfUseStpRep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="OtherConditionsOfUse" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                        <xs:element minOccurs="0" name="CondWaste">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element minOccurs="0" name="ParticularConsiderationsOnTheWasteTreatmentOperations">
+                                                                                        <xs:complexType>
+                                                                                            <xs:complexContent>
+                                                                                                <xs:extension base="i6:basePicklistField">
+                                                                                                    <xs:sequence>
+                                                                                                        <xs:element minOccurs="0" name="value" type="ct:PG6_60383"/>
+                                                                                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                                    </xs:sequence>
+                                                                                                </xs:extension>
+                                                                                            </xs:complexContent>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnWasteTreatment" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="OtherCondRep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="ConditionsOfUse" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                        <xs:element minOccurs="0" name="OtherCondEnvirExpo">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element minOccurs="0" name="PlaceOfUse">
+                                                                                        <xs:complexType>
+                                                                                            <xs:complexContent>
+                                                                                                <xs:extension base="i6:basePicklistField">
+                                                                                                    <xs:sequence>
+                                                                                                        <xs:element minOccurs="0" name="value" type="ct:PG6_60384"/>
+                                                                                                    </xs:sequence>
+                                                                                                </xs:extension>
+                                                                                            </xs:complexContent>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnPlaceOfUse" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="ReceivingSurfaceWaterFlowRateMDay" nillable="true" type="i6:numericField"/>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnSurfaceWaterFlowRate" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="OtherConditionsEnvirExpRep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="OtherConditionsOfUse" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                    </xs:sequence>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                            <xs:element minOccurs="0" name="ReleasesWasteEnvir">
+                                                                <xs:complexType>
+                                                                    <xs:sequence>
+                                                                        <xs:element minOccurs="0" name="ReleasesWasteEnvirRep">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                        <xs:complexType>
+                                                                                            <xs:complexContent>
+                                                                                                <xs:extension base="i6:repeatableEntryType">
+                                                                                                    <xs:sequence>
+                                                                                                        <xs:element minOccurs="0" name="ReleaseRelatedTo" type="i6:documentReferenceMultipleField"/>
+                                                                                                        <xs:element minOccurs="0" name="ReleaseToEnvir">
+                                                                                                            <xs:complexType>
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element minOccurs="0" name="ReleaseEnvirRep">
+                                                                                                                        <xs:complexType>
+                                                                                                                            <xs:sequence>
+                                                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                                                    <xs:complexType>
+                                                                                                                                        <xs:complexContent>
+                                                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                                                <xs:sequence>
+                                                                                                                                                    <xs:element minOccurs="0" name="RelTo">
+                                                                                                                                                        <xs:complexType>
+                                                                                                                                                            <xs:complexContent>
+                                                                                                                                                                <xs:extension base="i6:basePicklistField">
+                                                                                                                                                                    <xs:sequence>
+                                                                                                                                                                        <xs:element minOccurs="0" name="value" type="ct:PG6_60388"/>
+                                                                                                                                                                    </xs:sequence>
+                                                                                                                                                                </xs:extension>
+                                                                                                                                                            </xs:complexContent>
+                                                                                                                                                        </xs:complexType>
+                                                                                                                                                    </xs:element>
+                                                                                                                                                    <xs:element minOccurs="0" name="RelFactorEstMethod">
+                                                                                                                                                        <xs:complexType>
+                                                                                                                                                            <xs:complexContent>
+                                                                                                                                                                <xs:extension base="i6:basePicklistField">
+                                                                                                                                                                    <xs:sequence>
+                                                                                                                                                                        <xs:element minOccurs="0" name="value" type="ct:EXP06"/>
+                                                                                                                                                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="remarks" type="i6:multilingualTextField"/>
+                                                                                                                                                                    </xs:sequence>
+                                                                                                                                                                </xs:extension>
+                                                                                                                                                            </xs:complexContent>
+                                                                                                                                                        </xs:complexType>
+                                                                                                                                                    </xs:element>
+                                                                                                                                                    <xs:element minOccurs="0" name="RelFactorRiskMan" nillable="true" type="i6:numericField"/>
+                                                                                                                                                    <xs:element minOccurs="0" name="LocalReleaseRate" nillable="true" type="i6:numericField"/>
+                                                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsRelEstim" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                                                    <xs:element minOccurs="0" name="ReliabilityMeasure">
+                                                                                                                                                        <xs:complexType>
+                                                                                                                                                            <xs:complexContent>
+                                                                                                                                                                <xs:extension base="i6:basePicklistField">
+                                                                                                                                                                    <xs:sequence>
+                                                                                                                                                                        <xs:element minOccurs="0" name="value" type="ct:A36"/>
+                                                                                                                                                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                                                    </xs:sequence>
+                                                                                                                                                                </xs:extension>
+                                                                                                                                                            </xs:complexContent>
+                                                                                                                                                        </xs:complexType>
+                                                                                                                                                    </xs:element>
+                                                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="ReliabilityDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                                                </xs:sequence>
+                                                                                                                                            </xs:extension>
+                                                                                                                                        </xs:complexContent>
+                                                                                                                                    </xs:complexType>
+                                                                                                                                </xs:element>
+                                                                                                                            </xs:sequence>
+                                                                                                                        </xs:complexType>
+                                                                                                                    </xs:element>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:complexType>
+                                                                                                        </xs:element>
+                                                                                                    </xs:sequence>
+                                                                                                </xs:extension>
+                                                                                            </xs:complexContent>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                        <xs:element minOccurs="0" name="ReleaseToWaste">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element minOccurs="0" name="ReleaseFactorToExternalWaste" nillable="true" type="i6:numericField"/>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnReleaseToExternalWaste" type="i6:multilingualTextFieldLarge"/>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                    </xs:sequence>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                            <xs:element minOccurs="0" name="ExpRiskEnvir">
+                                                                <xs:complexType>
+                                                                    <xs:sequence>
+                                                                        <xs:element minOccurs="0" name="ExpEnvirRelatedToRep">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                        <xs:complexType>
+                                                                                            <xs:complexContent>
+                                                                                                <xs:extension base="i6:repeatableEntryType">
+                                                                                                    <xs:sequence>
+                                                                                                        <xs:element minOccurs="0" name="ExposureRelatedTo" type="i6:documentReferenceMultipleField"/>
+                                                                                                        <xs:element minOccurs="0" name="PEC">
+                                                                                                            <xs:complexType>
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                                        <xs:complexType>
+                                                                                                                            <xs:complexContent>
+                                                                                                                                <xs:extension base="i6:repeatableEntryType">
+                                                                                                                                    <xs:sequence>
+                                                                                                                                        <xs:element minOccurs="0" name="ExposedCompartment">
+                                                                                                                                            <xs:complexType>
+                                                                                                                                                <xs:complexContent>
+                                                                                                                                                    <xs:extension base="i6:basePicklistField">
+                                                                                                                                                        <xs:sequence>
+                                                                                                                                                            <xs:element minOccurs="0" name="value" type="ct:PG6_60391"/>
+                                                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                                        </xs:sequence>
+                                                                                                                                                    </xs:extension>
+                                                                                                                                                </xs:complexContent>
+                                                                                                                                            </xs:complexType>
+                                                                                                                                        </xs:element>
+                                                                                                                                        <xs:element minOccurs="0" name="Clocal">
+                                                                                                                                            <xs:complexType>
+                                                                                                                                                <xs:complexContent>
+                                                                                                                                                    <xs:extension base="i6:basePhysicalQuantityField">
+                                                                                                                                                        <xs:sequence>
+                                                                                                                                                            <xs:element minOccurs="0" name="unitCode" type="ct:PG6_61730"/>
+                                                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="unitOther" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                                            <xs:element minOccurs="0" name="value" type="i6:textField"/>
+                                                                                                                                                        </xs:sequence>
+                                                                                                                                                    </xs:extension>
+                                                                                                                                                </xs:complexContent>
+                                                                                                                                            </xs:complexType>
+                                                                                                                                        </xs:element>
+                                                                                                                                        <xs:element minOccurs="0" name="PredictedExposureConcentration">
+                                                                                                                                            <xs:complexType>
+                                                                                                                                                <xs:complexContent>
+                                                                                                                                                    <xs:extension base="i6:basePhysicalQuantityField">
+                                                                                                                                                        <xs:sequence>
+                                                                                                                                                            <xs:element minOccurs="0" name="unitCode" type="ct:PG6_61730"/>
+                                                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="unitOther" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                                            <xs:element minOccurs="0" name="value" type="i6:textField"/>
+                                                                                                                                                        </xs:sequence>
+                                                                                                                                                    </xs:extension>
+                                                                                                                                                </xs:complexContent>
+                                                                                                                                            </xs:complexType>
+                                                                                                                                        </xs:element>
+                                                                                                                                        <xs:element minOccurs="0" name="ExposureEstimationMethod">
+                                                                                                                                            <xs:complexType>
+                                                                                                                                                <xs:complexContent>
+                                                                                                                                                    <xs:extension base="i6:basePicklistField">
+                                                                                                                                                        <xs:sequence>
+                                                                                                                                                            <xs:element minOccurs="0" name="value" type="ct:EXP01"/>
+                                                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                                        </xs:sequence>
+                                                                                                                                                    </xs:extension>
+                                                                                                                                                </xs:complexContent>
+                                                                                                                                            </xs:complexType>
+                                                                                                                                        </xs:element>
+                                                                                                                                        <xs:element minOccurs="0" name="ExposureTool">
+                                                                                                                                            <xs:complexType>
+                                                                                                                                                <xs:complexContent>
+                                                                                                                                                    <xs:extension base="i6:basePicklistField">
+                                                                                                                                                        <xs:sequence>
+                                                                                                                                                            <xs:element minOccurs="0" name="value" type="ct:PG6_60392"/>
+                                                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                                        </xs:sequence>
+                                                                                                                                                    </xs:extension>
+                                                                                                                                                </xs:complexContent>
+                                                                                                                                            </xs:complexType>
+                                                                                                                                        </xs:element>
+                                                                                                                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="VersionOfExposureEstimationTool" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                        <xs:element minOccurs="0" name="NumberOfMeasuredDataPoints" nillable="true" type="i6:numericField"/>
+                                                                                                                                        <xs:element minOccurs="0" name="GeometricStandardDeviation" nillable="true" type="i6:numericField"/>
+                                                                                                                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnExposureEstimates" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                                        <xs:element minOccurs="0" name="ReliabilityMeasure">
+                                                                                                                                            <xs:complexType>
+                                                                                                                                                <xs:complexContent>
+                                                                                                                                                    <xs:extension base="i6:basePicklistField">
+                                                                                                                                                        <xs:sequence>
+                                                                                                                                                            <xs:element minOccurs="0" name="value" type="ct:A36"/>
+                                                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                                        </xs:sequence>
+                                                                                                                                                    </xs:extension>
+                                                                                                                                                </xs:complexContent>
+                                                                                                                                            </xs:complexType>
+                                                                                                                                        </xs:element>
+                                                                                                                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="ReliabilityDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                                    </xs:sequence>
+                                                                                                                                </xs:extension>
+                                                                                                                            </xs:complexContent>
+                                                                                                                        </xs:complexType>
+                                                                                                                    </xs:element>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:complexType>
+                                                                                                        </xs:element>
+                                                                                                    </xs:sequence>
+                                                                                                </xs:extension>
+                                                                                            </xs:complexContent>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                        <xs:element minOccurs="0" name="Attachment" type="i6:attachmentListField"/>
+                                                                    </xs:sequence>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                            <xs:element minOccurs="0" name="ManViaEnvironment">
+                                                                <xs:complexType>
+                                                                    <xs:sequence>
+                                                                        <xs:element minOccurs="0" name="ExpRelatedToRep">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                        <xs:complexType>
+                                                                                            <xs:complexContent>
+                                                                                                <xs:extension base="i6:repeatableEntryType">
+                                                                                                    <xs:sequence>
+                                                                                                        <xs:element minOccurs="0" name="ExposureRelatedTo" type="i6:documentReferenceMultipleField"/>
+                                                                                                        <xs:element minOccurs="0" name="DailyIntakeViaFoodConsumption">
+                                                                                                            <xs:complexType>
+                                                                                                                <xs:complexContent>
+                                                                                                                    <xs:extension base="i6:basePhysicalQuantityField">
+                                                                                                                        <xs:sequence>
+                                                                                                                            <xs:element minOccurs="0" name="unitCode" type="ct:TD160"/>
+                                                                                                                            <xs:element minOccurs="0" name="value" type="i6:textField"/>
+                                                                                                                        </xs:sequence>
+                                                                                                                    </xs:extension>
+                                                                                                                </xs:complexContent>
+                                                                                                            </xs:complexType>
+                                                                                                        </xs:element>
+                                                                                                        <xs:element minOccurs="0" name="ExposureEstimationMethod">
+                                                                                                            <xs:complexType>
+                                                                                                                <xs:complexContent>
+                                                                                                                    <xs:extension base="i6:basePicklistField">
+                                                                                                                        <xs:sequence>
+                                                                                                                            <xs:element minOccurs="0" name="value" type="ct:EXP01"/>
+                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                        </xs:sequence>
+                                                                                                                    </xs:extension>
+                                                                                                                </xs:complexContent>
+                                                                                                            </xs:complexType>
+                                                                                                        </xs:element>
+                                                                                                        <xs:element minOccurs="0" name="ExposureTool">
+                                                                                                            <xs:complexType>
+                                                                                                                <xs:complexContent>
+                                                                                                                    <xs:extension base="i6:basePicklistField">
+                                                                                                                        <xs:sequence>
+                                                                                                                            <xs:element minOccurs="0" name="value" type="ct:EXP04"/>
+                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                        </xs:sequence>
+                                                                                                                    </xs:extension>
+                                                                                                                </xs:complexContent>
+                                                                                                            </xs:complexType>
+                                                                                                        </xs:element>
+                                                                                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="VersionOfExposureEstimationTool" type="i6:multilingualTextFieldSmall"/>
+                                                                                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnExposureEstimates" type="i6:multilingualTextFieldLarge"/>
+                                                                                                        <xs:element minOccurs="0" name="ReliabilityMeasure">
+                                                                                                            <xs:complexType>
+                                                                                                                <xs:complexContent>
+                                                                                                                    <xs:extension base="i6:basePicklistField">
+                                                                                                                        <xs:sequence>
+                                                                                                                            <xs:element minOccurs="0" name="value" type="ct:A36"/>
+                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                        </xs:sequence>
+                                                                                                                    </xs:extension>
+                                                                                                                </xs:complexContent>
+                                                                                                            </xs:complexType>
+                                                                                                        </xs:element>
+                                                                                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="ReliabilityDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                    </xs:sequence>
+                                                                                                </xs:extension>
+                                                                                            </xs:complexContent>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                    </xs:sequence>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                        </xs:sequence>
+                                                    </xs:extension>
+                                                </xs:complexContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="ContribScenWorkers">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="ContribScenWorkersRep">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                            <xs:complexType>
+                                                <xs:complexContent>
+                                                    <xs:extension base="i6:repeatableEntryType">
+                                                        <xs:sequence>
+                                                            <xs:element minOccurs="0" name="DataProtection">
+                                                                <xs:complexType>
+                                                                    <xs:complexContent>
+                                                                        <xs:extension base="i6:baseDataProtectionField">
+                                                                            <xs:sequence>
+                                                                                <xs:element minOccurs="0" name="confidentiality" type="ct:N64"/>
+                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="justification" type="i6:multilingualTextField"/>
+                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="legislation">
+                                                                                    <xs:complexType>
+                                                                                        <xs:sequence>
+                                                                                            <xs:element minOccurs="0" name="value" type="ct:N78"/>
+                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                        </xs:sequence>
+                                                                                    </xs:complexType>
+                                                                                </xs:element>
+                                                                            </xs:sequence>
+                                                                        </xs:extension>
+                                                                    </xs:complexContent>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                            <xs:element minOccurs="0" name="LinkedCA" type="i6:textFieldSmall"/>
+                                                            <xs:element minOccurs="0" name="ContributingScenarioWorkers">
+                                                                <xs:complexType>
+                                                                    <xs:sequence>
+                                                                        <xs:element minOccurs="0" name="ProdArtChar">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element minOccurs="0" name="SubstanceInMixture" nillable="true" type="i6:numericField"/>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnThePercentageOfSubstanceInMixtureArticle" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="PhysicalFormOfTheUsedProduct">
+                                                                                        <xs:complexType>
+                                                                                            <xs:complexContent>
+                                                                                                <xs:extension base="i6:basePicklistField">
+                                                                                                    <xs:sequence>
+                                                                                                        <xs:element minOccurs="0" name="value" type="ct:PG6_60385"/>
+                                                                                                    </xs:sequence>
+                                                                                                </xs:extension>
+                                                                                            </xs:complexContent>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnPhysicalForm" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="OtherProdCharRep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="OtherConditionsOfUse" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                        <xs:element minOccurs="0" name="AmountsUsedFreqDurationUse">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element minOccurs="0" name="DurationOfActivityHourDay" nillable="true" type="i6:numericField"/>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnDurationOfActivity" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="OtherConditionsRep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="OtherConditionsOfUse" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                        <xs:element minOccurs="0" name="TechCond">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element minOccurs="0" name="TechMeansContainmentRep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="TechMeansContainment" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                    <xs:element minOccurs="0" name="AddInfoTechMeansRigorousContainment" type="i6:attachmentListField"/>
+                                                                                    <xs:element minOccurs="0" name="TechCondRep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="TechnicalAndOrganisationalConditionsAndMeasures" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element minOccurs="0" name="EffectivenessRep">
+                                                                                                                        <xs:complexType>
+                                                                                                                            <xs:sequence>
+                                                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                                                    <xs:complexType>
+                                                                                                                                        <xs:complexContent>
+                                                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                                                <xs:sequence>
+                                                                                                                                                    <xs:element minOccurs="0" name="Effectiveness" nillable="true" type="i6:numericField"/>
+                                                                                                                                                    <xs:element minOccurs="0" name="RouteAffected">
+                                                                                                                                                        <xs:complexType>
+                                                                                                                                                            <xs:complexContent>
+                                                                                                                                                                <xs:extension base="i6:basePicklistField">
+                                                                                                                                                                    <xs:sequence>
+                                                                                                                                                                        <xs:element minOccurs="0" name="value" type="ct:PG6_60386"/>
+                                                                                                                                                                    </xs:sequence>
+                                                                                                                                                                </xs:extension>
+                                                                                                                                                            </xs:complexContent>
+                                                                                                                                                        </xs:complexType>
+                                                                                                                                                    </xs:element>
+                                                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnEffectiveness" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                                                </xs:sequence>
+                                                                                                                                            </xs:extension>
+                                                                                                                                        </xs:complexContent>
+                                                                                                                                    </xs:complexType>
+                                                                                                                                </xs:element>
+                                                                                                                            </xs:sequence>
+                                                                                                                        </xs:complexType>
+                                                                                                                    </xs:element>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                        <xs:element minOccurs="0" name="CondPPE">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element minOccurs="0" name="PPERep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="PersonalProtectionEquipment" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element minOccurs="0" name="EffectivenessRep">
+                                                                                                                        <xs:complexType>
+                                                                                                                            <xs:sequence>
+                                                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                                                    <xs:complexType>
+                                                                                                                                        <xs:complexContent>
+                                                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                                                <xs:sequence>
+                                                                                                                                                    <xs:element minOccurs="0" name="Effectiveness" nillable="true" type="i6:numericField"/>
+                                                                                                                                                    <xs:element minOccurs="0" name="RouteAffected">
+                                                                                                                                                        <xs:complexType>
+                                                                                                                                                            <xs:complexContent>
+                                                                                                                                                                <xs:extension base="i6:basePicklistField">
+                                                                                                                                                                    <xs:sequence>
+                                                                                                                                                                        <xs:element minOccurs="0" name="value" type="ct:PG6_60386"/>
+                                                                                                                                                                    </xs:sequence>
+                                                                                                                                                                </xs:extension>
+                                                                                                                                                            </xs:complexContent>
+                                                                                                                                                        </xs:complexType>
+                                                                                                                                                    </xs:element>
+                                                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnEffectiveness" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                                                </xs:sequence>
+                                                                                                                                            </xs:extension>
+                                                                                                                                        </xs:complexContent>
+                                                                                                                                    </xs:complexType>
+                                                                                                                                </xs:element>
+                                                                                                                            </xs:sequence>
+                                                                                                                        </xs:complexType>
+                                                                                                                    </xs:element>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                        <xs:element minOccurs="0" name="OtherCondWorkersExp">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element minOccurs="0" name="PlaceOfUse">
+                                                                                        <xs:complexType>
+                                                                                            <xs:complexContent>
+                                                                                                <xs:extension base="i6:basePicklistField">
+                                                                                                    <xs:sequence>
+                                                                                                        <xs:element minOccurs="0" name="value" type="ct:PG6_61590"/>
+                                                                                                    </xs:sequence>
+                                                                                                </xs:extension>
+                                                                                            </xs:complexContent>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnPlaceOfUse" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="OperatingTemperatureC" nillable="true" type="i6:numericField"/>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="TypicalOperatingTempDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                    <xs:element minOccurs="0" name="OtherCondRep">
+                                                                                        <xs:complexType>
+                                                                                            <xs:sequence>
+                                                                                                <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:complexContent>
+                                                                                                            <xs:extension base="i6:repeatableEntryType">
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="OtherConditionsOfUse" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:extension>
+                                                                                                        </xs:complexContent>
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                    </xs:sequence>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                            <xs:element minOccurs="0" name="ExpWorkers">
+                                                                <xs:complexType>
+                                                                    <xs:sequence>
+                                                                        <xs:element minOccurs="0" name="ExpWorkersRep">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                        <xs:complexType>
+                                                                                            <xs:complexContent>
+                                                                                                <xs:extension base="i6:repeatableEntryType">
+                                                                                                    <xs:sequence>
+                                                                                                        <xs:element minOccurs="0" name="ExpRelatedTo" type="i6:documentReferenceMultipleField"/>
+                                                                                                        <xs:element minOccurs="0" name="ExpEst">
+                                                                                                            <xs:complexType>
+                                                                                                                <xs:sequence>
+                                                                                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                                                                                                                        <xs:complexType>
+                                                                                                                            <xs:complexContent>
+                                                                                                                                <xs:extension base="i6:repeatableEntryType">
+                                                                                                                                    <xs:sequence>
+                                                                                                                                        <xs:element minOccurs="0" name="TypeOfExposure">
+                                                                                                                                            <xs:complexType>
+                                                                                                                                                <xs:complexContent>
+                                                                                                                                                    <xs:extension base="i6:basePicklistField">
+                                                                                                                                                        <xs:sequence>
+                                                                                                                                                            <xs:element minOccurs="0" name="value" type="ct:PG6_60393"/>
+                                                                                                                                                        </xs:sequence>
+                                                                                                                                                    </xs:extension>
+                                                                                                                                                </xs:complexContent>
+                                                                                                                                            </xs:complexType>
+                                                                                                                                        </xs:element>
+                                                                                                                                        <xs:element minOccurs="0" name="ExposureConcentration">
+                                                                                                                                            <xs:complexType>
+                                                                                                                                                <xs:complexContent>
+                                                                                                                                                    <xs:extension base="i6:basePhysicalQuantityField">
+                                                                                                                                                        <xs:sequence>
+                                                                                                                                                            <xs:element minOccurs="0" name="unitCode" type="ct:PG6_61729"/>
+                                                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="unitOther" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                                            <xs:element minOccurs="0" name="value" type="i6:textField"/>
+                                                                                                                                                        </xs:sequence>
+                                                                                                                                                    </xs:extension>
+                                                                                                                                                </xs:complexContent>
+                                                                                                                                            </xs:complexType>
+                                                                                                                                        </xs:element>
+                                                                                                                                        <xs:element minOccurs="0" name="ExposureEstimationMethod">
+                                                                                                                                            <xs:complexType>
+                                                                                                                                                <xs:complexContent>
+                                                                                                                                                    <xs:extension base="i6:basePicklistField">
+                                                                                                                                                        <xs:sequence>
+                                                                                                                                                            <xs:element minOccurs="0" name="value" type="ct:PG6_60396"/>
+                                                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                                        </xs:sequence>
+                                                                                                                                                    </xs:extension>
+                                                                                                                                                </xs:complexContent>
+                                                                                                                                            </xs:complexType>
+                                                                                                                                        </xs:element>
+                                                                                                                                        <xs:element minOccurs="0" name="ExposureTool">
+                                                                                                                                            <xs:complexType>
+                                                                                                                                                <xs:complexContent>
+                                                                                                                                                    <xs:extension base="i6:basePicklistField">
+                                                                                                                                                        <xs:sequence>
+                                                                                                                                                            <xs:element minOccurs="0" name="value" type="ct:EXP09"/>
+                                                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                                        </xs:sequence>
+                                                                                                                                                    </xs:extension>
+                                                                                                                                                </xs:complexContent>
+                                                                                                                                            </xs:complexType>
+                                                                                                                                        </xs:element>
+                                                                                                                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="VersionOfExposureEstimationTool" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                        <xs:element minOccurs="0" name="NumberOfMeasuredDataPoints" nillable="true" type="i6:numericField"/>
+                                                                                                                                        <xs:element minOccurs="0" name="GeometricStandardDeviation" nillable="true" type="i6:numericField"/>
+                                                                                                                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="DetailsOnExposureEstimates" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                                        <xs:element minOccurs="0" name="ReliabilityMeasure">
+                                                                                                                                            <xs:complexType>
+                                                                                                                                                <xs:complexContent>
+                                                                                                                                                    <xs:extension base="i6:basePicklistField">
+                                                                                                                                                        <xs:sequence>
+                                                                                                                                                            <xs:element minOccurs="0" name="value" type="ct:A36"/>
+                                                                                                                                                            <xs:element maxOccurs="unbounded" minOccurs="0" name="other" type="i6:multilingualTextFieldSmall"/>
+                                                                                                                                                        </xs:sequence>
+                                                                                                                                                    </xs:extension>
+                                                                                                                                                </xs:complexContent>
+                                                                                                                                            </xs:complexType>
+                                                                                                                                        </xs:element>
+                                                                                                                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="ReliabilityDetails" type="i6:multilingualTextFieldLarge"/>
+                                                                                                                                    </xs:sequence>
+                                                                                                                                </xs:extension>
+                                                                                                                            </xs:complexContent>
+                                                                                                                        </xs:complexType>
+                                                                                                                    </xs:element>
+                                                                                                                </xs:sequence>
+                                                                                                            </xs:complexType>
+                                                                                                        </xs:element>
+                                                                                                    </xs:sequence>
+                                                                                                </xs:extension>
+                                                                                            </xs:complexContent>
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                        <xs:element minOccurs="0" name="Attachment" type="i6:attachmentListField"/>
+                                                                    </xs:sequence>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                        </xs:sequence>
+                                                    </xs:extension>
+                                                </xs:complexContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

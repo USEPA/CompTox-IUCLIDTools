@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://iuclid6.echa.europa.eu/namespaces/platform-attachment/v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink"
+	targetNamespace="http://iuclid6.echa.europa.eu/namespaces/platform-attachment/v1"
+	elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:annotation>
+		<xs:appinfo>XML Schema Definition of the IUCLID6 Attachment entity</xs:appinfo>
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+	<xs:element name="Attachment">
+		<xs:annotation>
+			<xs:documentation>Defines the attachment metadata information</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="documentKey" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>The unique identifier of the attachment</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="name" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>The name of the uploaded attachment</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="creationDate" type="xs:dateTime">
+					<xs:annotation>
+						<xs:documentation>The date that the attachment was created</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="lastModificationDate" type="xs:dateTime">
+					<xs:annotation>
+						<xs:documentation>The last modification date of the attachment</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="remarks" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The remarks provided by the user during the attachment uploading</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="md5" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>The MD5 hash of the uploaded attachment content</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="mimetype" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The media type of the attachment content</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element type="xs:boolean" name="symbolic" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicates that the actual attachment file is not included in the i6z file</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="content" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The name/location of the attachment binary under the "attachments" directory inside the i6z archive file</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute ref="xlink:type"/>
+						<xs:attribute ref="xlink:href"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AttachmentRef" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Specifies the unique identifier of an attachment that is directly linked to a IUCLID6 document</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>
