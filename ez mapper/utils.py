@@ -87,7 +87,7 @@ def get_unique_column_names(excel_files: Dict[str, pd.DataFrame]) -> set:
         set: A set of unique column names.
     """
     return {
-        col for df in excel_files.values() for col in df[list(df.keys())[0]].columns
+        col for df in excel_files() for col in df[list(df.keys())[0]].columns
     }
 
 
@@ -155,20 +155,115 @@ def display_data_preview(user_df: pd.DataFrame) -> None:
 
 def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
     """
-
-    THIS IS A PLACEHOLDER FUNCTION UNTIL CODE FROM BATTELLE IS ADDED
-
-    This function currently adds placeholder classification columns to the DataFrame.
-    It needs to be replaced with actual classification logic.
-
+    Classify each row based on specific keywords found within the column values and recommend an OHT class accordingly.
     Args:
         user_df (pd.DataFrame): The user's DataFrame.
     Returns:
-        pd.DataFrame: The classified DataFrame.
+        pd.DataFrame: The classified DataFrame with OHT class recommendations and reasoning.
     """
     st.session_state.classify_pressed = True
-    user_df.insert(0, "Classification_Reasoning", "toxicity in study_type_original and oral in exposure_route_original")
-    user_df.insert(0, "OHT_Class", "OHT 67: Repeated Dose Toxicity Oral")
+
+    oht_class_list = []
+    classification_reasoning_list = []
+
+    for index, row in user_df.iterrows():
+        classification_reasoning = []
+        oht_class = None
+
+        # Loop over each column and check for keywords within the column value
+        for col_name, value in row.items():
+            if pd.isna(value):
+                continue  # Skip if the value is NaN
+
+            value = str(value).lower()  # Convert to lowercase for case-insensitive matching
+            tokens = re.split(r'\W+', value)  # Split into words based on non-alphanumeric characters
+
+            # OHT classification based on keywords found within the tokenized row data
+            if "acute" in tokens and "oral" in tokens:
+                oht_class = "OHT 60: Acute Toxicity Oral"
+                classification_reasoning.append(f"Found 'acute' and 'oral' in column '{col_name}'")
+                break  # Stop checking further once a match is found
+            elif "acute" in tokens and "inhalation" in tokens:
+                oht_class = "OHT 61: Acute Toxicity Inhalation"
+                classification_reasoning.append(f"Found 'acute' and 'inhalation' in column '{col_name}'")
+                break
+            elif "acute" in tokens and "dermal" in tokens:
+                oht_class = "OHT 62: Acute Toxicity Dermal"
+                classification_reasoning.append(f"Found 'acute' and 'dermal' in column '{col_name}'")
+                break
+            elif "acute" in tokens:
+                oht_class = "OHT 63: Acute Toxicity Other Routes"
+                classification_reasoning.append(f"Found 'acute' in column '{col_name}'")
+                break
+            elif any(x in tokens for x in ["repeated", "chronic", "subchronic"]) and "oral" in tokens:
+                oht_class = "OHT 67: Repeated Dose Toxicity Oral"
+                classification_reasoning.append(f"Found 'repeated' or 'chronic' and 'oral' in column '{col_name}'")
+                break
+            elif any(x in tokens for x in ["repeated", "chronic", "subchronic"]) and "inhalation" in tokens:
+                oht_class = "OHT 68: Repeated Dose Toxicity Inhalation"
+                classification_reasoning.append(f"Found 'repeated' or 'chronic' and 'inhalation' in column '{col_name}'")
+                break
+            elif any(x in tokens for x in ["repeated", "chronic", "subchronic"]) and "dermal" in tokens:
+                oht_class = "OHT 69-1: Repeated Dose Toxicity Dermal"
+                classification_reasoning.append(f"Found 'repeated' or 'chronic' and 'dermal' in column '{col_name}'")
+                break
+            elif any(x in tokens for x in ["repeated", "chronic", "subchronic"]):
+                oht_class = "OHT 69-2: Repeated Dose Toxicity Other"
+                classification_reasoning.append(f"Found 'repeated' or 'chronic' in column '{col_name}'")
+                break
+            elif any(x in tokens for x in ["cancer", "carcinogenicity"]):
+                oht_class = "OHT 72: Carcinogenicity"
+                classification_reasoning.append(f"Found 'cancer' or 'carcinogenicity' in column '{col_name}'")
+                break
+            elif "reproduction" in tokens:
+                oht_class = "OHT 73: Toxicity Reproduction"
+                classification_reasoning.append(f"Found 'reproduction' in column '{col_name}'")
+                break
+            elif any(x in tokens for x in ["developmental", "teratogenicity"]):
+                oht_class = "OHT 74: Developmental Toxicity Teratogenicity"
+                classification_reasoning.append(f"Found 'developmental' or 'teratogenicity' in column '{col_name}'")
+                break
+            elif "fish" in tokens and "short-term" in tokens:
+                oht_class = "OHT 41: Short Term Fish to Tox"
+                classification_reasoning.append(f"Found 'fish' and 'short-term' in column '{col_name}'")
+                break
+            elif "fish" in tokens:
+                oht_class = "OHT 42: Long Term Fish to Tox"
+                classification_reasoning.append(f"Found 'fish' in column '{col_name}'")
+                break
+            elif "in vitro" in value:
+                oht_class = "OHT 70: Genetic Toxicity Vitro"
+                classification_reasoning.append(f"Found 'in vitro' in column '{col_name}'")
+                break
+            elif "in vivo" in value:
+                oht_class = "OHT 71: Genetic Toxicity Vivo"
+                classification_reasoning.append(f"Found 'in vivo' in column '{col_name}'")
+                break
+            elif "skin irritation" in value:
+                oht_class = "OHT 64: Skin Irritation/Corrosion"
+                classification_reasoning.append(f"Found 'skin irritation' in column '{col_name}'")
+                break
+            elif "eye irritation" in value:
+                oht_class = "OHT 65: Eye Irritation"
+                classification_reasoning.append(f"Found 'eye irritation' in column '{col_name}'")
+                break
+            elif "skin sensitisation" in value or "skin sensitization" in value:
+                oht_class = "OHT 66-1: Skin Sensitization"
+                classification_reasoning.append(f"Found 'skin sensitization' in column '{col_name}'")
+                break
+
+        if not oht_class:
+            oht_class = "Unknown"
+            classification_reasoning.append(f"No matching criteria found in any columns")
+
+        # Append the results to the lists
+        oht_class_list.append(oht_class)
+        classification_reasoning_list.append("; ".join(classification_reasoning))
+
+    # Add the classification columns to the DataFrame
+    user_df.insert(0, "Classification_Reasoning", classification_reasoning_list)
+    user_df.insert(0, "OHT_Class", oht_class_list)
+
     return user_df
 
 
@@ -254,12 +349,30 @@ def split_column(modified_df: pd.DataFrame, column_to_split: str, split_delimite
         st.error("Please select a column and specify a delimiter.")
 
 
-def map_columns(modified_df: pd.DataFrame, unique_cols: set) -> dict:
+def map_columns(modified_df: pd.DataFrame, unique_cols: set, uploaded_mappings: dict = None) -> dict:
     columns_to_map = list(modified_df.columns)
     columns_to_map.remove('OHT_Class')
     columns_to_map.remove('Classification_Reasoning')
 
     data = [[user_col, "", "", "", ""] for user_col in columns_to_map]
+
+    if uploaded_mappings:
+        for row in data:
+            user_col = row[0]
+            if user_col in uploaded_mappings:
+                mapped_oht_column = uploaded_mappings[user_col]
+                common_field_path = ".".join(mapped_oht_column.split(".")[2:])
+                matching_oht_column = None
+                for oht_col in unique_cols:
+                    oht_col_path = ".".join(oht_col.split(".")[2:])
+                    if oht_col_path == common_field_path:
+                        matching_oht_column = oht_col
+                        break
+                row[1] = matching_oht_column if matching_oht_column else None
+                    #(uploaded_mappings)[user_col]
+            else:
+                row[1] = None
+
     df = pd.DataFrame(data, columns=["User Column", "OHT Column", "Machine Suggested Column Mapping", "Expected Value Type", "Picklist Values"])
     opt = ['', 'Picklist', 'Free Text']
 
@@ -523,7 +636,7 @@ def map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns
             oht_instance.uuid = f"{generate_uuid()}/{generate_uuid()}"
 
         oht_instances.append((oht_instance, substance_uuid))
-    st.write('done')
+    #st.write('done')
     return oht_instances
 
 
@@ -696,7 +809,7 @@ def generate_i6z(endpoint_instances, test_material_instances, legal_entity_insta
 
         # Add the i6d file name to the list
         i6d_files.append(i6d_file_path)
-    st.write(f"Uploaded Attachments: {other_files}")
+    #st.write(f"Uploaded Attachments: {other_files}")
     if other_files is not None:
         attach_keys = []
         for attachment in other_files:

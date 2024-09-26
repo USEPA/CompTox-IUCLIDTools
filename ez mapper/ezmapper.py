@@ -35,6 +35,8 @@ initialize_session_state()
 # Create a sidebar for user inputs
 st.sidebar.title("Upload File")
 uploaded_file = st.sidebar.file_uploader("Choose a CSV or Excel file", type=["csv", "xlsx"])
+st.sidebar.title("Upload Column Mapping")
+uploaded_json = st.sidebar.file_uploader("Upload a previously saved column mapping JSON", type=['json'])
 st.sidebar.title("Upload Other Files")
 uploaded_other_files = st.sidebar.file_uploader("Choose files to upload", accept_multiple_files=True)
 
@@ -147,6 +149,15 @@ if st.session_state.split_done and selected_df_key != "None":
     if st.button("Split Column"):
         split_column(st.session_state.modified_df, column_to_split, split_delimiter, split_maxsplit)
 
+    uploaded_mappings = {}
+
+    if uploaded_json is not None:
+        try:
+            uploaded_mappings = json.load(uploaded_json)
+            st.sidebar.success("Column mapping JSON uploaded successfully")
+        except json.JSONDecodeError:
+            st.sidebar.error("Invalid JSON file. Please upload a valid column mapping JSON file.")
+
     # Check if the user has made a selection
     if selected_oht:
         # Extract the OHT number from the selected key
@@ -165,7 +176,7 @@ if st.session_state.split_done and selected_df_key != "None":
         endpoint_fields = get_model_fields(oht_class, f"ENDPOINT_STUDY_RECORD.{oht_type}")
         unique_cols.update(endpoint_fields)
 
-        column_mapping = map_columns(st.session_state.modified_df, unique_cols)
+        column_mapping = map_columns(st.session_state.modified_df, unique_cols, uploaded_mappings)
 
         # Preview the column mapping before finalizing
         if st.button("Preview Column Mapping"):
@@ -174,7 +185,7 @@ if st.session_state.split_done and selected_df_key != "None":
             # # Add button for i6z file generation
         generate_i6z_button = st.button("Generate i6z File")
         if generate_i6z_button:
-            st.write('generating')
+            #st.write('generating')
             try:
                 column_mapping_dict = column_mapping
                 data = apply_column_mapping(column_mapping, st.session_state.modified_df)
@@ -220,7 +231,7 @@ if st.session_state.split_done and selected_df_key != "None":
                 generate_i6z(oht_instances, test_material_instances, legal_entity_instances, ref_sub_instances,
                              substance_instances, output_dir, i6z_file_path, data, uploaded_other_files)
 
-                st.write("success")
+                st.write("Successfully Generated")
                 outfile_name = base_file_name + '.i6z'
                 st.download_button(
                     label='Download i6z File',
