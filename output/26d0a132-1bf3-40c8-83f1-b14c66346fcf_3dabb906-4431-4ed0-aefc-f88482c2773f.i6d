@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<i6c:Document xmlns="http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityOral/9.0" xmlns:i6c="http://iuclid6.echa.europa.eu/namespaces/platform-container/v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <PlatformMetadata xmlns="http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1">
+        <iuclidVersion>7.0.7</iuclidVersion>
+        <documentKey>26d0a132-1bf3-40c8-83f1-b14c66346fcf/3dabb906-4431-4ed0-aefc-f88482c2773f</documentKey>
+        <parentDocumentKey/>
+        <name/>
+        <documentType>REPEATED_DOSE_TOXICITY_ORAL</documentType>
+        <documentSubType/>
+        <orderInSectionNo>1</orderInSectionNo>
+        <definitionVersion>8.0</definitionVersion>
+        <creationDate>2024-11-14T18:13:31.099828Z</creationDate>
+        <lastModificationDate>2024-11-14T18:13:31.099828Z</lastModificationDate>
+        <submissionType/>
+        <submissionTypeVersion/>
+        <submittingLegalEntity/>
+        <dossierSubject/>
+        <i5Origin>false</i5Origin>
+        <creationTool>IUC6</creationTool>
+        <snapshotCreationTool>IUC6</snapshotCreationTool>
+    </PlatformMetadata>
+  <i6c:Content>
+    <ns2:ENDPOINT_STUDY_RECORD.RepeatedDoseToxicityOral xmlns:i6="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1" xmlns:ns2="http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityOral/6.0">
+  <ns2:MaterialsAndMethods>
+    <ns2:AdministrationExposure>
+      <ns2:RouteOfAdministration>
+        <ns2:value>oral: gavage</ns2:value>
+      </ns2:RouteOfAdministration>
+    </ns2:AdministrationExposure>
+  </ns2:MaterialsAndMethods>
+</ns2:ENDPOINT_STUDY_RECORD.RepeatedDoseToxicityOral>
+  </i6c:Content>
+</i6c:Document>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<i6c:Document xmlns="http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityOral/9.0" xmlns:i6c="http://iuclid6.echa.europa.eu/namespaces/platform-container/v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <PlatformMetadata xmlns="http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1">
+        <iuclidVersion>7.0.7</iuclidVersion>
+        <documentKey>df8cfcd0-6df1-4fc8-9c5f-057cbd0870ed/da801e1d-eb04-4262-b1a4-dac1155e3196</documentKey>
+        <parentDocumentKey/>
+        <name/>
+        <documentType>REPEATED_DOSE_TOXICITY_ORAL</documentType>
+        <documentSubType/>
+        <orderInSectionNo>1</orderInSectionNo>
+        <definitionVersion>8.0</definitionVersion>
+        <creationDate>2024-11-12T21:19:09.022205Z</creationDate>
+        <lastModificationDate>2024-11-12T21:19:09.022205Z</lastModificationDate>
+        <submissionType/>
+        <submissionTypeVersion/>
+        <submittingLegalEntity/>
+        <dossierSubject/>
+        <i5Origin>false</i5Origin>
+        <creationTool>IUC6</creationTool>
+        <snapshotCreationTool>IUC6</snapshotCreationTool>
+    </PlatformMetadata>
+  <i6c:Content>
+    <ns2:ENDPOINT_STUDY_RECORD.RepeatedDoseToxicityOral xmlns:i6="http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1" xmlns:ns2="http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityOral/6.0">
+  <ns2:MaterialsAndMethods>
+    <ns2:TestAnimals>
+      <ns2:Species>
+        <ns2:value>rat</ns2:value>
+      </ns2:Species>
+      <ns2:Strain>
+        <ns2:value>Fischer 344/DuCrj</ns2:value>
+      </ns2:Strain>
+      <ns2:Sex>
+        <ns2:value>Not Specified</ns2:value>
+      </ns2:Sex>
+    </ns2:TestAnimals>
+    <ns2:AdministrationExposure>
+      <ns2:RouteOfAdministration>
+        <ns2:value>oral: drinking water</ns2:value>
+      </ns2:RouteOfAdministration>
+    </ns2:AdministrationExposure>
+  </ns2:MaterialsAndMethods>
+</ns2:ENDPOINT_STUDY_RECORD.RepeatedDoseToxicityOral>
+  </i6c:Content>
+</i6c:Document>

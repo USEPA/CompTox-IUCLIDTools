@@ -1,0 +1,6 @@
+{
+    "exposure_route_original": "ENDPOINT_STUDY_RECORD.RepeatedDoseToxicityOral.materials_and_methods.administration_exposure.route_of_administration.value",
+    "species_original": "ENDPOINT_STUDY_RECORD.RepeatedDoseToxicityOral.materials_and_methods.test_animals.species.value",
+    "strain_original": "ENDPOINT_STUDY_RECORD.RepeatedDoseToxicityOral.materials_and_methods.test_animals.strain.value",
+    "sex_original": "ENDPOINT_STUDY_RECORD.RepeatedDoseToxicityOral.materials_and_methods.test_animals.sex.value"
+}
