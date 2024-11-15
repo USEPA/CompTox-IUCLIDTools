@@ -22,6 +22,8 @@ from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 import os
 import typing
+import sys
+sys.path.append("entity_models")
 
 
 def split_camel_case(name):
@@ -513,7 +515,7 @@ def create_platform_metadata(oht_type):
 
 
 def get_oht_classes(oht_type):
-    module_name = f"{oht_type.lower()}_6_5.models"
+    module_name = f"entity_models.{oht_type.lower()}_6_5.models"
     module = importlib.import_module(module_name)
     if oht_type == 'TestMaterialInformation':
         oht_class_name = oht_type
@@ -630,7 +632,7 @@ def map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns
 def create_xml_serializer(oht_type):
     # Initialize the XML context with the package containing the OHT models
     try:
-        context = XmlContext(models_package=f"{oht_type.lower()}_6_5.models")
+        context = XmlContext(models_package=f"entity_models.{oht_type.lower()}_6_5.models")
     except Exception as e:
         print("Error in create_xml_serializer:", e)
     # Build the context recursively to include all related classes
@@ -1054,7 +1056,7 @@ def get_model_fields(model, prefix=""):
 def load_and_introspect_models(model_names):
     unique_cols = set()
     for model_name in model_names:
-        module_name = f"{model_name.lower()}_6_5.models"
+        module_name = f"entity_models.{model_name.lower()}_6_5.models"
         module = importlib.import_module(module_name)
         model_class = getattr(module, model_name)
         fields = get_model_fields(model_class, model_name)
