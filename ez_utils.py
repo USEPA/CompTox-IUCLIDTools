@@ -11,6 +11,8 @@ import uuid
 import mammoth
 import pandas as pd
 import streamlit as st
+from streamlit import components
+from streamlit.components import v1
 import importlib
 import pydantic
 import zipfile
@@ -431,14 +433,11 @@ def display_word_document(oht_docx_path: str) -> None:
     Args:
         oht_docx_path (str): The path to the Word document.
     """
-    with (st.expander("Click to show WORD document for the OHT")):
+    with st.expander("Click to show WORD document for the OHT"):
         with open(oht_docx_path, 'rb') as doc:
             result_html = mammoth.convert_to_html(doc)
             html_content = result_html.value
-            st.markdown(
-                f'<iframe srcdoc="{html_content}" height="600" width="100%" frameborder="0" scrolling="yes"></iframe>',
-                unsafe_allow_html=True)
-                #html_content, height=600, scrolling=True)
+            st.components.v1.html(html_content, height=600, scrolling=True)
 
 
 def parse_column_name(column_name: str):

@@ -51,6 +51,11 @@ will be unmodified and attached within the i6z file generated.
 2. There will be a table with "User Column" with all columns in the user submitted data.
 3. The second "OHT Column" allows you to click each cell and assign a OHT field mapping. You can start typing to reduce dropdown options. This column will also be prepopulated with any existing mappings based on you uploaded column mapping JSON file.
 4. The third "Machine Suggestion Column Mapping" column will be populated with any and all suggested mappings based on the machine learning logic. This may not be populated at first but will update when the logic is finished running. There is a progress message at the top of the panel.
+![machine_not_done](images/machine_running.png)
+![machine_done](images/machine_done.png)
+![machine_filled](images/machine_populated.png)
+5. To assist with your mapping and understanding of the OHT, at the bottom or the main panel, there is an option to view the word doc associated with that template.
+![word_doc](images/word_doc.png)
 ### Step 7: Exporting Files
 - Preview Column Mapping: Clicking this button will display a preview of the column mapping JSON file based on the mappings in the table above.
 - Download Column Mapping: This button will download the JSON file to your browser.
