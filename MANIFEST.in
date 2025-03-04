@@ -1,0 +1,6 @@
+include *.txt
+include README.md
+recursive-include data *
+recursive-include output *
+recursive-include All\ OHTs\ Word\ Files\ -Nov\ 2021 *
+recursive-include test_files *
