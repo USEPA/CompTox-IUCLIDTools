@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose the port that Streamlit will run on
-EXPOSE 8501
+EXPOSE 8506
 
 # Command to run the application
-CMD ["streamlit", "run", "ezmapper.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "ezmapper.py", "--server.port=8506", "--server.address=0.0.0.0"]
