@@ -171,18 +171,14 @@ def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
 
     oht_class_list = []
     classification_reasoning_list = []
+    calculated_duration_list = []
 
     # Define keyword conditions for OHTs (with OR groups and AND logic)
     keyword_conditions = {
-        "OHT 60: Acute Toxicity Oral": {"and": [["acute"], ["oral"]]},
-        "OHT 61: Acute Toxicity Inhalation": {"and": [["acute"], ["inhalation"]]},
-        "OHT 62: Acute Toxicity Dermal": {"and": [["acute"], ["dermal"]]},
-        "OHT 67: Repeated Dose Toxicity Oral": {"and": [["repeated", "chronic", "subchronic"], ["oral"]]},
-        "OHT 68: Repeated Dose Toxicity Inhalation": {"and": [["repeated", "chronic", "subchronic"], ["inhalation"]]},
-        "OHT 69-1: Repeated Dose Toxicity Dermal": {"and": [["repeated", "chronic", "subchronic"], ["dermal"]]},
         "OHT 72: Carcinogenicity": {"and": [["cancer", "carcinogenicity"]]},
-        "OHT 73: Toxicity Reproduction": {"and": [["reproduction", "reproductive"]]},
-        "OHT 74: Developmental Toxicity Teratogenicity": {"and": [["developmental", "teratogenicity"]]},
+        "OHT 73: Toxicity Reproduction": {"and": [["reproduction", "reproductive", "generation"]]},
+        "OHT 74: Developmental Toxicity Teratogenicity": {"and": [["developmental", "teratogenicity", "gd"]]},
+        "OHT 76: Neurotoxicity": {"and": [["neurotoxicity"]]},
         "OHT 41: Short Term Tox to Fish": {"and": [["fish"], ["short-term"]]},
         "OHT 42: Long Term Tox to Fish": {"and": [["fish"]]},
         "OHT 70: Genetic Toxicity Vitro": {"and": [["vitro"]]},
@@ -190,13 +186,51 @@ def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
         "OHT 64: Skin Irritation/Corrosion": {"and": [["skin"], ["irritation", "corrosion"]]},
         "OHT 65: Eye Irritation": {"and": [["eye"], ["irritation"]]},
         "OHT 66-1: Skin Sensitisation": {"and": [["skin"], ["sensitization", "sensitisation"]]},
+        "OHT 60: Acute Toxicity Oral": {"and": [["acute"], ["oral"]]},
+        "OHT 61: Acute Toxicity Inhalation": {"and": [["acute"], ["inhalation"]]},
+        "OHT 62: Acute Toxicity Dermal": {"and": [["acute"], ["dermal"]]},
+        "OHT 67: Repeated Dose Toxicity Oral": {"and": [["repeated", "short-term", "chronic", "subchronic"], ["oral"]]},
+        "OHT 68: Repeated Dose Toxicity Inhalation": {"and": [["repeated", "short-term", "chronic", "subchronic"], ["inhalation"]]},
+        "OHT 69-1: Repeated Dose Toxicity Dermal": {"and": [["repeated", "short-term", "chronic", "subchronic"], ["dermal"]]},
         "OHT 63: Acute Toxicity Other Routes": {"and": [["acute"]]},
         "OHT 69-2: Repeated Dose Toxicity Other": {"and": [["repeated", "chronic", "subchronic"]]}
+    }
+
+    time_conversion = {
+        "day": 1,
+        "pnd": 1, # post natal day
+        "week": 7,
+        "month": 30.4,
+        "year": 365.24
     }
 
     for index, row in user_df.iterrows():
         classification_reasoning = []
         oht_class = None
+
+        # Search for time duration to add keywords
+        long_string = " ".join([str(value) for value in row.values]).lower()
+        duration_pattern = r"\b(?:\d+\.\d+|\d+)[\s-]*(?:day|pnd|week|month|year)" # Regex looks for number and time unit
+        max_time = 0
+        for match in re.findall(duration_pattern, long_string):
+            time, unit = re.split(r"[ \-]+", match) # split by space or hypthen
+            time_in_days = float(time) * time_conversion[unit] # convert into days
+            if time_in_days > max_time: 
+                max_time = time_in_days
+        
+        if max_time == 0:    # use toxval definitions to define duration
+            study_duration = None
+        elif max_time < 31: 
+            study_duration = "short-term"
+        elif max_time <= 90:
+            study_duration = "subchronic"
+        elif max_time > 90:
+            study_duration = "chronic"
+        else:
+            study_duration = "not found"
+
+        row["Calculated_Study_Duration"] = study_duration
+        calculated_duration_list.append(study_duration)
 
         # To track keywords found across columns for each OHT
         found_keywords = {oht: [] for oht in keyword_conditions}
@@ -241,6 +275,7 @@ def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
         classification_reasoning_list.append("; ".join(classification_reasoning))
 
     # Add the classification columns to the DataFrame
+    user_df.insert(0, "Calculated_Study_Duration", calculated_duration_list)
     user_df.insert(0, "Classification_Reasoning", classification_reasoning_list)
     user_df.insert(0, "OHT_Class", oht_class_list)
 
