@@ -189,11 +189,14 @@ def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
         "OHT 60: Acute Toxicity Oral": {"and": [["acute"], ["oral"]]},
         "OHT 61: Acute Toxicity Inhalation": {"and": [["acute"], ["inhalation"]]},
         "OHT 62: Acute Toxicity Dermal": {"and": [["acute"], ["dermal"]]},
-        "OHT 67: Repeated Dose Toxicity Oral": {"and": [["repeated", "short-term", "chronic", "subchronic"], ["oral"]]},
-        "OHT 68: Repeated Dose Toxicity Inhalation": {"and": [["repeated", "short-term", "chronic", "subchronic"], ["inhalation"]]},
-        "OHT 69-1: Repeated Dose Toxicity Dermal": {"and": [["repeated", "short-term", "chronic", "subchronic"], ["dermal"]]},
+        "OHT 67: Repeated Dose Toxicity Oral": {"and": [["repeated", "short-term", "chronic", "subchronic",
+                                                         "sub-chronic"], ["oral"]]},
+        "OHT 68: Repeated Dose Toxicity Inhalation": {
+            "and": [["repeated", "short-term", "chronic", "subchronic", "sub-chronic"], ["inhalation"]]},
+        "OHT 69-1: Repeated Dose Toxicity Dermal": {
+            "and": [["repeated", "short-term", "chronic", "subchronic", "sub-chronic"], ["dermal"]]},
         "OHT 63: Acute Toxicity Other Routes": {"and": [["acute"]]},
-        "OHT 69-2: Repeated Dose Toxicity Other": {"and": [["repeated", "chronic", "subchronic"]]}
+        "OHT 69-2: Repeated Dose Toxicity Other": {"and": [["repeated", "chronic", "subchronic", "sub-chronic"]]}
     }
 
     time_conversion = {
@@ -241,7 +244,7 @@ def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
                 continue  # Skip if the value is NaN
 
             value = str(value).lower()  # Convert to lowercase for case-insensitive matching
-            tokens = re.split(r'\W+', value)  # Split into words based on non-alphanumeric characters
+            tokens = re.split(r'(?<!\w)-|[^a-zA-Z0-9-]+', value)  # Split by non-alphanumeric (not "-")
 
             # Check for keywords and track which are found in which columns
             for oht, condition in keyword_conditions.items():
