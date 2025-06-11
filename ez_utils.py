@@ -473,12 +473,22 @@ def display_word_document(oht_docx_path: str) -> None:
     Args:
         oht_docx_path (str): The path to the Word document.
     """
+    # https://stackabuse.com/how-to-convert-docx-to-html-with-python-mammoth/
+    custom_styles = """ b => b.mark
+                    u => u.initialism
+                    p[style-name='Heading 1'] => h1.card
+                    table => table.table.table-hover
+                    """
+
+    bootstrap_css = '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">'
+    bootstrap_js = '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>'
+
     with st.expander("Click to show WORD document for the OHT"):
         with open(oht_docx_path, 'rb') as doc:
-            result_html = mammoth.convert_to_html(doc)
+            result_html = mammoth.convert_to_html(doc, style_map = custom_styles)
             html_content = result_html.value
-            st.components.v1.html(html_content, height=600, scrolling=True)
-
+            edited_html = bootstrap_css + html_content + bootstrap_js
+            st.components.v1.html(edited_html, height=600, scrolling=True)
 
 def parse_column_name(column_name: str):
     if "ENDPOINT_STUDY_RECORD" in column_name:
