@@ -19,6 +19,19 @@ import time
 import logging
 
 st.set_page_config(layout="wide")
+
+# Inject JavaScript to warn on refresh or navigation
+st.components.v1.html(
+    """
+    <script>
+    window.onbeforeunload = function() {
+        return "Are you sure you want to leave? Your progress will be lost.";
+    };
+    </script>
+    """,
+    height=0,
+)
+
 #temp_field_suggestions = None
 suggestions_lock = threading.Lock()
 # Suppress specific warnings from openpyxl that are not relevant for the user
