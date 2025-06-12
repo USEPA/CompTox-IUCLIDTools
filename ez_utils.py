@@ -426,13 +426,13 @@ def map_columns(modified_df: pd.DataFrame, unique_cols: set, uploaded_mappings: 
             options=list(unique_cols),
             required=False,
         ),
-        "Machine Suggested Column Mapping": st.column_config.Column("Machine Suggested Column Mapping", 
+        "Machine Suggested Column Mapping": st.column_config.Column("Machine Suggested Column to assist with OHT Column selection", 
                                                                     width='large',
                                                                     help='Select a Machine Suggested OHT Column'),
         "Expected Value Type": st.column_config.SelectboxColumn(
             "Expected Value Type",
             width="medium",
-            help='Select the expected value type for the column',
+            help='Select the expected value type for the column, if applicable',
             options=opt,
             required=False
         ),
