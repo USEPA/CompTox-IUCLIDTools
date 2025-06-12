@@ -24,10 +24,6 @@ suggestions_lock = threading.Lock()
 # Suppress specific warnings from openpyxl that are not relevant for the user
 warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
 
-# Set the title and description of the web app
-st.title("EZ Mapper")
-st.markdown("A tool for mapping and transforming data to an i6z file.")
-
 # Define the directory path for OHT files
 directory_path = Path("All OHTs Word Files -Nov 2021")
 # Define the directory path for OHT excel files
@@ -46,14 +42,22 @@ if "suggestions_done" not in st.session_state:
 
 # Create a sidebar for user inputs
 st.sidebar.title("Upload File")
-uploaded_file = st.sidebar.file_uploader("Choose a CSV or Excel file", type=["csv", "xlsx"])
+uploaded_file = st.sidebar.file_uploader("Choose a CSV or Excel file", 
+                                         type=["csv", "xlsx"])
 st.sidebar.title("Upload Column Mapping")
-uploaded_json = st.sidebar.file_uploader("Upload a previously saved column mapping JSON", type=['json'])
+uploaded_json = st.sidebar.file_uploader("Upload a previously saved column mapping JSON", 
+                                         type=['json'])
 st.sidebar.title("Upload Other Files")
-uploaded_other_files = st.sidebar.file_uploader("Choose files to upload", accept_multiple_files=True)
+uploaded_other_files = st.sidebar.file_uploader("Choose files to upload", 
+                                                accept_multiple_files=True)
 
 suggestions_status_placeholder = st.empty()
 
+# Default uploaded_file starts as NULL
+# Set the title and description of the web app
+if uploaded_file is None:
+    st.title("EZ Mapper")
+    st.markdown("A tool for mapping and transforming data to an i6z file. **Upload** a *CSV* or *Excel* file to begin.")
 
 def background_suggestions_logic(user_df, results):
     global temp_field_suggestions
@@ -79,6 +83,7 @@ if uploaded_file is not None:
 
     base_file_name = Path(uploaded_file.name).stem
 
+    st.title("Uploaded File Preview")
     # Display a preview of the data
     display_data_preview(user_df)
 
@@ -103,11 +108,11 @@ if uploaded_file is not None:
     st.markdown(
         "Classify Rows and Split Data by OHT Classification"
     )
-    classify_button = st.button("Classify Data")
-
+    classify_button = st.button("Classify Data",
+                                icon=":material/category:")
+    
     # Handle classify button press
     if classify_button:
-        st.write("**Verify and Edit Classifications:**")
         st.session_state.classify_pressed = True
         st.session_state["edited_df"] = user_df.copy()
 else:
@@ -117,17 +122,22 @@ else:
 
 # Display the data editor once the classify button has been pressed
 if "edited_df" in st.session_state and st.session_state.classify_pressed:
+    st.title("Step 1: Classify Records to OHTs")
+    st.write("**Verify and Edit Classifications:**")
     edited_df = st.session_state["edited_df"]
     display_data_editor(edited_df, oht_files)
 
     # Confirm button to finalize the data split based on classification
-    confirm_button = st.button("Confirm")
+    confirm_button = st.button("Confirm Classifications",
+                               icon=":material/done_outline:")
     if confirm_button:
         edited_df = st.session_state.df1
         split_dataframe(edited_df)
 
 # Dropdown menu for selecting a DataFrame to map columns after splitting
 if st.session_state.get("split_done", False):
+    st.sidebar.divider() # Horizontal divider
+    st.sidebar.title("DataFrame OHT Splits")
     selected_df_key = st.sidebar.selectbox(
         "Select a DataFrame to Map Columns:",
         options=["None"] + list(st.session_state.grouped_dfs.keys()),
@@ -137,6 +147,8 @@ if st.session_state.get("split_done", False):
 
     # Display the selected DataFrame if a valid selection is made
     if selected_df_key != "None":
+        st.divider() # Horizontal divider
+        st.title("Step 2: Format Columns")
         st.session_state.selected_df = st.session_state.grouped_dfs[selected_df_key]
         st.write(
             f"DataFrame for {selected_df_key} has {len(st.session_state.selected_df)} rows."
@@ -152,6 +164,10 @@ if st.session_state.split_done and selected_df_key != "None":
     st.session_state.selected_oht = selected_oht
     oht_docx_path = oht_files[selected_oht]["docx"]
     st.session_state.oht_docx_path = oht_docx_path
+
+    st.write("**Review OHT Documentation**")
+    # Display the associated Word document for the OHT
+    display_word_document(oht_docx_path)
 
     st.write("**Merge Columns**")
     col1, col2, new_col_name = st.columns(3)
@@ -173,7 +189,7 @@ if st.session_state.split_done and selected_df_key != "None":
         )
 
     # Merge columns based on user selection
-    if st.button("Merge Columns"):
+    if st.button("Merge Columns", icon=":material/cell_merge:"):
         merge_columns(st.session_state.modified_df, merge_col1, merge_col2, new_merge_col_name)
 
     # Section for splitting columns based on a delimiter
@@ -193,7 +209,7 @@ if st.session_state.split_done and selected_df_key != "None":
         )
 
     # Split the column based on user inputs
-    if st.button("Split Column"):
+    if st.button("Split Column", icon=":material/split_scene:"):
         split_column(st.session_state.modified_df, column_to_split, split_delimiter, split_maxsplit)
 
     uploaded_mappings = {}
@@ -228,8 +244,8 @@ if st.session_state.split_done and selected_df_key != "None":
         if "suggestions_thread" in st.session_state:
             if not st.session_state['suggestions_thread'].is_alive():
                 #st.session_state['field_suggestions'] = temp_field_suggestions
-                print('field suggestions')
-                print(st.session_state['field_suggestions'])
+                # print('field suggestions')
+                # print(st.session_state['field_suggestions'])
                 #print('results')
                 #print(results[0])
                 suggestions_status_placeholder.info("Machine suggestions finished!")
@@ -247,12 +263,29 @@ if st.session_state.split_done and selected_df_key != "None":
         #                                  st.session_state['field_suggestions'])
 
         # Preview the column mapping before finalizing
-        if st.button("Preview Column Mapping"):
+        if 'st_review_column_mapping' not in st.session_state:
+            # TODO Discuss if toggle view is desirable. If so, set to False and uncomment preview_column_mapping_btn on_click callback and
+            # swtich to checking for st.session_state['st_review_column_mapping'] instead of preview_column_mapping_btn for apply_column_mapping
+            st.session_state['st_review_column_mapping'] = True
+        
+        # Callback function to toggle the state
+        def toggle_preview_column_mapping():
+            st.session_state['st_review_column_mapping'] = not st.session_state['st_review_column_mapping']
+
+        preview_column_mapping_btn = st.button("Preview Column Mapping", 
+                                           icon=":material/visibility:"# ,
+                                           # on_click=toggle_preview_column_mapping
+                                           )
+        
+        # if st.session_state['st_review_column_mapping']:
+        if preview_column_mapping_btn:
             data = apply_column_mapping(column_mapping, st.session_state.modified_df)
             preview_column_mapping(column_mapping, data)
 
-            # # Add button for i6z file generation
-        generate_i6z_button = st.button("Generate i6z File")
+        st.divider() # Horizontal divider
+        # # Add button for i6z file generation
+        st.title("Export i6z File")
+        generate_i6z_button = st.button("Generate i6z File", icon=":material/download:")
         if generate_i6z_button:
             #st.write('generating')
             try:
@@ -311,5 +344,3 @@ if st.session_state.split_done and selected_df_key != "None":
             except Exception as e:
                 st.error(f"Error generating: {e}")
 
-        # Display the associated Word document for the OHT
-        display_word_document(oht_docx_path)

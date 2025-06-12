@@ -156,7 +156,10 @@ def display_data_preview(user_df: pd.DataFrame) -> None:
         user_df (pd.DataFrame): The user's DataFrame.
     """
     if not st.session_state.classify_pressed and st.session_state.show_data_preview:
-        st.dataframe(user_df.head(5))
+        st.dataframe(
+            user_df.head(5),
+            hide_index=True,
+            )
 
 
 def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
@@ -303,9 +306,15 @@ def display_data_editor(edited_df: pd.DataFrame, oht_files: dict) -> None:
             "OHT_Class": st.column_config.SelectboxColumn(
                 "OHT_Class",
                 options=list(oht_files.keys()),
+                help = 'Machine Classified OHT Class. Edit using the dropdown menu per record.',
                 required=True,
-            )
+            ),
+            "Classification_Reasoning": st.column_config.TextColumn(
+                  'OHT_Class',
+                  help = 'The reason the record was machine classified as the selected OHT.'  
+                )
         },
+    hide_index=True,
     )
 
 
@@ -317,7 +326,7 @@ def split_dataframe(edited_df: pd.DataFrame) -> None:
     """
     grouped_dfs = {category: df for category, df in edited_df.groupby("OHT_Class")}
     st.session_state.grouped_dfs = grouped_dfs
-    st.success(f"Original data split into: {len(grouped_dfs)} dataframes")
+    st.success(f"Original data split into: {len(grouped_dfs)} dataframes. Use the sidebar \"DataFrame OHT Splits\" section to select a dataframe to continue.")
     for category, df in grouped_dfs.items():
         st.write(f"DataFrame for OHT_Class '{category}' has {len(df)} rows.")
     st.session_state.split_done = True
@@ -403,19 +412,27 @@ def map_columns(modified_df: pd.DataFrame, unique_cols: set, uploaded_mappings: 
     df = pd.DataFrame(data, columns=["User Column", "OHT Column", "Machine Suggested Column Mapping", "Expected Value Type", "Picklist Values"])
     opt = ['', 'Picklist', 'Free Text']
 
-    st.write("**Map your columns:**")
+    st.divider() # Horizontal divider
+    st.title("Step 3: Map Columns to OHT Columns")
+    st.write("**Map your columns (optionally Upload Column Mapping file):**")
     column_config = {
-        "User Column": st.column_config.Column("User Column", width='large'),
+        "User Column": st.column_config.Column("User Column", 
+                                               width='large',
+                                               help='Original input column name'),
         "OHT Column": st.column_config.SelectboxColumn(
             "OHT Column",
             width="large",
+            help='Select an OHT Column',
             options=list(unique_cols),
             required=False,
         ),
-        "Machine Suggested Column Mapping": st.column_config.Column("Machine Suggested Column Mapping", width='large'),
+        "Machine Suggested Column Mapping": st.column_config.Column("Machine Suggested Column Mapping", 
+                                                                    width='large',
+                                                                    help='Select a Machine Suggested OHT Column'),
         "Expected Value Type": st.column_config.SelectboxColumn(
             "Expected Value Type",
             width="medium",
+            help='Select the expected value type for the column',
             options=opt,
             required=False
         ),
@@ -458,12 +475,14 @@ def preview_column_mapping(column_mapping: dict, modified_df: pd.DataFrame) -> N
         data=mapping_json,
         file_name="column_mapping.json",
         mime="application/json",
+        icon=":material/download:"
     )
     st.download_button(
         label="Download Modified Data",
         data=modified_df.to_csv(index=False).encode("utf-8"),
         file_name="modified_data.csv",
         mime="text/csv",
+        icon=":material/download:"
     )
 
 
@@ -474,20 +493,36 @@ def display_word_document(oht_docx_path: str) -> None:
         oht_docx_path (str): The path to the Word document.
     """
     # https://stackabuse.com/how-to-convert-docx-to-html-with-python-mammoth/
-    custom_styles = """ b => b.mark
+    # Map Docx styles to HTML
+    custom_styles = """ 
+                    b => b.strong
                     u => u.initialism
                     p[style-name='Heading 1'] => h1.card
                     table => table.table.table-hover
                     """
+    # Custom CSS
+    docx_css = '''
+<style>
+td, tr, th {
+    border: solid 2px lightgrey;
+}
 
-    bootstrap_css = '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">'
-    bootstrap_js = '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>'
+</style>
+<table style="border: 5px solid #990000; border-collapse: collapse">
+    '''
+    # https://getbootstrap.com/docs/4.4/getting-started/introduction/
+    bootstrap_css = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">'
+    bootstrap_js = '''
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    ''' 
 
-    with st.expander("Click to show WORD document for the OHT"):
+    with st.expander("Click to show WORD document for the OHT", icon=":material/description:"):
         with open(oht_docx_path, 'rb') as doc:
             result_html = mammoth.convert_to_html(doc, style_map = custom_styles)
             html_content = result_html.value
-            edited_html = bootstrap_css + html_content + bootstrap_js
+            edited_html = docx_css + bootstrap_css + html_content + bootstrap_js
             st.components.v1.html(edited_html, height=600, scrolling=True)
 
 def parse_column_name(column_name: str):
