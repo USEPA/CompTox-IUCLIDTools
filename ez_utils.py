@@ -1,5 +1,4 @@
 import hashlib
-import hashlib
 import io
 import json
 from pathlib import Path
@@ -23,7 +22,9 @@ from xsdata.formats.dataclass.serializers.config import SerializerConfig
 import os
 import typing
 import sys
-sys.path.append("entity_models")
+import difflib
+sys.path.append("entity_models_6_7")
+sys.path.append("entity_models_6_6")
 
 
 def split_camel_case(name):
@@ -171,14 +172,18 @@ def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
 
     oht_class_list = []
     classification_reasoning_list = []
-    calculated_duration_list = []
 
     # Define keyword conditions for OHTs (with OR groups and AND logic)
     keyword_conditions = {
+        "OHT 60: Acute Toxicity Oral": {"and": [["acute"], ["oral"]]},
+        "OHT 61: Acute Toxicity Inhalation": {"and": [["acute"], ["inhalation"]]},
+        "OHT 62: Acute Toxicity Dermal": {"and": [["acute"], ["dermal"]]},
+        "OHT 67: Repeated Dose Toxicity Oral": {"and": [["repeated", "chronic", "subchronic"], ["oral"]]},
+        "OHT 68: Repeated Dose Toxicity Inhalation": {"and": [["repeated", "chronic", "subchronic"], ["inhalation"]]},
+        "OHT 69-1: Repeated Dose Toxicity Dermal": {"and": [["repeated", "chronic", "subchronic"], ["dermal"]]},
         "OHT 72: Carcinogenicity": {"and": [["cancer", "carcinogenicity"]]},
-        "OHT 73: Toxicity Reproduction": {"and": [["reproduction", "reproductive", "generation"]]},
-        "OHT 74: Developmental Toxicity Teratogenicity": {"and": [["developmental", "teratogenicity", "gd"]]},
-        "OHT 76: Neurotoxicity": {"and": [["neurotoxicity"]]},
+        "OHT 73: Toxicity Reproduction": {"and": [["reproduction", "reproductive"]]},
+        "OHT 74: Developmental Toxicity Teratogenicity": {"and": [["developmental", "teratogenicity"]]},
         "OHT 41: Short Term Tox to Fish": {"and": [["fish"], ["short-term"]]},
         "OHT 42: Long Term Tox to Fish": {"and": [["fish"]]},
         "OHT 70: Genetic Toxicity Vitro": {"and": [["vitro"]]},
@@ -186,54 +191,13 @@ def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
         "OHT 64: Skin Irritation/Corrosion": {"and": [["skin"], ["irritation", "corrosion"]]},
         "OHT 65: Eye Irritation": {"and": [["eye"], ["irritation"]]},
         "OHT 66-1: Skin Sensitisation": {"and": [["skin"], ["sensitization", "sensitisation"]]},
-        "OHT 60: Acute Toxicity Oral": {"and": [["acute"], ["oral"]]},
-        "OHT 61: Acute Toxicity Inhalation": {"and": [["acute"], ["inhalation"]]},
-        "OHT 62: Acute Toxicity Dermal": {"and": [["acute"], ["dermal"]]},
-        "OHT 67: Repeated Dose Toxicity Oral": {"and": [["repeated", "short-term", "chronic", "subchronic",
-                                                         "sub-chronic"], ["oral"]]},
-        "OHT 68: Repeated Dose Toxicity Inhalation": {
-            "and": [["repeated", "short-term", "chronic", "subchronic", "sub-chronic"], ["inhalation"]]},
-        "OHT 69-1: Repeated Dose Toxicity Dermal": {
-            "and": [["repeated", "short-term", "chronic", "subchronic", "sub-chronic"], ["dermal"]]},
         "OHT 63: Acute Toxicity Other Routes": {"and": [["acute"]]},
-        "OHT 69-2: Repeated Dose Toxicity Other": {"and": [["repeated", "chronic", "subchronic", "sub-chronic"]]}
-    }
-
-    time_conversion = {
-        "day": 1,
-        "pnd": 1, # post natal day
-        "week": 7,
-        "month": 30.4,
-        "year": 365.24
+        "OHT 69-2: Repeated Dose Toxicity Other": {"and": [["repeated", "chronic", "subchronic"]]}
     }
 
     for index, row in user_df.iterrows():
         classification_reasoning = []
         oht_class = None
-
-        # Search for time duration to add keywords
-        long_string = " ".join([str(value) for value in row.values]).lower()
-        duration_pattern = r"\b(?:\d+\.\d+|\d+)[\s-]*(?:day|pnd|week|month|year)" # Regex looks for number and time unit
-        max_time = 0
-        for match in re.findall(duration_pattern, long_string):
-            time, unit = re.split(r"[ \-]+", match) # split by space or hypthen
-            time_in_days = float(time) * time_conversion[unit] # convert into days
-            if time_in_days > max_time: 
-                max_time = time_in_days
-        
-        if max_time == 0:    # use toxval definitions to define duration
-            study_duration = None
-        elif max_time < 31: 
-            study_duration = "short-term"
-        elif max_time <= 90:
-            study_duration = "subchronic"
-        elif max_time > 90:
-            study_duration = "chronic"
-        else:
-            study_duration = "not found"
-
-        row["Calculated_Study_Duration"] = study_duration
-        calculated_duration_list.append(study_duration)
 
         # To track keywords found across columns for each OHT
         found_keywords = {oht: [] for oht in keyword_conditions}
@@ -244,7 +208,7 @@ def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
                 continue  # Skip if the value is NaN
 
             value = str(value).lower()  # Convert to lowercase for case-insensitive matching
-            tokens = re.split(r'(?<!\w)-|[^a-zA-Z0-9-]+', value)  # Split by non-alphanumeric (not "-")
+            tokens = re.split(r'\W+', value)  # Split into words based on non-alphanumeric characters
 
             # Check for keywords and track which are found in which columns
             for oht, condition in keyword_conditions.items():
@@ -278,7 +242,6 @@ def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
         classification_reasoning_list.append("; ".join(classification_reasoning))
 
     # Add the classification columns to the DataFrame
-    user_df.insert(0, "Calculated_Study_Duration", calculated_duration_list)
     user_df.insert(0, "Classification_Reasoning", classification_reasoning_list)
     user_df.insert(0, "OHT_Class", oht_class_list)
 
@@ -483,26 +446,50 @@ def display_word_document(oht_docx_path: str) -> None:
 def parse_column_name(column_name: str):
     if "ENDPOINT_STUDY_RECORD" in column_name:
         match = re.match(r'ENDPOINT_STUDY_RECORD\.(\w+)\.(.+)', column_name)
-        oht_type = match.group(1)  # e.g., 'RepeatedDoseToxicity'
-        field_path = match.group(2).split('.')  # e.g., ['MaterialsAndMethods', 'TestAnimals', 'Sex', 'value']
+        if match:
+            oht_type = match.group(1)  # e.g., 'RepeatedDoseToxicity'
+            field_path = match.group(2).split('.')  # e.g., ['MaterialsAndMethods', 'TestAnimals', 'Sex', 'value']
+        else:
+            oht_type = None
+            field_path = column_name.split('.')  # Fallback for unexpected paths
     elif "ReferenceSubstance" in column_name:
         match = re.match(r'ReferenceSubstance\.(.+)', column_name)
-        oht_type = "ReferenceSubstance"  # e.g., 'RepeatedDoseToxicity'
-        field_path = match.group(1).split('.')
+        if match:
+            oht_type = "ReferenceSubstance"
+            field_path = match.group(1).split('.')
+        else:
+            oht_type = None
+            field_path = column_name.split('.')
     elif "Substance" in column_name:
         match = re.match(r'Substance\.(.+)', column_name)
-        oht_type = "Substance"  # e.g., 'RepeatedDoseToxicity'
-        field_path = match.group(1).split('.')  # e.g., ['MaterialsAndMethods', 'TestAnimals', 'Sex', 'value']
+        if match:
+            oht_type = "Substance"
+            field_path = match.group(1).split('.')
+        else:
+            oht_type = None
+            field_path = column_name.split('.')
     elif "TestMaterialInformation" in column_name:
         match = re.match(r'TestMaterialInformation\.(.+)', column_name)
-        oht_type = "TestMaterialInformation"  # e.g., 'RepeatedDoseToxicity'
-        field_path = match.group(1).split('.')  # e.g., ['MaterialsAndMethods', 'TestAnimals', 'Sex', 'value']
+        if match:
+            oht_type = "TestMaterialInformation"
+            field_path = match.group(1).split('.')
+        else:
+            oht_type = None
+            field_path = column_name.split('.')
     elif "LegalEntity" in column_name:
         match = re.match(r'LegalEntity\.(.+)', column_name)
-        oht_type = "LegalEntity"  # e.g., 'RepeatedDoseToxicity'
-        field_path = match.group(1).split('.')  # e.g., ['MaterialsAndMethods', 'TestAnimals', 'Sex', 'value']
-    return oht_type, field_path
+        if match:
+            oht_type = "LegalEntity"
+            field_path = match.group(1).split('.')
+        else:
+            oht_type = None
+            field_path = column_name.split('.')
+    else:
+        # Fallback case for unexpected paths
+        oht_type = None
+        field_path = column_name.split('.')  # Treat the entire path as a field path
 
+    return oht_type, field_path
 
 def camel_to_snake(name):
     return re.sub(r'(?<!^)(?=[A-Z])', '_', name).lower()
@@ -530,7 +517,7 @@ def generate_uuid():
     return str(uuid.uuid4())
 
 
-def create_platform_metadata(oht_type):
+def create_platform_metadata(oht_type, definition_version="7.0"):
     return {
         "iuclidVersion": "7.0.7",
         "documentKey": f"{generate_uuid()}/{generate_uuid()}",
@@ -539,7 +526,7 @@ def create_platform_metadata(oht_type):
         "documentType": oht_type,
         "documentSubType": "",
         "orderInSectionNo": "1",
-        "definitionVersion": "8.0",
+        "definitionVersion": definition_version,
         "creationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "lastModificationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "submissionType": "",
@@ -551,9 +538,11 @@ def create_platform_metadata(oht_type):
         "snapshotCreationTool": "IUC6"
     }
 
-
-def get_oht_classes(oht_type):
-    module_name = f"entity_models.{oht_type.lower()}_6_5.models"
+def get_oht_classes(oht_type, version="6_7"):
+    """
+    Dynamically import the OHT class and nested classes for the given version.
+    """
+    module_name = f"entity_models_{version}.{oht_type.lower()}_6_5.models"
     module = importlib.import_module(module_name)
     if oht_type == 'TestMaterialInformation':
         oht_class_name = oht_type
@@ -568,7 +557,6 @@ def get_oht_classes(oht_type):
     oht_class = getattr(module, oht_class_name)
     nested_classes = {cls_name: getattr(module, cls_name) for cls_name in dir(module) if
                       cls_name.startswith(oht_class_name)}
-
     return oht_class, nested_classes
 
 
@@ -604,18 +592,16 @@ def set_nested_field(instance, field_path, value):
 
 
 def create_instance_from_csv_row(oht_class, nested_classes, row_data):
-    # Create an instance of the top-level class
-    oht_instance = oht_class()
+    """
+    Create an instance of the top-level class and populate it with data from a row.
+    """
+    oht_instance = oht_class()  # Create an instance of the class
     for column_name, value in row_data.items():
-        #st.write(value)
         if pd.isna(value) or value in [None, 'None', 'none', 'NA', 'na', '']:
-            #st.write(value)
-            continue
-        else:
-            _, field_path = parse_column_name(column_name)
-            if field_path:
-                set_nested_field(oht_instance, field_path, value)
-
+            continue  # Skip empty values
+        field_path = column_name.split(".")  # Split the path into parts
+        print(f"Populating field: {field_path} with value: {value}")  # Debugging
+        set_nested_field(oht_instance, field_path, value)  # Populate the instance
     return oht_instance
 
 
@@ -667,37 +653,33 @@ def map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns
     return oht_instances
 
 
-def create_xml_serializer(oht_type):
-    # Initialize the XML context with the package containing the OHT models
+def create_xml_serializer(oht_type, version="6_7"):
+    """
+    Create an XML serializer for the given OHT type and version.
+    """
     try:
-        context = XmlContext(models_package=f"entity_models.{oht_type.lower()}_6_5.models")
+        context = XmlContext(models_package=f"entity_models_{version}.{oht_type.lower()}_6_5.models")
     except Exception as e:
         print("Error in create_xml_serializer:", e)
-    # Build the context recursively to include all related classes
-    context.build_recursive(get_oht_classes(oht_type)[0])
-
-    # Define the namespace mapping for the XML document
+    context.build_recursive(get_oht_classes(oht_type, version)[0])
     ns_map = {
-        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/9.0",  # Default namespace
-        "i6": "http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1",  # Namespace for platform fields
+        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/8.0",
+        "i6": "http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1",
     }
-
-    # Configure the XML serializer with pretty print and XML declaration settings
     config = SerializerConfig(
-        pretty_print=True,  # Format the XML with indentation for readability
-        xml_declaration=True,  # Include the XML declaration at the top of the document
-        ignore_default_attributes=True,  # Ignore default attributes during serialization
+        pretty_print=True,
+        xml_declaration=True,
+        ignore_default_attributes=True,
     )
-
-    # Create the XML serializer with the specified configuration and context
     serializer = XmlSerializer(config=config, context=context)
-    return serializer, ns_map  # Return the serializer and namespace mapping
+    return serializer, ns_map
 
 
-def instance_to_i6d(instance, output_dir, oht_type, parent_key=None, is_attachment=False):
+def instance_to_i6d(instance, output_dir, oht_type, version="6_7", parent_key=None, is_attachment=False, definition_version="7.0"):
     """Convert an instance to an i6d XML file."""
+    print(f"Writing new i6d file to: {file_path}")
     # Create an XML serializer and namespace mapping for the given OHT type
-    serializer, ns_map = create_xml_serializer(oht_type)
+    serializer, ns_map = create_xml_serializer(oht_type, version)
 
     # Serialize the instance to XML
     xml_content = serializer.render(instance, ns_map)
@@ -706,7 +688,7 @@ def instance_to_i6d(instance, output_dir, oht_type, parent_key=None, is_attachme
     xml_content = xml_content.split("?>", 1)[1].strip()
     document_type = to_document_type_format(oht_type)
     # Create platform metadata for the i6d file
-    platform_metadata = create_platform_metadata(document_type)
+    platform_metadata = create_platform_metadata(document_type, definition_version=definition_version)
     if parent_key:
         platform_metadata['parentDocumentKey'] = parent_key
     platform_metadata['documentKey'] = instance.uuid
@@ -736,7 +718,7 @@ def instance_to_i6d(instance, output_dir, oht_type, parent_key=None, is_attachme
 
     # Define the namespace mapping for the entire i6d document
     ns_map = {
-        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/9.0",  # Default namespace
+        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/8.0",  # Default namespace
         "i6c": "http://iuclid6.echa.europa.eu/namespaces/platform-container/v2",  # Namespace for platform container
         "xsi": "http://www.w3.org/2001/XMLSchema-instance",  # XML Schema instance namespace
     }
@@ -1054,47 +1036,37 @@ def update_endpoint_study_records_with_test_materials(instances, test_material_u
 
 
 def get_model_fields(model, prefix=""):
+    """
+    Retrieve all fields from a model class, including nested fields.
+    Args:
+        model: The model class to introspect.
+        prefix (str): The prefix to prepend to field names.
+    Returns:
+        list: A list of all field paths in the model.
+    """
     fields = []
     for field_name, field_type in model.__annotations__.items():
         full_path = f"{prefix}.{field_name}" if prefix else field_name
         actual_type = get_actual_type2(field_type)
-        #print('actual_type:')
-        #print(type(actual_type))
-        if isinstance(actual_type, typing._GenericAlias):
-            continue
+        if hasattr(actual_type, "__annotations__"):  # Check if the field is a nested class
+            fields.extend(get_model_fields(actual_type, full_path))
         else:
-
-            if hasattr(actual_type, "__annotations__") and hasattr(actual_type, "__name__"):
-                if ("Substance" in actual_type.__name__ or "EndpointStudyRecord" in actual_type.__name__ or
-                        "ReferenceSubstance" in actual_type.__name__ or
-                        "TestMaterialInformation" in actual_type.__name__ or "LegalEntity" in actual_type.__name__):
-                    nested_fields = get_model_fields(actual_type, full_path)
-                    fields.extend(nested_fields)
-                else:
-                    fields.append(full_path)
-            else:
-                if hasattr(field_type, "__origin__") and field_type.__origin__ is list:
-                    element_type = field_type.__args__[0]
-                    actual_element_type = get_actual_type2(element_type)
-                    if hasattr(actual_element_type, "__annotations__"):
-                        if ("Substance" in getattr(actual_type, '__name__') or "EndpointStudyRecord" in getattr(actual_type, '__name__') or
-                                "ReferenceSubstance" in getattr(actual_type, '__name__') or
-                                "TestMaterialInformation" in getattr(actual_type, '__name__') or "LegalEntity" in getattr(actual_type, '__name__')):
-                            nested_fields = get_model_fields(actual_type, full_path)
-                            fields.extend(nested_fields)
-                        else:
-                            fields.append(full_path)
-                    else:
-                        fields.append(full_path)
-                else:
-                    fields.append(full_path)
+            fields.append(full_path)
     return fields
 
 
-def load_and_introspect_models(model_names):
+def load_and_introspect_models(model_names, version):
+    """
+    Load and introspect models for the specified IUCLID version.
+    Args:
+        model_names (list): List of model names to load.
+        version (str): The IUCLID version (e.g., "6_7").
+    Returns:
+        set: A set of unique fields from the models.
+    """
     unique_cols = set()
     for model_name in model_names:
-        module_name = f"entity_models.{model_name.lower()}_6_5.models"
+        module_name = f"entity_models_{version}.{model_name.lower()}_6_5.models"
         module = importlib.import_module(module_name)
         model_class = getattr(module, model_name)
         fields = get_model_fields(model_class, model_name)
@@ -1183,3 +1155,436 @@ def create_i6d_for_attachment(attachment_file, output_dir):
     tree = etree.ElementTree(root)
     tree.write(file_path, pretty_print=True, xml_declaration=True, encoding="UTF-8")
     return document_key_clean
+
+def strip_namespace(tag):
+    """
+    Remove the namespace from an XML tag.
+    Args:
+        tag (str): The XML tag with a namespace.
+    Returns:
+        str: The tag without the namespace.
+    """
+    return tag.split('}')[-1] if '}' in tag else tag
+
+
+def extract_i6z_files(i6z_file_path, extract_dir):
+    """
+    Extract all .i6d files from an i6z archive.
+    Args:
+        i6z_file_path (str): Path to the i6z file.
+        extract_dir (str): Directory to extract the files into.
+    Returns:
+        list: List of paths to extracted .i6d files.
+    """
+    os.makedirs(extract_dir, exist_ok=True)
+    i6d_files = []
+
+    with zipfile.ZipFile(i6z_file_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_dir)
+        for file_name in zip_ref.namelist():
+            if file_name.endswith('.i6d'):
+                i6d_files.append(os.path.join(extract_dir, file_name))
+
+    return i6d_files
+
+
+def extract_fields_from_i6d(root):
+    fields = {}
+
+    # Extract the base class name from the documentType and documentSubType
+    namespaces = {
+        'i6c': 'http://iuclid6.echa.europa.eu/namespaces/platform-container/v2',
+        'i6m': 'http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1'
+    }
+    platform_metadata = root.find(".//i6c:PlatformMetadata", namespaces)
+    base_class = None
+    if platform_metadata is not None:
+        document_type = platform_metadata.find("i6m:documentType", namespaces)
+        document_subtype = platform_metadata.find("i6m:documentSubType", namespaces)
+        if document_type is not None and document_type.text is not None:
+            base_class = f"ENDPOINT_STUDY_RECORD.{document_subtype.text.strip()}" if document_subtype is not None else document_type.text.strip()
+            print(f"Base class determined: {base_class}")
+
+    # Traverse the XML tree and extract paths
+    def traverse(element, parent_path=""):
+        for child in element:
+            # Construct the current path
+            tag = strip_namespace(child.tag)
+            current_path = f"{parent_path}.{tag}" if parent_path else tag
+
+            # Normalize the path
+            normalized_path = normalize_path(current_path, base_class)
+
+            # Add the normalized path and value to the dictionary
+            fields[normalized_path] = child.text
+
+            # Recursively traverse child elements
+            traverse(child, current_path)
+
+    traverse(root)
+
+    # Debugging: Print all extracted fields
+    print("Extracted fields:")
+    for path, value in fields.items():
+        print(f"{path}: {value}")
+
+    return fields
+
+def normalize_path(path, base_class=None):
+    """
+    Normalize paths to ensure consistent matching between extracted paths and definitions.
+    Args:
+        path (str): The original path.
+        base_class (str): The base class name to prepend to the path (optional).
+    Returns:
+        str: The normalized path.
+    """
+    if not isinstance(path, str):
+        return ""  # Return an empty string for non-string values (e.g., NaN)
+
+    # Debugging: Print the original path
+    print(f"Original path: {path}")
+
+    # Step 1: Remove everything before the second occurrence of "ENDPOINT_STUDY_RECORD"
+    if path.count("ENDPOINT_STUDY_RECORD") > 1:
+        second_occurrence_index = path.find("ENDPOINT_STUDY_RECORD", path.find("ENDPOINT_STUDY_RECORD") + 1)
+        path = path[second_occurrence_index:]
+
+    # Step 2: Replace "ENDPOINT.STUDY.RECORD" with "ENDPOINT_STUDY_RECORD"
+    path = path.replace("ENDPOINT.STUDY.RECORD", "ENDPOINT_STUDY_RECORD")
+
+    # Step 3: Split the path into parts and convert parts after the third to snake case
+    def camel_to_snake(name):
+        return re.sub(r'(?<!^)(?=[A-Z])', '_', name).lower()
+
+    path_parts = path.split(".")
+    normalized_parts = []
+    for i, part in enumerate(path_parts):
+        if i < 3:  # Preserve the first three parts as they are
+            normalized_parts.append(part)
+        else:  # Convert subsequent parts to snake case
+            normalized_parts.append(camel_to_snake(part))
+
+    path = ".".join(normalized_parts)
+
+    # Step 4: Prepend the base class name if provided
+    if base_class and base_class.startswith("ENDPOINT_STUDY_RECORD"):
+        if not path.startswith(base_class):
+            path = f"{base_class}.{path}"
+
+    # Debugging: Print the final normalized path
+    print(f"Normalized path: {path}")
+
+    return path
+
+def process_single_i6d(i6d_file, definitions_df, target_version, output_dir, definition_version="7.0"):
+    """
+    Process a single .i6d file by applying path transformations and saving the updated file.
+    Args:
+        i6d_file (str): Path to the .i6d file.
+        definitions_df (pd.DataFrame): DataFrame containing path mappings.
+        target_version (str): Target IUCLID version (e.g., "6_7").
+        output_dir (str): Directory to save the updated .i6d file.
+    """
+    # Parse the XML document
+    tree = etree.parse(i6d_file)
+    root = tree.getroot()
+
+    # Step 1: Extract the entity type from PlatformMetadata
+    entity_type = get_entity_type(root)  # Use the correct entity type
+    print(f"Entity type: {entity_type}")
+
+    # Step 2: Extract fields from the original i6d file
+    extracted_fields = extract_fields_from_i6d(root)
+    print("Extracted fields:")
+    for path, value in extracted_fields.items():
+        print(f"{path}: {value}")
+
+    # Step 3: Extract the uuid from the documentKey
+    document_uuid = extracted_fields.get("documentKey")
+    print(f"Processing {i6d_file}, Extracted UUID: {document_uuid}")
+
+    # Map old paths to new paths
+    path_mappings = {}
+    for path in extracted_fields.keys():
+        normalized_path = normalize_path(path, base_class=entity_type)  # Use the entity type as the base class
+        matching_row = definitions_df[definitions_df['To Value'] == normalized_path]
+        if not matching_row.empty:
+            from_value = matching_row.iloc[0]['From Value']
+            if pd.notna(from_value):
+                path_mappings[normalized_path] = from_value
+        else:
+            print(f"Warning: No mapping found for path: {normalized_path}")
+
+    # Debugging: Print path mappings
+    print("Path mappings:")
+    for old_path, new_path in path_mappings.items():
+        print(f"{old_path} -> {new_path}")
+
+    # Step 5: Load the entity model class dynamically
+    oht_class, nested_classes = get_oht_classes(
+        entity_type.split(".")[-1], version=target_version)  # Use the sub-entity type for ENDPOINT_STUDY_RECORD
+    st.write(f"Loaded OHT class: {oht_class}")
+    
+    # Step 6: Convert extracted fields into a DataFrame
+    extracted_fields_df = pd.DataFrame(list(extracted_fields.items()), columns=["Path", "Value"])
+
+    # Step 7: Map old paths to new paths, including subpaths
+    def map_path(path, path_mappings):
+        for base_path, mapped_path in path_mappings.items():
+            if path.startswith(base_path):
+                return path.replace(base_path, mapped_path, 1)
+        return path
+
+    extracted_fields_df["MappedPath"] = extracted_fields_df["Path"].apply(
+        lambda path: map_path(path, path_mappings)
+    )
+
+    # Step 8: Convert the mapped DataFrame into a dictionary
+    mapped_data = extracted_fields_df.set_index("MappedPath")["Value"].to_dict()
+    normalized_mapped_data = {normalize_path(path): value for path, value in mapped_data.items()}
+
+    # Step 9: Filter the mapped data
+    valid_fields = set(get_model_fields(oht_class))
+    filtered_mapped_data = {path: value for path, value in normalized_mapped_data.items() if path in valid_fields}
+
+    # Debugging: Print missing fields
+    missing_fields = [path for path in normalized_mapped_data.keys() if path not in valid_fields]
+    if missing_fields:
+        print(f"Warning: The following fields are missing from the model: {missing_fields}")
+
+    # Step 10: Create the model instance
+    oht_instance = create_instance_from_csv_row(oht_class, nested_classes, filtered_mapped_data)
+    if document_uuid:
+        oht_instance.uuid = document_uuid
+    else:
+        oht_instance.uuid = f"{generate_uuid()}/{generate_uuid()}"
+        print(f"No UUID found in {i6d_file}. Generated a new UUID.")
+
+    # # Debugging: Print extracted paths
+    # print("Extracted paths:")
+    # for path, value in extracted_fields.items():
+    #     print(f"{path}: {value}")
+    #
+    # # Debugging: Print mapped paths
+    # print("Mapped paths:")
+    # for current_path, new_path in path_mappings.items():
+    #     print(f"{current_path} -> {new_path}")
+    #
+    # # Debugging: Print populated fields
+    # print("Populated fields:")
+    # for field_name, value in vars(oht_instance).items():
+    #     print(f"{field_name}: {value}")
+
+    # Step 11: Serialize the instance to an i6d XML file
+    instance_to_i6d(oht_instance, output_dir, entity_type.split(".")[-1], version=target_version, definition_version=definition_version)  # Use the sub-entity type for the file name
+
+def get_entity_type(root):
+    """
+    Extract the entity type from the PlatformMetadata section of the i6d file.
+    Args:
+        root (etree.Element): The root element of the XML tree.
+    Returns:
+        str: The entity type (e.g., "DevelopmentalToxicityTeratogenicity", "LegalEntity").
+    """
+    namespaces = {
+        "i6c": "http://iuclid6.echa.europa.eu/namespaces/platform-container/v2",
+        "i6m": "http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1",
+    }
+    platform_metadata = root.find(".//i6c:PlatformMetadata", namespaces)
+    if platform_metadata is not None:
+        # Extract the documentType
+        document_type = platform_metadata.find("i6m:documentType", namespaces)
+        if document_type is not None and document_type.text is not None:
+            entity_type = document_type.text.strip()
+            # Debugging: Print the extracted documentType
+            print(f"Extracted documentType: {entity_type}")
+
+            # Handle ENDPOINT_STUDY_RECORD sub-entities
+            if entity_type == "ENDPOINT_STUDY_RECORD":
+                sub_entity_type = platform_metadata.find("i6m:documentSubType", namespaces)
+                if sub_entity_type is not None and sub_entity_type.text is not None:
+                    sub_entity_type_text = sub_entity_type.text.strip()
+                    print(f"Extracted documentSubType: {sub_entity_type_text}")
+                    return f"{entity_type}.{sub_entity_type_text}"
+
+            # Return the documentType for non-ENDPOINT_STUDY_RECORD entities
+            return entity_type
+
+    raise ValueError("Unable to identify entity type for the i6d file.")
+
+def process_i6d_files(i6d_files, output_dir, definitions_df, target_version):
+    """
+    Process all .i6d files by applying path transformations and saving updated files.
+    Args:
+        i6d_files (list): List of paths to .i6d files.
+        output_dir (str): Directory to save the updated .i6d files.
+        definitions_df (pd.DataFrame): DataFrame containing path mappings.
+        target_version (str): Target IUCLID version (e.g., "6_7").
+    """
+    os.makedirs(output_dir, exist_ok=True)
+
+    for i6d_file in i6d_files:
+        # Parse the XML
+        tree = etree.parse(i6d_file)
+        root = tree.getroot()
+
+        # Identify the entity type
+        entity_type = identify_entity_type(root)
+        print(f"Processing {i6d_file} as entity type: {entity_type}")
+
+        # Load the corresponding entity model class
+        oht_class, nested_classes = get_oht_classes(entity_type)
+
+        # Extract fields and apply path transformations
+        extracted_fields = extract_fields_from_i6d(root)
+        path_mappings = {}
+        for path in extracted_fields.keys():
+            matching_row = definitions_df[definitions_df['To Value'] == path]
+            if not matching_row.empty:
+                from_value = matching_row.iloc[0]['From Value']
+                if pd.notna(from_value):
+                    path_mappings[path] = from_value
+
+        # Update paths in the XML
+        update_paths_in_i6d(root, path_mappings)
+
+        # Save the updated .i6d file
+        file_name = os.path.basename(i6d_file)
+        save_updated_i6d(root, output_dir, file_name)
+
+
+def create_new_i6z(updated_i6d_dir, output_i6z_path, original_i6z_path):
+    """
+    Create a new i6z archive containing updated .i6d files, .xsl files, and a manifest.
+    Args:
+        updated_i6d_dir (str): Directory containing updated .i6d files.
+        output_i6z_path (str): Path to save the new i6z file.
+        original_i6z_path (str): Path to the original i6z file.
+    """
+    # Create the new i6z archive
+    with zipfile.ZipFile(output_i6z_path, 'w', zipfile.ZIP_DEFLATED) as i6z:
+        with zipfile.ZipFile(original_i6z_path, 'r') as original_i6z:
+            for file_name in original_i6z.namelist():
+                original_file_path = os.path.join(updated_i6d_dir, file_name)
+                if os.path.exists(original_file_path):
+                    # Add the updated file if it exists
+                    i6z.write(original_file_path, file_name)
+                else:
+                    # Add the original file if no updated version exists
+                    i6z.writestr(file_name, original_i6z.read(file_name))
+
+
+def normalize_xsl_name(name):
+    """
+    Normalize .xsl file names and documentType/documentSubType values for consistent matching.
+    Args:
+        name (str): The name to normalize.
+    Returns:
+        str: The normalized name.
+    """
+    # Remove underscores, convert to lowercase, and strip redundant prefixes/suffixes
+    name = name.replace("_", "").lower()
+    if name.startswith("endpointstudyrecord-"):
+        name = name.replace("endpointstudyrecord-", "endpointstudyrecord-", 1)
+    elif name.startswith("testmaterialinformation"):
+        name = "testmaterialinformation"
+    elif name.startswith("referencesubstance"):
+        name = "referencesubstance"
+    elif name.startswith("legalentity"):
+        name = "legalentity"
+    elif name.startswith("substance"):
+        name = "substance"
+    return name
+
+def update_paths_in_i6d(root, path_mappings):
+    """
+    Update the paths in the i6d XML structure based on the path mappings.
+    Args:
+        root (etree.Element): The root element of the XML tree.
+        path_mappings (dict): A dictionary mapping current paths to new paths.
+    """
+    # Extract all actual paths from the i6d file
+    actual_paths = extract_fields_from_i6d(root).keys()
+
+    # Define a namespace map (if applicable)
+    namespaces = {'ns': 'http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-DevelopmentalToxicityTeratogenicity/8.0'}
+
+    for current_path, new_path in path_mappings.items():
+        # Only proceed if the current path exists in the i6d file
+        if current_path in actual_paths:
+            # Convert dot notation to XPath
+            xpath = current_path.replace('.', '/')
+            xpath = '/'.join([f'ns:{part}' for part in xpath.split('/')])  # Add namespace prefix
+            new_tag = new_path.split('.')[-1]  # Use the last part of the new path as the tag
+
+            # Debugging: Print the XPath and new tag
+            print(f"Looking for element with XPath: {xpath}")
+            element = root.find(xpath, namespaces)
+            if element is not None:
+                print(f"Updating tag: {current_path} -> {new_path}")
+                element.tag = new_tag
+            else:
+                print(f"Element not found for path: {current_path}")
+        else:
+            print(f"Skipping path (not in i6d): {current_path}")
+
+
+def populate_model_instance(model_class, extracted_fields):
+    """
+    Populate a model instance with values from the extracted fields.
+    Args:
+        model_class: The model class to populate.
+        extracted_fields (dict): A dictionary of paths and their values.
+    Returns:
+        An instance of the model class populated with the extracted values.
+    """
+    instance = model_class()
+    for field_name, field_type in model_class.__annotations__.items():
+        field_path = field_name.replace("_", ".")  # Convert field names to paths
+        if field_path in extracted_fields:
+            value = extracted_fields[field_path]
+            setattr(instance, field_name, value)
+    return instance
+
+
+def identify_entity_type(root):
+    """
+    Identify the entity type of an i6d file based on its root element or metadata.
+    Args:
+        root (etree.Element): The root element of the XML tree.
+    Returns:
+        str: The entity type (e.g., "DevelopmentalToxicityTeratogenicity", "LegalEntity").
+    """
+    namespaces = {
+        'i6c': 'http://iuclid6.echa.europa.eu/namespaces/platform-container/v2',
+        'i6m': 'http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1'
+    }
+    platform_metadata = root.find(".//i6c:PlatformMetadata", namespaces)
+    if platform_metadata is not None:
+        document_type = platform_metadata.find("i6m:documentType", namespaces)
+        if document_type is not None:
+            return document_type.text
+    raise ValueError("Unable to identify entity type for the i6d file.")
+
+
+def save_updated_i6d(root, output_dir, original_file_name):
+    """
+    Save the updated i6d XML structure to a file with the original file name.
+    Args:
+        root (etree.Element): The root element of the updated XML tree.
+        output_dir (str): The directory to save the file.
+        original_file_name (str): The original file name to use for saving.
+    Returns:
+        str: The path to the saved file.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+    file_path = os.path.join(output_dir, original_file_name)
+    tree = etree.ElementTree(root)
+
+    # Debugging: Print the XML being saved
+    print(f"Saving updated XML to {file_path}")
+    print(etree.tostring(root, pretty_print=True).decode())
+
+    tree.write(file_path, pretty_print=True, xml_declaration=True, encoding="UTF-8")
+    return file_path

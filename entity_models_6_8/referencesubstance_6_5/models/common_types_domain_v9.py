@@ -1,0 +1,76 @@
+from enum import Enum
+
+__NAMESPACE__ = "http://iuclid6.echa.europa.eu/namespaces/domain/v9"
+
+
+class N05(Enum):
+    VALUE = ""
+    VALUE_2943 = "2943"
+    VALUE_2857 = "2857"
+    VALUE_2875 = "2875"
+    VALUE_2916 = "2916"
+    VALUE_60824 = "60824"
+    VALUE_3001 = "3001"
+    VALUE_60825 = "60825"
+    VALUE_60826 = "60826"
+    VALUE_1342 = "1342"
+
+
+class N64(Enum):
+    VALUE = ""
+    VALUE_2732 = "2732"
+    VALUE_2859 = "2859"
+    VALUE_3441 = "3441"
+
+
+class N78(Enum):
+    VALUE = ""
+    VALUE_107837 = "107837"
+    VALUE_209 = "209"
+    VALUE_210 = "210"
+    VALUE_733 = "733"
+    VALUE_9000 = "9000"
+    VALUE_131757 = "131757"
+    VALUE_5793 = "5793"
+    VALUE_735 = "735"
+    VALUE_131758 = "131758"
+    VALUE_131759 = "131759"
+    VALUE_919 = "919"
+    VALUE_131760 = "131760"
+    VALUE_107836 = "107836"
+    VALUE_1313 = "1313"
+    VALUE_131761 = "131761"
+    VALUE_1646 = "1646"
+    VALUE_1647 = "1647"
+    VALUE_1648 = "1648"
+    VALUE_1342 = "1342"
+
+
+class N95(Enum):
+    VALUE = ""
+    VALUE_3865 = "3865"
+    VALUE_3866 = "3866"
+    VALUE_60818 = "60818"
+    VALUE_3867 = "3867"
+    VALUE_3868 = "3868"
+    VALUE_2193 = "2193"
+    VALUE_1342 = "1342"
+
+
+class Pg660192(Enum):
+    VALUE = ""
+    VALUE_65560 = "65560"
+    VALUE_4174 = "4174"
+    VALUE_4175 = "4175"
+    VALUE_60820 = "60820"
+    VALUE_2757 = "2757"
+    VALUE_138211 = "138211"
+    VALUE_60821 = "60821"
+    VALUE_4177 = "4177"
+    VALUE_4178 = "4178"
+    VALUE_60822 = "60822"
+    VALUE_3452 = "3452"
+    VALUE_60823 = "60823"
+    VALUE_4176 = "4176"
+    VALUE_65195 = "65195"
+    VALUE_1342 = "1342"
