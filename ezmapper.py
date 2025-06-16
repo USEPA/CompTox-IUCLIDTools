@@ -18,7 +18,38 @@ import threading
 import time
 import logging
 
+# Custom javascript to scroll to element by id
+def jump_to_anchor(element_id):
+    js = f"""
+           <script>
+               function scrollToElement() {{
+                   var element = window.parent.document.getElementById('{element_id}');
+                   if (element) {{
+                       element.scrollIntoView({{behavior: 'smooth'}});
+                   }} else {{
+                       setTimeout(scrollToElement, 100);
+                   }}
+               }}
+               scrollToElement();
+           </script>
+       """
+    # Height of 0 so it doesn't take up space in the webpage
+    st.components.v1.html(js, height=0)
+
 st.set_page_config(layout="wide")
+
+# Custom CSS to hide iframe height = 0 elements
+# https://github.com/streamlit/streamlit/issues/6605
+st.markdown(
+    f""" 
+        <style>
+        .element-container:has(iframe[height="0"]) {{
+          display: none;
+        }}
+        </style>
+    """, unsafe_allow_html=True
+)
+
 #temp_field_suggestions = None
 suggestions_lock = threading.Lock()
 # Suppress specific warnings from openpyxl that are not relevant for the user
@@ -122,7 +153,7 @@ else:
 
 # Display the data editor once the classify button has been pressed
 if "edited_df" in st.session_state and st.session_state.classify_pressed:
-    st.title("Step 1: Classify Records to OHTs")
+    st.title("Step 1: Classify Records to OHTs", anchor = 'step1')
     st.write("**Verify and Edit Classifications:**")
     edited_df = st.session_state["edited_df"]
     display_data_editor(edited_df, oht_files)
@@ -133,26 +164,45 @@ if "edited_df" in st.session_state and st.session_state.classify_pressed:
     if confirm_button:
         edited_df = st.session_state.df1
         split_dataframe(edited_df)
+        # Scroll to newly generated section
+        jump_to_anchor("step2")
 
 # Dropdown menu for selecting a DataFrame to map columns after splitting
 if st.session_state.get("split_done", False):
-    st.sidebar.divider() # Horizontal divider
-    st.sidebar.title("DataFrame OHT Splits")
-    selected_df_key = st.sidebar.selectbox(
+    st.divider() # Horizontal divider
+    st.title("Step 2: DataFrame OHT Splits", anchor = 'step2')
+    selected_df_key = st.selectbox(
         "Select a DataFrame to Map Columns:",
         options=["None"] + list(st.session_state.grouped_dfs.keys()),
         index=0,
         key="selected_df_key",
     )
 
+    if "ss_selected_oht" not in st.session_state:
+        st.session_state.ss_selected_oht = selected_df_key
+
     # Display the selected DataFrame if a valid selection is made
-    if selected_df_key != "None":
+    # or OHT has been switched
+    if selected_df_key != "None" and st.session_state.ss_selected_oht != selected_df_key:
+        st.session_state.ss_selected_oht = selected_df_key
+        print(f'Selected: {selected_df_key} and state: {st.session_state.ss_selected_oht}')
         st.divider() # Horizontal divider
-        st.title("Step 2: Format Columns")
+        st.title("Step 3: Format Columns", anchor = 'step3')
         st.session_state.selected_df = st.session_state.grouped_dfs[selected_df_key]
         st.write(
             f"DataFrame for {selected_df_key} has {len(st.session_state.selected_df)} rows."
         )
+
+        # Render OHT docx as HTML in new window
+        # selected_oht = selected_df_key
+        st.session_state.selected_oht = selected_df_key
+        oht_docx_path = oht_files[selected_df_key]["docx"]
+        st.session_state.oht_docx_path = oht_docx_path
+
+        st.write("**Review OHT Documentation**")
+        # Display the associated Word document for the OHT
+        with st.spinner("Opening OHT documentation in new browser tab...", show_time=True):
+            display_word_document(oht_docx_path)
 
         # Initialize session state for the DataFrame if it doesn't exist
         if "modified_df" not in st.session_state:
@@ -160,17 +210,9 @@ if st.session_state.get("split_done", False):
 
 # Section for merging or splitting columns in the DataFrame
 if st.session_state.split_done and selected_df_key != "None":
-    selected_oht = selected_df_key
-    st.session_state.selected_oht = selected_oht
-    oht_docx_path = oht_files[selected_oht]["docx"]
-    st.session_state.oht_docx_path = oht_docx_path
-
-    st.write("**Review OHT Documentation**")
-    # Display the associated Word document for the OHT
-    display_word_document(oht_docx_path)
-
+    jump_to_anchor("step3")
     st.write("**Merge Columns**")
-    col1, col2, new_col_name = st.columns(3)
+    col1, col2, merge_delimiter, new_col_name = st.columns(4)
     with col1:
         merge_col1 = st.selectbox(
             "First column to merge:",
@@ -183,6 +225,8 @@ if st.session_state.split_done and selected_df_key != "None":
             [""] + list(st.session_state.modified_df.columns),
             key="merge_col2",
         )
+    with merge_delimiter:
+        merge_delimiter = st.text_input("Enter the delimiter:", key="merge_delimiter")
     with new_col_name:
         new_merge_col_name = st.text_input(
             "Enter the new column name:", key="new_merge_col_name"
@@ -190,7 +234,7 @@ if st.session_state.split_done and selected_df_key != "None":
 
     # Merge columns based on user selection
     if st.button("Merge Columns", icon=":material/cell_merge:"):
-        merge_columns(st.session_state.modified_df, merge_col1, merge_col2, new_merge_col_name)
+        merge_columns(st.session_state.modified_df, merge_col1, merge_col2, merge_delimiter, new_merge_col_name)
 
     # Section for splitting columns based on a delimiter
     st.write("**Split Column**")
@@ -222,9 +266,9 @@ if st.session_state.split_done and selected_df_key != "None":
             st.sidebar.error("Invalid JSON file. Please upload a valid column mapping JSON file.")
 
     # Check if the user has made a selection
-    if selected_oht:
+    if selected_df_key:
         # Extract the OHT number from the selected key
-        oht_parts = selected_oht.split(":")
+        oht_parts = selected_df_key.split(":")
         oht_number = oht_parts[0].strip()
         oht_type = oht_parts[1].strip().replace(" ", "") if len(oht_parts) > 1 else oht_number
 
