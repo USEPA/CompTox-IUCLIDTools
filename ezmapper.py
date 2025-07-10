@@ -255,6 +255,7 @@ if st.session_state.split_done and selected_df_key != "None":
         generate_i6z_button = st.button("Generate i6z File")
         if generate_i6z_button:
             #st.write('generating')
+            main_uuid = str(uuid.uuid4())
             try:
                 column_mapping_dict = column_mapping
                 data = apply_column_mapping(column_mapping, st.session_state.modified_df)
@@ -262,7 +263,8 @@ if st.session_state.split_done and selected_df_key != "None":
                 #tm_data = data[[col for col in data.columns if col in test_material_columns]]
                 if test_material_columns:
                     test_material_instances, test_material_uuid_map = create_test_material_instances(data,
-                                                                                                 test_material_columns)
+                                                                                                 test_material_columns,
+                                                                                                 main_uuid)
                 else:
                     test_material_instances, test_material_uuid_map = None, None
                 #data = data.drop(columns=[col for col in test_material_columns if col in data.columns])
@@ -270,7 +272,8 @@ if st.session_state.split_done and selected_df_key != "None":
                 #le_data = data[[col for col in data.columns if col in legal_entity_columns]]
                 if legal_entity_columns:
                     legal_entity_instances, legal_entity_uuid_map = create_legal_entity_instances(data,
-                                                                                              legal_entity_columns)
+                                                                                              legal_entity_columns,
+                                                                                              main_uuid)
                 else:
                     legal_entity_instances, legal_entity_uuid_map = None, None
                 #data = data.drop(columns=[col for col in legal_entity_columns if col in data.columns])
@@ -279,7 +282,7 @@ if st.session_state.split_done and selected_df_key != "None":
 
                 #ref_data = data[[col for col in data.columns if col in ref_sub_columns]]
                 if ref_sub_columns:
-                    ref_sub_instances, ref_sub_uuid_map = create_ref_sub_instances(data, ref_sub_columns)
+                    ref_sub_instances, ref_sub_uuid_map = create_ref_sub_instances(data, ref_sub_columns, main_uuid)
                 else:
                     ref_sub_instances, ref_sub_uuid_map = None, None
                 #data = data.drop(columns=[col for col in ref_sub_columns if col in data.columns])
@@ -287,18 +290,19 @@ if st.session_state.split_done and selected_df_key != "None":
                 substance_columns = get_substance_columns(column_mapping_dict)
                 #sub_data = data[[col for col in data.columns if col in substance_columns]]
                 if substance_columns:
-                    substance_instances, substance_uuid_map = create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_sub_columns)
+                    substance_instances, substance_uuid_map = create_substance_instances(data, substance_columns, ref_sub_uuid_map, 
+                                                                                         ref_sub_columns, main_uuid)
                 else:
                     substance_instances, substance_uuid_map = None, None
                 #data = data.drop(columns=[col for col in substance_columns if col in data.columns])
                 #st.write('prestuff')
 
                 oht_instances = map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns,
-                                                         substance_uuid_map, substance_columns)
+                                                         substance_uuid_map, substance_columns, main_uuid)
                 output_dir = 'output'
                 i6z_file_path = 'output/data.i6z'
                 generate_i6z(oht_instances, test_material_instances, legal_entity_instances, ref_sub_instances,
-                             substance_instances, output_dir, i6z_file_path, data, uploaded_other_files)
+                             substance_instances, output_dir, i6z_file_path, data, uploaded_other_files, main_uuid)
 
                 st.write("Successfully Generated")
                 outfile_name = base_file_name + '.i6z'

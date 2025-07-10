@@ -530,10 +530,10 @@ def generate_uuid():
     return str(uuid.uuid4())
 
 
-def create_platform_metadata(oht_type):
+def create_platform_metadata(oht_type, main_uuid):
     return {
         "iuclidVersion": "7.0.7",
-        "documentKey": f"{generate_uuid()}/{generate_uuid()}",
+        "documentKey": f"{generate_uuid()}/{main_uuid}",
         "parentDocumentKey": "",
         "name": "",
         "documentType": oht_type,
@@ -619,7 +619,8 @@ def create_instance_from_csv_row(oht_class, nested_classes, row_data):
     return oht_instance
 
 
-def map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns, substance_uuid_map, substance_columns):
+def map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns, substance_uuid_map, substance_columns,
+                             main_uuid):
     oht_instances = []
     #st.write(data)
     for index, row in data.iterrows():
@@ -660,7 +661,7 @@ def map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns
                 substance_uuid = substance_uuid_map[substance_values]
 
         if not hasattr(oht_instance, 'uuid'):
-            oht_instance.uuid = f"{generate_uuid()}/{generate_uuid()}"
+            oht_instance.uuid = f"{generate_uuid()}/{main_uuid}"
 
         oht_instances.append((oht_instance, substance_uuid))
     #st.write('done')
@@ -694,7 +695,7 @@ def create_xml_serializer(oht_type):
     return serializer, ns_map  # Return the serializer and namespace mapping
 
 
-def instance_to_i6d(instance, output_dir, oht_type, parent_key=None, is_attachment=False):
+def instance_to_i6d(instance, output_dir, oht_type, main_uuid, parent_key=None, is_attachment=False):
     """Convert an instance to an i6d XML file."""
     # Create an XML serializer and namespace mapping for the given OHT type
     serializer, ns_map = create_xml_serializer(oht_type)
@@ -706,7 +707,7 @@ def instance_to_i6d(instance, output_dir, oht_type, parent_key=None, is_attachme
     xml_content = xml_content.split("?>", 1)[1].strip()
     document_type = to_document_type_format(oht_type)
     # Create platform metadata for the i6d file
-    platform_metadata = create_platform_metadata(document_type)
+    platform_metadata = create_platform_metadata(document_type, main_uuid)
     if parent_key:
         platform_metadata['parentDocumentKey'] = parent_key
     platform_metadata['documentKey'] = instance.uuid
@@ -769,20 +770,76 @@ def instance_to_i6d(instance, output_dir, oht_type, parent_key=None, is_attachme
     return document_key
 
 
-def create_manifest(i6d_files, file_path):
-    """Create a manifest XML file that lists all i6d files."""
-    # Create the root element for the manifest
-    root = etree.Element("Manifest")
+def create_manifest(i6d_files, file_path, main_uuid):
+    """
+    Create a manifest XML file that lists all i6d files, with general-information and contained-documents sections.
+    Args:
+        i6d_files (list): List of i6d file paths (full or relative).
+        file_path (str): Path to write the manifest.xml.
+        main_uuid (str): The main UUID to use for base-document-uuid.
+    """
+    NS = "http://iuclid6.echa.europa.eu/namespaces/manifest/v1"
+    XLINK = "http://www.w3.org/1999/xlink"
+    NSMAP = {None: NS, "xlink": XLINK}
 
-    # Add an entry for each i6d file to the manifest
+    # Root <manifest>
+    root = etree.Element("{%s}manifest" % NS, nsmap=NSMAP)
+
+    # <general-information>
+    general_info = etree.SubElement(root, "{%s}general-information" % NS)
+    etree.SubElement(general_info, "{%s}title" % NS).text = "IUCLID 6 container manifest file"
+    etree.SubElement(general_info, "{%s}created" % NS).text = datetime.datetime.utcnow().isoformat() + "Z"
+    etree.SubElement(general_info, "{%s}author" % NS).text = "EZ Mapper"
+    etree.SubElement(general_info, "{%s}application" % NS).text = "IUCLID6 (EZ Mapper Export)"
+    etree.SubElement(general_info, "{%s}submission-type" % NS).text = "EXPERIMENTAL_DATA"
+    etree.SubElement(general_info, "{%s}archive-type" % NS).text = "DOSSIER_DATA"
+    etree.SubElement(general_info, "{%s}partial" % NS).text = "false"
+
+    # <base-document-uuid>
+    base_uuid = f"{main_uuid}/{main_uuid}"
+    etree.SubElement(root, "{%s}base-document-uuid" % NS).text = base_uuid
+
+    # <contained-documents>
+    contained_docs = etree.SubElement(root, "{%s}contained-documents" % NS)
+
     for i6d_file in i6d_files:
-        entry = etree.SubElement(root, "Entry")  # Create an Entry element
-        entry.text = i6d_file  # Set the text of the Entry element to the i6d file name
+        uuid_underscore = os.path.splitext(os.path.basename(i6d_file))[0]
+        uuid_slash = uuid_underscore.replace("_", "/")
+        file_name = os.path.basename(i6d_file)
+        file_path_full = os.path.join(os.path.dirname(file_path), i6d_file)
+        if os.path.exists(file_path_full):
+            mod_time = datetime.datetime.utcfromtimestamp(os.path.getmtime(file_path_full)).isoformat() + "Z"
+        else:
+            mod_time = datetime.datetime.utcnow().isoformat() + "Z"
 
-    # Create an XML tree from the root element
+        # --- Extract documentType and documentSubType from the i6d file ---
+        try:
+            tree = etree.parse(file_path_full)
+            nsmap = {
+                "i6c": "http://iuclid6.echa.europa.eu/namespaces/platform-container/v2",
+                "i6m": "http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1"
+            }
+            doc_type = tree.findtext(".//i6m:documentType", namespaces=nsmap)
+            doc_subtype = tree.findtext(".//i6m:documentSubType", namespaces=nsmap)
+        except Exception as e:
+            doc_type = None
+            doc_subtype = None
+
+        doc_elem = etree.SubElement(contained_docs, "{%s}document" % NS, id=uuid_slash)
+        # Use extracted type/subtype, fallback to "DOSSIER"/"EXPERIMENTAL_DATA"
+        etree.SubElement(doc_elem, "{%s}type" % NS).text = doc_type if doc_type else "DOSSIER"
+        if doc_subtype and doc_subtype.strip():
+            etree.SubElement(doc_elem, "{%s}subtype" % NS).text = doc_subtype
+        name_elem = etree.SubElement(doc_elem, "{%s}name" % NS)
+        name_elem.text = file_name
+        name_elem.attrib["{%s}type" % XLINK] = "simple"
+        name_elem.attrib["{%s}href" % XLINK] = f"{uuid_underscore}.i6d"
+        etree.SubElement(doc_elem, "{%s}first-modification-date" % NS).text = mod_time
+        etree.SubElement(doc_elem, "{%s}last-modification-date" % NS).text = mod_time
+        etree.SubElement(doc_elem, "{%s}uuid" % NS).text = uuid_slash
+
+    # Write the XML tree to file
     tree = etree.ElementTree(root)
-
-    # Write the XML tree to a file
     tree.write(file_path, pretty_print=True, xml_declaration=True, encoding="UTF-8")
 
 
@@ -791,7 +848,7 @@ def save_dataframe_as_excel(data, file_path):
 
 
 def generate_i6z(endpoint_instances, test_material_instances, legal_entity_instances, ref_sub_instances,
-                 substance_instances, output_dir, i6z_file_path, data, other_files):
+                 substance_instances, output_dir, i6z_file_path, data, other_files, main_uuid):
     """Generate an i6z file containing multiple instances."""
     # Ensure the output directory exists
     os.makedirs(output_dir, exist_ok=True)
@@ -801,25 +858,25 @@ def generate_i6z(endpoint_instances, test_material_instances, legal_entity_insta
         for i, instance in enumerate(test_material_instances):
             # Determine the OHT type from the instance class name
             oht_type = type(instance).__name__.replace("TestMaterialInformation", "")
-            document_key = instance_to_i6d(instance, output_dir, "TestMaterialInformation")
+            document_key = instance_to_i6d(instance, output_dir, "TestMaterialInformation", main_uuid)
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     if legal_entity_instances is not None:
         for i, instance in enumerate(legal_entity_instances):
-            document_key = instance_to_i6d(instance, output_dir, "LegalEntity")
+            document_key = instance_to_i6d(instance, output_dir, "LegalEntity", main_uuid)
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     if ref_sub_instances is not None:
         for i, instance in enumerate(ref_sub_instances):
-            document_key = instance_to_i6d(instance, output_dir, "ReferenceSubstance")
+            document_key = instance_to_i6d(instance, output_dir, "ReferenceSubstance", main_uuid)
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     if substance_instances is not None:
         for i, instance in enumerate(substance_instances):
-            document_key = instance_to_i6d(instance, output_dir, "Substance")
+            document_key = instance_to_i6d(instance, output_dir, "Substance", main_uuid)
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
@@ -842,14 +899,14 @@ def generate_i6z(endpoint_instances, test_material_instances, legal_entity_insta
     if other_files is not None:
         attach_keys = []
         for attachment in other_files:
-            document_key = create_i6d_for_attachment(attachment, output_dir)
+            document_key = create_i6d_for_attachment(attachment, output_dir, main_uuid)
             attach_keys.append(f"{document_key}.i6d")
 
     # Define the file path for the manifest
     manifest_file_path = os.path.join(output_dir, "manifest.xml")
 
     # Create the manifest file
-    create_manifest(i6d_files, manifest_file_path)
+    create_manifest(i6d_files, manifest_file_path, main_uuid)
     main_data = os.path.join(output_dir, "data.xlsx")
     save_dataframe_as_excel(data, main_data)
     other_file_paths = save_uploaded_files(other_files, output_dir)
@@ -950,7 +1007,7 @@ def save_uploaded_files(uploaded_files, output_dir):
     return file_paths
 
 
-def create_test_material_instances(data, test_material_columns):
+def create_test_material_instances(data, test_material_columns, main_uuid):
     test_material_instances = []
     test_material_uuid_map = {}
 
@@ -963,7 +1020,7 @@ def create_test_material_instances(data, test_material_columns):
             {},
             filtered_row
         )
-        uuid_str = f"{generate_uuid()}/{generate_uuid()}"
+        uuid_str = f"{generate_uuid()}/{main_uuid}"
         test_material_instance.uuid = uuid_str
         test_material_instances.append(test_material_instance)
         test_material_values = tuple(row[col] for col in test_material_columns)
@@ -972,7 +1029,7 @@ def create_test_material_instances(data, test_material_columns):
     return test_material_instances, test_material_uuid_map
 
 
-def create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_sub_columns):
+def create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_sub_columns, main_uuid):
     substance_instances = []
     substances_uuid_map = {}
 
@@ -985,7 +1042,7 @@ def create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_su
             {},
             filtered_row
         )
-        uuid_str = f"{generate_uuid()}/{generate_uuid()}"
+        uuid_str = f"{generate_uuid()}/{main_uuid}"
         substance_instance.uuid = uuid_str
         if ref_sub_columns:
             ref_sub_values = tuple(row[col] for col in ref_sub_columns if col in row)
@@ -1000,7 +1057,7 @@ def create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_su
     return substance_instances, substances_uuid_map
 
 
-def create_legal_entity_instances(data, legal_entity_columns):
+def create_legal_entity_instances(data, legal_entity_columns, main_uuid):
     legal_entity_instances = []
     legal_entity_uuid_map = {}
 
@@ -1013,7 +1070,7 @@ def create_legal_entity_instances(data, legal_entity_columns):
             {},
             filtered_row
         )
-        uuid_str = f"{generate_uuid()}/{generate_uuid()}"
+        uuid_str = f"{generate_uuid()}/{main_uuid}"
         legal_entity_instance.uuid = uuid_str
         legal_entity_instances.append(legal_entity_instance)
         legal_entity_values = tuple(row[col] for col in legal_entity_columns)
@@ -1022,7 +1079,7 @@ def create_legal_entity_instances(data, legal_entity_columns):
     return legal_entity_instances, legal_entity_uuid_map
 
 
-def create_ref_sub_instances(data, ref_sub_columns):
+def create_ref_sub_instances(data, ref_sub_columns, main_uuid):
     ref_sub_instances = []
     ref_sub_uuid_map = {}
 
@@ -1035,7 +1092,7 @@ def create_ref_sub_instances(data, ref_sub_columns):
             {},
             filtered_row
         )
-        uuid_str = f"{generate_uuid()}/{generate_uuid()}"
+        uuid_str = f"{generate_uuid()}/{main_uuid}"
         ref_sub_instance.uuid = uuid_str
         ref_sub_instances.append(ref_sub_instance)
         ref_sub_values = tuple(row[col] for col in ref_sub_columns)
@@ -1134,12 +1191,12 @@ def determine_mime_type(file_name):
         raise ValueError(f"Unsupported file type: {file_extension}")
 
 
-def create_i6d_for_attachment(attachment_file, output_dir):
+def create_i6d_for_attachment(attachment_file, output_dir, main_uuid):
     file_name = attachment_file.name
     file_content = attachment_file.getvalue()
     md5_hash = compute_mp5(file_content)
     mime_type = determine_mime_type(file_name)
-    document_key = f"{generate_uuid()}/{generate_uuid()}"
+    document_key = f"{generate_uuid()}/{main_uuid}"
     creation_date = datetime.datetime.utcnow().isoformat() + "Z"
     root = etree.Element("Attachment",
                          nsmap={
