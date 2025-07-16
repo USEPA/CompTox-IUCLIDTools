@@ -1,22 +1,22 @@
 import streamlit as st
 import warnings
-
+import hashlib
 import zipfile
 import os
 import shutil
 import tempfile
 import pandas as pd
 import io
+import re
+from pathlib import Path
+import xml.etree.ElementTree as ET
+from configs.config import config
 
 from pandas.api.types import (
     is_datetime64_any_dtype,
     is_numeric_dtype,
     is_object_dtype,
 )
-
-import xml.etree.ElementTree as ET
-
-from configs.config import config
 
 ##################################################################################
 # Utility functions to move
@@ -102,7 +102,16 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
         st.session_state['filter_dataframe_df'] = df
         return df
 
-def list_i6z_files(i6z_file: io.BytesIO, ):
+def list_i6z_attachments(i6z_file: io.BytesIO):
+    """
+    Get list of i6z file attachments with file metadata.
+
+    Args:
+        i6z_file (io.BytesIO): Input i6z file
+
+    Returns:
+        pd.DataFrame: Dataframe of i6z attachments file details.
+    """
     # Create temporty directory to extract i6z file into
     with tempfile.TemporaryDirectory() as temp_dir:
         # Extract input files
@@ -111,7 +120,7 @@ def list_i6z_files(i6z_file: io.BytesIO, ):
 
         # Use i6z directory name
         file_info = []
-
+        # Iterate through directory
         for root, _, files in os.walk(temp_dir):
                 for file in files:
                     # Skip i6d, css, xsl, and manifest display to prevent users removing them
@@ -129,48 +138,40 @@ def list_i6z_files(i6z_file: io.BytesIO, ):
                         }
                     )
 
-        file_info_df = pd.DataFrame(file_info)
-        # Return temporary directory name and file info dataframe
-    return file_info_df
+    return pd.DataFrame(file_info)
 
-def generate_modified_i6z(i6z_file: io.BytesIO, rm_file_ls: list, copy_dir: str, out_i6z: str):
+def generate_modified_i6z_new_path(i6z_file: io.BytesIO, rm_file_ls: list, copy_dir: str, out_i6z: str):
     """
-    Extracts a mapping for input file extensions and .i6d files inside an IUCLID .i6z file.
+    Generate a modified i6z file where attachment href paths are updated to new file locations.
 
     This Function:
     - Unzips the .i6z file into a temporary directory
-    - Uses input file list and extracts their UUIDs (filenames without file extension)
-    - Iterates through each .i6d file, checking if any UUID appears in the file content
-    - Returns a DataFrame with matched .i6d and file pairs and their paths
+    - Overwrites attachment href in manifest and i6d files to new path
+    - Saves the modified .i6z file
+    - Returns a DataFrame reporting the changes made
 
     """
     # Get cross links to update manifest.xml
     cross_link_df = get_file_cross_links(i6z_file)
     cross_link_df['parent_path'] = cross_link_df.apply(lambda row: os.path.join(copy_dir, 
-                                                                                row['Referenced File Name']), 
+                                                                                row['referenced_file_name']), 
                                                                                 axis=1)
+    # Prep to match rm_file_ls to cross_link_df filenames
     rm_file_ls_trun = [f.replace("attachments/", "") for f in rm_file_ls]
     cross_link_df = cross_link_df[cross_link_df['attachment_file_name'].isin(rm_file_ls_trun)]
+    
     # Create temporty directory to extract i6z file into
     with tempfile.TemporaryDirectory() as temp_dir:
         # Extract input files
         with zipfile.ZipFile(i6z_file, "r") as zip_ref:
                 zip_ref.extractall(temp_dir)
     
-        results = []
+        results = []    
 
-        # Collect file UUIDs (filenames without file extension)
-        file_uuids = {
-            os.path.join(root, f).replace(f'{temp_dir}\\', "").replace("\\", "/"): os.path.splitext(f)[0]
-            for root, _, files in os.walk(temp_dir)
-            for f in files
-            # Add regex to search for file extensions in input list
-            if os.path.join(root, f).replace(f'{temp_dir}\\', "").replace("\\", "/") in rm_file_ls
-        }        
-
+        # Iterate through directory
         for root, _, files in os.walk(temp_dir):
             for file in files:
-                # See if file is referenced in i6d
+                # Modify i6d and manifest files
                 if file.endswith(".i6d"):
                     i6d_filename = os.path.relpath(os.path.join(root, file), temp_dir)
                     xml_path = os.path.join(root, file)
@@ -179,69 +180,61 @@ def generate_modified_i6z(i6z_file: io.BytesIO, rm_file_ls: list, copy_dir: str,
                     tree = ET.parse(xml_path)
                     t_root = tree.getroot()
                     for t_element in t_root.iter():
-                        # print(t_element.attrib.items())
                         # Find the href attribute
-                        if '{http://www.w3.org/1999/xlink}href' in t_element.attrib:
+                        if '}href' in t_element.attrib:
                             # If href to a removed file, update the path
                             if t_element.get("{http://www.w3.org/1999/xlink}href") in rm_file_ls:
-                                # print(t_element.get("{http://www.w3.org/1999/xlink}href"))
                                 href_orig = t_element.get("{http://www.w3.org/1999/xlink}href")
-                                # New copy directory and with parent Referenced File Name
+                                # New copy directory and with parent referenced_file_name
                                 new_href = f'{copy_dir}/{i6z_file.name}/{file}/{href_orig.replace("attachments/", "")}'
                                 # Update the href path
                                 t_element.set('{http://www.w3.org/1999/xlink}href', new_href)
-                                
                                 # Append result for display
                                 results.append(
                                     {
-                                        "Referenced File Name": i6d_filename,
-                                        # "uuid": file_uuids.get(href_orig), # list(file_uuids.keys())[list(file_uuids.values()).index(href_orig)],
+                                        "referenced_file_name": i6d_filename,
                                         "File Name": os.path.basename(href_orig),
                                         "Old File Path": href_orig,
                                         "New File Path": new_href
                                     }
                                 )
-                elif  file == "manifest.xml":
-                    # print(f"Checking manifest: {file}")
-                    # TODO Handle manifest.xml updates with cross-link i6d parent directory matches
+                    # Overwrite the original XML file
+                    tree.write(xml_path)
+                elif  file == "manifest.xml":                    
                     # Parse the XML file
                     xml_path = os.path.join(root, file)
                     tree = ET.parse(xml_path)
                     t_root = tree.getroot()
                     for t_element in t_root.iter():
-                        # print(t_element.attrib.items())
                         # Find the href attribute
-                        if '{http://www.w3.org/1999/xlink}href' in t_element.attrib:
+                        if '}href' in t_element.attrib:
+                            # Check if href is for a removed file
                             href_orig = t_element.get("{http://www.w3.org/1999/xlink}href").replace("attachments/", "")
                             if href_orig in cross_link_df['attachment_file_name'].tolist():
-                                # print(f'Old: {href_orig}')
-                                id6_file_name = cross_link_df.loc[cross_link_df['attachment_file_name'] == href_orig, 'Referenced File Name'].item()
-                                # New copy directory and with parent Referenced File Name
+                                id6_file_name = cross_link_df.loc[cross_link_df['attachment_file_name'] == href_orig, 'referenced_file_name'].item()
+                                # New copy directory and with parent referenced_file_name
                                 new_href = f'{copy_dir}/{i6z_file.name}/{id6_file_name}/{href_orig.replace("attachments/", "")}'
-                                # print(f'New: {new_href}')
                                 # Update the href path
                                 t_element.set('{http://www.w3.org/1999/xlink}href', new_href)
-
                                 # Append result for display
                                 results.append(
                                     {
-                                        "Referenced File Name": file,
+                                        "referenced_file_name": file,
                                         # "uuid": file_uuids.get(href_orig), # list(file_uuids.keys())[list(file_uuids.values()).index(href_orig)],
                                         "File Name": os.path.basename(href_orig),
                                         "Old File Path": href_orig,
                                         "New File Path": new_href
                                     }
                                 )
-                # Overwrite the original XML file
-                tree.write(xml_path)
-        
+                    # Overwrite the original XML file
+                    tree.write(xml_path)
+
         # Remove selected files from i6z
         for file_path in rm_file_ls:
             rm_file = os.path.join(temp_dir, file_path)
             try:
                 if os.path.exists(rm_file):
                     os.remove(rm_file)
-                    # print(f"Successfully deleted: {rm_file}")
                 else:
                     print(f"File not found: {rm_file}")
             except OSError as e:
@@ -258,11 +251,198 @@ def generate_modified_i6z(i6z_file: io.BytesIO, rm_file_ls: list, copy_dir: str,
                     zipf.write(file_path, arcname)
 
     df = pd.DataFrame(results)
-    # print(df.head())
     return df
 
-def get_file_cross_links(i6z_file: io.BytesIO):
+def calculate_md5_hash(filepath):
+    """
+    Calculates the MD5 hash of a file's content.
 
+    Args:
+        filepath (str): Path to file to hash.
+
+    Returns:
+        str: File's MD5 hash.
+    """
+    hasher = hashlib.md5()
+    try:
+        with open(filepath, "rb") as f:
+            # Read in chunks of 4096 bytes
+            for chunk in iter(lambda: f.read(4096), b""):
+                hasher.update(chunk)
+        return hasher.hexdigest()
+    except FileNotFoundError:
+        return "File not found."
+    except Exception as e:
+        return f"An error occurred: {e}"
+
+def generate_modified_i6z_text_placeholder(i6z_file: io.BytesIO, rm_file_ls: list, copy_dir: str, out_i6z: str):
+    """
+    Generate a modified i6z file where attachment href paths, filenames, and mimetypes are updated to a text placeholder file.
+
+    This Function:
+    - Unzips the .i6z file into a temporary directory
+    - Writes a placeholder text file
+    - md5 hashes the placeholder text file to use as filename and in md5 tags
+    - Overwrites attachment href in manifest and i6d files to the placeholder text file
+    - Saves the modified .i6z file
+    - Returns a DataFrame reporting the changes made
+
+    """
+    # Get cross links to update manifest.xml
+    cross_link_df = get_file_cross_links(i6z_file)
+    cross_link_df['parent_path'] = cross_link_df.apply(lambda row: os.path.join(copy_dir, 
+                                                                                row['referenced_file_name']), 
+                                                                                axis=1)
+    # Create placeholder text file string
+    cross_link_df['placeholder_text'] = cross_link_df.apply(lambda row: f"File \"{row['name']}\" ({row['attachment_file_name']}) moved to \"{copy_dir}/{i6z_file.name}/{row['referenced_file_name']}/{row['attachment_file_name']}\"", axis=1)
+    # Prep rm_file_ls for comparison (just the basename)
+    rm_file_ls_trun = [f.replace("attachments/", "") for f in rm_file_ls]
+    cross_link_df = cross_link_df[cross_link_df['attachment_file_name'].isin(rm_file_ls_trun)]
+
+    # Create temporary directory to extract i6z file into
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Extract input files
+        with zipfile.ZipFile(i6z_file, "r") as zip_ref:
+                zip_ref.extractall(temp_dir)
+
+        # Save placeholder file to i6z temp directory
+        placeholder_tmp_path = os.path.join(temp_dir, "attachments/files_moved.txt")
+        cross_link_df['placeholder_text'].to_csv(placeholder_tmp_path,
+                                                 index = False, header = False)
+        
+        # Hash and rename placeholder file
+        placeholder_hash = calculate_md5_hash(placeholder_tmp_path)
+        placeholder_hash_path = placeholder_tmp_path.replace("files_moved", 
+                                                             placeholder_hash)
+        os.rename(placeholder_tmp_path, placeholder_hash_path)
+        
+        results = []     
+
+        # Iterate over files
+        for root, _, files in os.walk(temp_dir):
+            for file in files:
+                # Modify i6d and manifest files
+                if file.endswith(".i6d"):
+                    # Only if i6d associated with remove file list items
+                    if file in cross_link_df['referenced_file_name'].tolist():
+                        i6d_filename = os.path.relpath(os.path.join(root, file), temp_dir)
+                        xml_path = os.path.join(root, file)
+
+                        # Parse the XML file
+                        tree = ET.parse(xml_path)
+                        t_root = tree.getroot()
+
+                        for t_element in t_root.iter():
+                            # Replace attachment file extension
+                            if "}name" in t_element.tag:
+                                if t_element.text is not None:
+                                    p = Path(t_element.text)
+                                    t_element.text = str(p.with_suffix(".txt"))
+                            # Change the mimetype to text
+                            elif "}mimetype" in t_element.tag:
+                                t_element.text = 'text/plain'
+                            # Change md5
+                            elif "}md5" in t_element.tag:                                
+                                t_element.text = placeholder_hash
+                            
+                            # Find the href attribute
+                            if '}href' in t_element.attrib:
+                                # If href to a removed file, update the path
+                                href_orig = t_element.get("{http://www.w3.org/1999/xlink}href")
+                                if href_orig in rm_file_ls:                                    
+                                    # New href to the placeholder text file
+                                    new_href = f'attachments/{os.path.basename(placeholder_hash_path)}'
+                                    # Update the href path
+                                    t_element.set('{http://www.w3.org/1999/xlink}href', new_href)
+                                    # Append result for display
+                                    results.append(
+                                        {
+                                            "referenced_file_name": i6d_filename,
+                                            # "uuid": file_uuids.get(href_orig), # list(file_uuids.keys())[list(file_uuids.values()).index(href_orig)],
+                                            "File Name": os.path.basename(href_orig),
+                                            "Old File Path": href_orig,
+                                            "New File Path": new_href
+                                        }
+                                    )
+                        # Overwrite the original XML file
+                        tree.write(xml_path)
+                elif  file == "manifest.xml":
+                    # Parse the XML file
+                    xml_path = os.path.join(root, file)
+                    tree = ET.parse(xml_path)
+                    t_root = tree.getroot()
+                    # Get elements that are "attachment" tags and have id that matches documentKey for remove files
+                    attachment_elements = [elem for elem in t_root.findall(".//*") if elem.tag.endswith("attachment") and 
+                                           elem.attrib.get('id') in cross_link_df['documentKey'].tolist()]
+                    
+                    # Iterate over each attachment parent element tag
+                    for p_elem in attachment_elements:
+                        # Iterate over child elements
+                        for c_elem in p_elem:
+                            # Update display filename
+                            if '}name' in c_elem.tag:
+                                p = Path(c_elem.text)
+                                c_elem.text = str(p.with_suffix(".txt"))                                
+                            # Find the href attribute
+                            elif '}linked-attachments' in c_elem.tag:
+                                # Iterate over child elements
+                                for cc_elem in c_elem:
+                                    if '}linked-doc' in cc_elem.tag:
+                                        href_orig = cc_elem.get("{http://www.w3.org/1999/xlink}href").replace("attachments/", "")
+                                        if href_orig in cross_link_df['attachment_file_name'].tolist():
+                                            # New href to the placeholder text file
+                                            new_href = f'attachments/{os.path.basename(placeholder_hash_path)}'
+                                            # Update the href path
+                                            cc_elem.set('{http://www.w3.org/1999/xlink}href', new_href)
+                                            # Replace file extension for displayed filename
+                                            p = Path(cc_elem.text)
+                                            cc_elem.text = str(p.with_suffix(".txt"))
+                                            # Append result for display
+                                            results.append(
+                                                {
+                                                    "referenced_file_name": file,
+                                                    "File Name": os.path.basename(href_orig),
+                                                    "Old File Path": href_orig,
+                                                    "New File Path": new_href
+                                                }
+                                            )
+                    # Overwrite the original XML file
+                    tree.write(xml_path)
+        
+        # Remove selected files from i6z
+        for file_path in rm_file_ls:
+            rm_file = os.path.join(temp_dir, file_path)
+            try:
+                if os.path.exists(rm_file):
+                    os.remove(rm_file)
+                else:
+                    print(f"File not found: {rm_file}")
+            except OSError as e:
+                print(f"Error deleting {rm_file}: {e}")
+
+        # Write the new i6z
+        with zipfile.ZipFile(out_i6z, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            # Iterate through the folder and add its contents to the zip file
+            for root, _, files in os.walk(temp_dir):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    # Get the relative path within the archive to avoid including the full source path
+                    arcname = os.path.relpath(file_path, temp_dir)
+                    zipf.write(file_path, arcname)
+
+    return pd.DataFrame(results)
+
+def get_file_cross_links(i6z_file: io.BytesIO):
+    """
+    Get dataframe of i6z file attachments and which i6d files they link to.
+
+    Args:
+        i6z_file (io.BytesIO): Input i6z file.
+
+    Returns:
+        pd.DataFrame: Dataframe of i6z file attachments and their linked i6d files.
+    """
+    # Create temporary directory to extract i6z file into
     with tempfile.TemporaryDirectory() as temp_dir:
         with zipfile.ZipFile(i6z_file, "r") as zip_ref:
             zip_ref.extractall(temp_dir)
@@ -272,33 +452,34 @@ def get_file_cross_links(i6z_file: io.BytesIO):
             for file in files:
                 # See if file is referenced in i6d
                 if file.endswith(".i6d"):
-                    i6d_filename = os.path.relpath(os.path.join(root, file), temp_dir)
                     xml_path = os.path.join(root, file)
-
                     # Parse the XML file
                     tree = ET.parse(xml_path)
                     t_root = tree.getroot()
+                    element_list = {"referenced_file_name": os.path.basename(file)}
                     for t_element in t_root.iter():
-                        # print(t_element.attrib.items())
-                        # Find the href attribute
+                        # Get all element tag text and hrefs
+                        if t_element.text is not None:
+                            element_list.update({re.sub(r"\{.*?\}", "", t_element.tag): t_element.text})
                         if '{http://www.w3.org/1999/xlink}href' in t_element.attrib:
                             # Get all href attributes
                             subset_dict = {key: t_element.attrib[key] for key in t_element.attrib if "href" in key}
-                            # print(subset_dict)
                             attachments_ls = [str(value) for value in subset_dict.values()]
                             attachments_ls = ", ".join(attachments_ls)
-                            results.append(
-                                {
-                                    "Referenced File Name": os.path.basename(file),
-                                    "attachment_file_name": attachments_ls.replace("attachments/", "")
-                                }
-                            )
+                            element_list.update({"attachment_file_name": attachments_ls.replace("attachments/", "")})
+                            results.append(element_list)
 
-    df = pd.DataFrame.from_dict(results)
-    # print(df.head())
-    return df                                
+    return pd.DataFrame.from_dict(results)                                
 
 def copy_rm_i6z_files(i6z_file: io.BytesIO, copy_dir: str, copy_files: list):
+    """
+    Copy selected i6z files to a new directory.
+
+    Args:
+        i6z_file (io.BytesIO): Input i6z file.
+        copy_dir (str): Parent directory path where files should be copied.
+        copy_files (list): List of i6z files to copy.
+    """
     # Create subdirectory in input directory with i6z file name
     copy_dir = os.path.join(copy_dir, f'{i6z_file.name}')
 
@@ -310,37 +491,30 @@ def copy_rm_i6z_files(i6z_file: io.BytesIO, copy_dir: str, copy_files: list):
     # Get file cross links to create subfolders
     cross_link_df = get_file_cross_links(i6z_file)
     cross_link_df['parent_path'] = cross_link_df.apply(lambda row: os.path.join(copy_dir, 
-                                                                                row['Referenced File Name']), 
+                                                                                row['referenced_file_name']), 
                                                                                 axis=1)
 
-    # print(f'Copying {len(copy_files)} files to directory: {copy_dir}')
-    # Create temporty directory to extract i6z file into
+    # Create temporary directory to extract i6z file into
     with tempfile.TemporaryDirectory() as temp_dir:
         # Extract input files
         with zipfile.ZipFile(i6z_file, "r") as zip_ref:
                 zip_ref.extractall(temp_dir)
-        
+        # Iterate over files
         for root, _, files in os.walk(temp_dir):
             for file in files:
                 file_match = os.path.join(root, file).replace(f'{temp_dir}\\', "").replace("\\", "/")
+                # Get matching file
                 if file_match in copy_files:
-                    # print(f"Trying to match: {file}")
-                    # print(cross_link_df['attachment_file_name'])
+                    # Get i6z file parent
                     parent_dir = cross_link_df[cross_link_df['attachment_file_name'] == file]
-                    
                     # Check if file is linked in an i6d file to nest in subfolder
                     if parent_dir.empty:
                         dest_file = os.path.join(copy_dir, 
                                                  os.path.join(root, file).replace(f'{temp_dir}\\', ""))
-                        # print(dest_file)
                     else:
-                        # parent_dir = parent_dir['Referenced File Name'].values()
-                        # print(f'Matched parent: {}')
                         # Create destination file path (use new parent path to referenced i6d file)
-                        dest_file = os.path.join(parent_dir['parent_path'].item(), # copy_dir, 
-                                                # os.path.join(root, 
+                        dest_file = os.path.join(parent_dir['parent_path'].item(),
                                                             file).replace(f'{temp_dir}\\', "")
-                                                                #)
                     # Create subdirectories as needed
                     os.makedirs(os.path.dirname(dest_file), exist_ok=True)
                     # Copy file to new directory
@@ -380,6 +554,9 @@ if "i6z_removed_file_final_parent_dir" not in st.session_state:
     st.session_state['i6z_removed_file_final_parent_dir'] = config["i6z_removed_file_final_parent_dir"]
 if "filter_checkbox" not in st.session_state:
     st.session_state['filter_checkbox'] = False
+# Set the attachment replacement mode
+if "replacement_mode" not in st.session_state:
+    st.session_state['replacement_mode'] = 'text_placeholder'
 
 # Suppress specific warnings from openpyxl that are not relevant for the user
 warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
@@ -399,10 +576,11 @@ if uploaded_file is None:
 else:
     # Process the uploaded file if it exists
     st.title(f"Reviewing file: {uploaded_file.name}")
+    # Check if files are selected
     if not st.session_state['i6z_file_selected']:
         # Prevent file being extracted multiple times
         st.session_state['i6z_file_selected'] = True
-        st.session_state['i6z_file_df'] = list_i6z_files(uploaded_file)
+        st.session_state['i6z_file_df'] = list_i6z_attachments(uploaded_file)
     
     ##################################################################################
     # Filterable DataFrame File Selection
@@ -415,6 +593,8 @@ else:
         st.session_state['i6z_file_df_ft'] = st.session_state['i6z_file_df']
     elif not st.session_state['i6z_file_df_ft'].empty and not st.session_state['i6z_file_df_rm'].empty:
         st.session_state['i6z_file_df_ft'] = st.session_state['i6z_file_df'][~st.session_state['i6z_file_df']['File Path'].isin(st.session_state['i6z_file_df_rm']['File Path'])]
+    
+    # Display filterable dataframe
     # https://docs.streamlit.io/develop/tutorials/elements/dataframe-row-selections
     df_file_rm = st.dataframe(
         filter_dataframe(st.session_state['i6z_file_df_ft']), 
@@ -429,7 +609,9 @@ else:
         selection_mode = "multi-row",
         hide_index=True
     )
+    # Get selected files to remove/filter out
     filtered_df = st.session_state['filter_dataframe_df'].iloc[df_file_rm.selection.rows]
+    # Display counts and buttons for users to interact with for their selection
     st.write(f"DataFrame has {len(st.session_state['i6z_file_df_ft'])} rows.")
     st.write('When ready, click the "Add File Selection" button to add selected files to the "Files to Remove" table.')
     st.write('To start over, click the "Clear File Selection" button.')
@@ -459,6 +641,7 @@ else:
         st.divider()
         st.header("Files to Remove")
         st.write("Review the files selected for removal.")
+        # Display files to remove for user to verify
         st.dataframe(
             st.session_state['i6z_file_df_rm'],
             column_config = {
@@ -470,6 +653,7 @@ else:
             use_container_width=True,
             hide_index=True
         )
+        # Report counts
         st.write(f"DataFrame has {len(st.session_state['i6z_file_df_rm'])} rows.")
 
         # Default folder to save removed files
@@ -477,8 +661,8 @@ else:
         
         st.title("Save Removed Files")
         st.write("Click to prepare files for removal.")
+        # Save zip of removed files for user to download
         if st.button("Save Removed Files", icon=":material/file_copy:"):
-            # print("Saving files...")
             with st.spinner("Saving removed files...", show_time=True):
                 copy_rm_i6z_files(i6z_file = uploaded_file, 
                                   copy_dir = save_sel_files_dir, 
@@ -486,7 +670,6 @@ else:
             st.session_state['i6z_file_rm_dir'] = os.path.join(save_sel_files_dir, 
                                                                f'{uploaded_file.name}')
             # Create zip folder
-            # print(f"Saving zip file...{st.session_state['i6z_file_rm_dir']} to {save_sel_files_dir}")
             i6z_rm_file_zip = f'{st.session_state['i6z_file_rm_dir']}.zip'
             # Create zip file of the removed files
             shutil.make_archive(st.session_state['i6z_file_rm_dir'], 
@@ -495,7 +678,7 @@ else:
 
             # open_file_explorer(st.session_state['i6z_file_rm_dir'])
             st.success(f'Files saved.')
-        
+        # Button for user to download zip of removed files, if available
         if os.path.isfile(f'{st.session_state['i6z_file_rm_dir']}.zip'):
             st.write("Click to download a zip file of the removed files.")
             # Download removed files
@@ -507,30 +690,52 @@ else:
                 mime='application/octet-stream'
             )
             st.divider()
-
+            
+            # Export modified i6z file 
             i6z_out = os.path.join(save_sel_files_dir, f'{uploaded_file.name.replace(".i6z", "")}_modified.i6z')
             st.title("Export Modified i6z File")
             st.write("Click to generate the modified i6z file without the selected files.")
             st.warning("Note: This will modify the i6z files that reference the removed files and point to an external file location.")
             if st.button("Generate i6z File", icon=":material/manufacturing:"):
                 st.success('Modified i6z Generated. Use the table below to check that the removed files listed are correct and the "New File Path" is correct.')
-                st.dataframe(
-                    generate_modified_i6z(i6z_file = uploaded_file, 
-                                          rm_file_ls = st.session_state['i6z_file_df_rm']['File Path'].tolist(),
-                                          # Set as the standard output directory parent folder where
-                                          # file will ultimately be stored
-                                          copy_dir = st.session_state['i6z_removed_file_final_parent_dir'].replace("\\", "/"), # save_sel_files_dir.replace("\\", "/"),
-                                          out_i6z = i6z_out),
-                                          column_config = {
-                                              "Referenced File Name": st.column_config.Column("Referenced File Name"),
-                                              "File Name": st.column_config.Column("File Name"),
-                                              "Old File Path": st.column_config.Column("Old File Path", help = "Relative path within the i6z file to the file"),
-                                              "New File Path": st.column_config.Column("New File Path", help = "Abolute path to where the removed file will be stored"),
-                                            },
-                                            use_container_width=True,
-                                            hide_index=True
-                )
-            
+                match st.session_state['replacement_mode']:
+                    case 'new_path':
+                        st.dataframe(
+                            generate_modified_i6z_new_path(i6z_file = uploaded_file, 
+                                                rm_file_ls = st.session_state['i6z_file_df_rm']['File Path'].tolist(),
+                                                # Set as the standard output directory parent folder where
+                                                # file will ultimately be stored
+                                                copy_dir = st.session_state['i6z_removed_file_final_parent_dir'].replace("\\", "/"), # save_sel_files_dir.replace("\\", "/"),
+                                                out_i6z = i6z_out),
+                                                column_config = {
+                                                    "referenced_file_name": st.column_config.Column("referenced_file_name"),
+                                                    "File Name": st.column_config.Column("File Name"),
+                                                    "Old File Path": st.column_config.Column("Old File Path", help = "Relative path within the i6z file to the file"),
+                                                    "New File Path": st.column_config.Column("New File Path", help = "Abolute path to where the removed file will be stored"),
+                                                    },
+                                                    use_container_width=True,
+                                                    hide_index=True
+                        )
+                    case "text_placeholder":
+                        st.dataframe(
+                            generate_modified_i6z_text_placeholder(i6z_file = uploaded_file, 
+                                                rm_file_ls = st.session_state['i6z_file_df_rm']['File Path'].tolist(),
+                                                # Set as the standard output directory parent folder where
+                                                # file will ultimately be stored
+                                                copy_dir = st.session_state['i6z_removed_file_final_parent_dir'].replace("\\", "/"), # save_sel_files_dir.replace("\\", "/"),
+                                                out_i6z = i6z_out),
+                                                column_config = {
+                                                    "referenced_file_name": st.column_config.Column("referenced_file_name"),
+                                                    "File Name": st.column_config.Column("File Name"),
+                                                    "Old File Path": st.column_config.Column("Old File Path", help = "Relative path within the i6z file to the file"),
+                                                    "New File Path": st.column_config.Column("New File Path", help = "Abolute path to where the removed file will be stored"),
+                                                    },
+                                                    use_container_width=True,
+                                                    hide_index=True
+                        )
+                    case _:
+                        raise ValueError(f"Unknown replacement_mode: {st.session_state['replacement_mode']}")
+                # User download the modified i6z file
                 if os.path.isfile(i6z_out):
                     st.write("Click to download the modified i6z file.")
                     # Download modified i6z file
