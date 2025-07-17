@@ -152,7 +152,6 @@ def generate_modified_i6z_new_path(i6z_file: io.BytesIO, rm_file_ls: list, copy_
     - Returns a DataFrame reporting the changes made
 
     """
-    print("Generating modified i6z - new path")
     # Get cross links to update manifest.xml
     cross_link_df = get_file_cross_links(i6z_file)
     cross_link_df['parent_path'] = cross_link_df.apply(lambda row: os.path.join(copy_dir, 
@@ -301,7 +300,6 @@ def generate_modified_i6z_text_placeholder(i6z_file: io.BytesIO, rm_file_ls: lis
     - Returns a DataFrame reporting the changes made
 
     """
-    print("Generating modified i6z - text placeholder")
     # Get cross links to update manifest.xml
     cross_link_df = get_file_cross_links(i6z_file)
     cross_link_df['parent_path'] = cross_link_df.apply(lambda row: os.path.join(copy_dir, 
@@ -339,7 +337,6 @@ def generate_modified_i6z_text_placeholder(i6z_file: io.BytesIO, rm_file_ls: lis
                 if file.endswith(".i6d"):
                     # Only if i6d associated with remove file list items
                     if file in cross_link_df['referenced_file_name'].tolist():
-                        print("Modifying i6d xml...")
                         i6d_filename = os.path.relpath(os.path.join(root, file), temp_dir)
                         xml_path = os.path.join(root, file)
 
@@ -348,7 +345,6 @@ def generate_modified_i6z_text_placeholder(i6z_file: io.BytesIO, rm_file_ls: lis
                         t_root = tree.getroot()
 
                         for t_element in t_root.iter():
-                            print(t_element.tag)
                             # Replace attachment file extension
                             if "}name" in t_element.tag:
                                 if t_element.text is not None:
@@ -362,13 +358,11 @@ def generate_modified_i6z_text_placeholder(i6z_file: io.BytesIO, rm_file_ls: lis
                                 t_element.text = placeholder_hash
                             
                             # Find the href attribute
-                            print(t_element.attrib)
                             attrib_check = [key for key in t_element.attrib if '}href' in key]
                             if len(attrib_check) == 1:
                                 href_attrib = attrib_check[0]
                                 # If href to a removed file, update the path
                                 href_orig = t_element.get(href_attrib)
-                                print(href_orig)
                                 if href_orig in rm_file_ls:                                    
                                     # New href to the placeholder text file
                                     new_href = f'attachments/{os.path.basename(placeholder_hash_path)}'
@@ -511,8 +505,6 @@ def copy_rm_i6z_files_cached(i6z_file: io.BytesIO, copy_files: list):
         i6z_file (io.BytesIO): Input i6z file.
         copy_files (list): List of i6z files to copy.
     """
-    print("Generating removed i6z files zip")
-
     # Get file cross links to create subfolders
     cross_link_df = get_file_cross_links(i6z_file)
     cross_link_df['parent_path'] = cross_link_df.apply(lambda row: os.path.join(row['referenced_file_name']), 
