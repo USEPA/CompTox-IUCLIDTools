@@ -84,5 +84,8 @@ config = {
     'input_numeric_file': 'output/toxval_numeric_fields.xlsx',
 
     # Name of the output directory to store NLP-processed input data
-    'input_pickle_dir': 'output/ToxVal Info'
+    'input_pickle_dir': 'output/ToxVal Info',
+
+    # Path to OCR venv python.exe
+    'ocr_venv': r".ocr_venv\Scripts\python.exe"
 }

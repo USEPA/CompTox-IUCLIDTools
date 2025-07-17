@@ -360,10 +360,9 @@ def get_cmd_args():
                         default = "input_docs_embedded",
                         help = "Required if --embed_ocr is True, file directory to save new PDFs with text layers embedded. Default 'input_docs_embedded'")
     parser.add_argument("--embed_ocr", 
-                        type = bool, 
                         required = False,
-                        default = True,
-                        help = "Optional boolean whether to embed OCR text layers in new PDF (Default True)")
+                        action='store_true',
+                        help = "Optional boolean whether to embed OCR text layers in new PDF (Default False)")
 
     return parser
 
