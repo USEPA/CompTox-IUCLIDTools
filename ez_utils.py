@@ -158,6 +158,32 @@ def display_data_preview(user_df: pd.DataFrame) -> None:
     if not st.session_state.classify_pressed and st.session_state.show_data_preview:
         st.dataframe(user_df.head(5))
 
+def split_numeric_and_units(input_string):
+    """
+    Splits a string into its numeric and unit components.
+
+    Args:
+        input_string (str): The string to split, e.g., "100kg", "50 m", "25.5-cm".
+
+    Returns:
+        tuple: A tuple containing the numeric part (as a float) and the unit part (as a string).
+               Returns (None, None) if the numeric part cannot be found or converted.
+    """
+    # Pattern to capture a number (integer or float) and then the rest as units.
+    # It handles optional spaces or symbols between the number and units.
+    match = re.match(r"([-+]?\d*\.?\d+)\s*([^\d\s]*)?", input_string.strip().replace(" ", ""))
+
+    if match:
+        numeric_str = match.group(1)
+        units_str = match.group(2) if match.group(2) else ""
+        try:
+            numeric_value = float(numeric_str)
+            return numeric_value, units_str.replace("-", "").strip()
+        except ValueError:
+            return None, None  # Failed to convert numeric part
+    else:
+        return None, None # No match found
+
 
 def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -212,11 +238,14 @@ def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
         oht_class = None
 
         # Search for time duration to add keywords
+        # Note, this is an estimate at best since it's pulling duration from ALL fields
+        # There could be a case of a true duration field being 5 days, but a subject age of 1 year
+        # making the max_time be set to 365 days...so a short-term study is missclassified as chronic
         long_string = " ".join([str(value) for value in row.values]).lower()
         duration_pattern = r"\b(?:\d+\.\d+|\d+)[\s-]*(?:day|pnd|week|month|year)" # Regex looks for number and time unit
         max_time = 0
         for match in re.findall(duration_pattern, long_string):
-            time, unit = re.split(r"[ \-]+", match) # split by space or hypthen
+            time, unit = split_numeric_and_units(match)
             time_in_days = float(time) * time_conversion[unit] # convert into days
             if time_in_days > max_time: 
                 max_time = time_in_days
