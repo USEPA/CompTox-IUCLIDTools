@@ -1,5 +1,4 @@
 import hashlib
-import hashlib
 import io
 import json
 from pathlib import Path
@@ -840,11 +839,12 @@ def generate_i6z(endpoint_instances, test_material_instances, legal_entity_insta
         i6d_files.append(i6d_file_path)
     #st.write(f"Uploaded Attachments: {other_files}")
     if other_files is not None:
-        attach_keys = []
+        attach_keys = {}
         for attachment in other_files:
-            document_key = create_i6d_for_attachment(attachment, output_dir)
-            attach_keys.append(f"{document_key}.i6d")
-
+            document_key, attachment_path = create_i6d_for_attachment(attachment, output_dir)
+            # attach_keys.append(f"{document_key}.i6d")
+            # Store document_key and attachment_path key-value pair in dictionary
+            attach_keys.update({f'{document_key}.i6d': attachment_path})
     # Define the file path for the manifest
     manifest_file_path = os.path.join(output_dir, "manifest.xml")
 
@@ -860,13 +860,14 @@ def generate_i6z(endpoint_instances, test_material_instances, legal_entity_insta
             i6z.write(os.path.join(output_dir, i6d_file), i6d_file)  # Add each i6d file
         i6z.write(main_data, os.path.basename(main_data))
         if other_files is not None:
-            for i in range(0, len(other_files)):
-                file_path = os.path.join(output_dir, other_files[i].name)
-                with open(file_path, 'wb') as f:
-                    f.write(other_files[i].getvalue())
-                i6z.write(file_path, attach_keys[i])
-        for file_path in other_file_paths:
-            i6z.write(file_path, os.path.basename(file_path))
+            for k in attach_keys.keys():
+                # with open(file_path, 'wb') as f:
+                #     f.write(other_files[i].getvalue())
+                # Add the attachment file with relative path
+                i6z.write(attach_keys.get(k), os.path.relpath(attach_keys.get(k), output_dir))
+                # Add the attachment i6d file with relative path
+                file_path = os.path.join(output_dir, k)
+                i6z.write(file_path, k)
 
 
 def apply_column_mapping(column_mapping, modified_df):
@@ -1058,8 +1059,6 @@ def get_model_fields(model, prefix=""):
     for field_name, field_type in model.__annotations__.items():
         full_path = f"{prefix}.{field_name}" if prefix else field_name
         actual_type = get_actual_type2(field_type)
-        #print('actual_type:')
-        #print(type(actual_type))
         if isinstance(actual_type, typing._GenericAlias):
             continue
         else:
@@ -1156,10 +1155,18 @@ def create_i6d_for_attachment(attachment_file, output_dir):
     etree.SubElement(root, "md5").text = md5_hash
     etree.SubElement(root, "mimetype").text = mime_type
 
-    content = etree.SubElement(root, "content", {
-        "{http://www.w3.org/1999/xlink}href": f"attachments/{md5_hash}.{file_name.split('.')[-1]}",
+    attachment_filename = f"attachments/{md5_hash}.{file_name.split('.')[-1]}"
+    etree.SubElement(root, "content", {
+        "{http://www.w3.org/1999/xlink}href": attachment_filename,
         "{http://www.w3.org/1999/xlink}type": "simple"
     })
+
+    # Write attachment file to subfolder
+    os.makedirs(os.path.join(output_dir, "attachments"), exist_ok=True)
+    attachment_path = os.path.join(output_dir, attachment_filename)
+    with open(attachment_path, 'wb') as f:
+        f.write(attachment_file.getvalue())
+
     # etree.SubElement(root, "content",
     #                  attrib={"{http://www.w3.org/1999/xlink}href": f"attachments/{md5_hash}.{file_name.split('.')[-1]}",
     #                          "{http://www.w3.org/1999/xlink}type": "simple"})
@@ -1182,4 +1189,4 @@ def create_i6d_for_attachment(attachment_file, output_dir):
 
     tree = etree.ElementTree(root)
     tree.write(file_path, pretty_print=True, xml_declaration=True, encoding="UTF-8")
-    return document_key_clean
+    return document_key_clean, attachment_path
