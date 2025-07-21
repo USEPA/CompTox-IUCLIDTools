@@ -54,7 +54,7 @@ def check_if_url(series, na_strings=['Not Specified'], threshold=0.90):
 
 
 def check_if_url_(x):
-    url = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+#]|[!*\(\), ]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+    url = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+#]|[!*\(\), ]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     # from https://www.tutorialspoint.com/python-program-to-check-for-url-in-a-string
     match = re.match(url, str(x))
     if match:
@@ -81,7 +81,7 @@ def check_if_dtxsid(series, threshold=0.90):
 
 
 def check_if_dtxsid_(x):
-    dtxsid = 'dtxsid\d{7,9}'
+    dtxsid = r'dtxsid\d{7,9}'
     match = re.match(dtxsid, str(x).lower())
     if match:
         return (match.span() == (0, len(x)))

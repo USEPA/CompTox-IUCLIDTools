@@ -241,8 +241,10 @@ def format_option(option, punctuation=['(', ')', ':', '.', ',', '?', ' ']):
 
 
 def remove_brackets(string):
-    string = re.sub("\(.*?\)", "", string)
-    string = re.sub("\[.*?\]", "", string)
+    # FIXME: is this supposed to rebove bracketed content or just brackets?
+    # Seems unused, don't see it being called anywhere.
+    string = re.sub(r"\(.*?\)", "", string)
+    string = re.sub(r"\[.*?\]", "", string)
     string = format_option(string)
     return (string)
 
@@ -326,7 +328,7 @@ def sort_scores(scores, threshold, op):
 def split_text_options(string):
     try:
         value_text, key_text = string.split(' - ')
-        key_text = re.findall('\[(.*?)\]', key_text)[0]
+        key_text = re.findall(r'\[(.*?)\]', key_text)[0]
         return (key_text, value_text)
     except ValueError:
         return (None, None)

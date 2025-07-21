@@ -1,5 +1,4 @@
-# Use the official Python 3.8 image
-FROM python:3.8-slim
+FROM python:3.12-slim
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -8,7 +7,10 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install the required dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN --mount=type=cache,target=/tmp/pip-cache,id=pip_cache \
+    pip install --cache-dir /tmp/pip-cache -r requirements.txt \
+ && pip freeze > requirements.freeze.txt \
+ && python -c "import nltk; nltk.download('stopwords'); nltk.download('punkt') ; nltk.download('punkt_tab')"
 
 # Copy the rest of the application code
 COPY . .
