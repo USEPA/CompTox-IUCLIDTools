@@ -13,37 +13,92 @@ from ez_utils import (
 )
 
 
-def get_definition_version(version):
-    for step in version_steps:
-        if step["version"] == version:
-            return step["definition_version"]
-    return "8.0"  # fallback
-
-# Supported versions and their definitionVersion values
-version_steps = [
-    {"version": "6.8", "definition_version": "8.0"},
-    {"version": "6.7", "definition_version": "7.0"},
-    {"version": "6.6", "definition_version": "6.0"},
-    # Add more as needed
-]
-
-# Map each step to its folder
-conversion_folders = {
-    ("6.8", "6.7"): "6.8_6.7_changes",
-    ("6.7", "6.6"): "6.7_6.6_changes",
-    ("6.6", "6.5"): "6.6_6.5_changes",
-    # Add more as needed
+DEFINITIONS_FOLDER = "changes_files"
+DEFINITIONS_FILES_BY_STEP = {
+    ("6_8", "6_7"): [
+        "Full_Comparison_OECD_v8.15-v9.13_fake_testing.xlsx",
+        "Full_Comparison_CORE_v8.14-v9.16.xlsx",
+        "Full_Comparison_DOMAIN_v5.10-v6.9.xlsx",
+        "Full_Comparison_AU_IND_CHEM_v5.3-v6.3.xlsx",
+        "Full_Comparison_EU_BPR_v8.9-v9.8.xlsx",
+        "Full_Comparison_EU_CLP_v8.3-v9.6.xlsx",
+        "Full_Comparison_EU_DWD_v1.9-v2.11.xlsx",
+        "Full_Comparison_EU_ECHA_v1.3-v2.3.xlsx",
+        "Full_Comparison_EU_EFSA_v1.2-v2.6.xlsx",
+        "Full_Comparison_EU_PPP_v4.11-v5.8.xlsx",
+        "Full_Comparison_EU_SCIP_v4.0-v5.2.xlsx",
+        "Full_Comparison_OECD_v8.15-v9.13.xlsx"
+    ],
+    ("6_7", "6_6"): [
+        "Comparison_AU_IND_CHEM_v5.3-v4.4.xlsx",
+        "Comparison_CORE_v8.14-v7.11.xlsx",
+        "Comparison_DOMAIN_v5.9-v4.7.xlsx",
+        "Comparison_EU_BPR_v8.7-v7.10.xlsx",
+        "Comparison_EU_CLP_v8.2-v7.8.xlsx",
+        "Comparison_EU_PPP_v4.10-v3.12.xlsx",
+        "Comparison_EU_REACH_v8.6-v7.3.xlsx",
+        "Comparison_NZ_HSNO_v4.4-v3.0.xlsx",
+        "Comparison_OECD_v8.15-v7.8.xlsx"
+    ],
+    ("6_6", "6_5"): [
+        "Comparison_AU_IND_CHEM_v4.4-v3.9.xlsx",
+        "Comparison_CORE_v7.11-v6.21.xlsx",
+        "Comparison_DOMAIN_v4.7-v3.17.xlsx",
+        "Comparison_EU_BPR_v7.10-v6.13.xlsx",
+        "Comparison_EU_CLP_v7.7-v6.16.xlsx",
+        "Comparison_EU_PPP_v3.10-v2.13.xlsx",
+        "Comparison_EU_REACH_v7.3-v6.10.xlsx",
+        "Comparison_NZ_HSNO_v3.0-v2.9.xlsx",
+        "Comparison_OECD_v7.7-v6.16.xlsx"
+    ],
+    ("6_5", "6_4"): [
+        "Full_Comparison_Application_Tag_IUCLID6_4_6-IUCLID6_5_1_1.xlsx"
+    ]
 }
 
-st.title("IUCLID i6z File Converter")
-st.write("Convert your IUCLID `.i6z` files to a new version of IUCLID.")
+def get_mapping_steps(source_version, target_version):
+    versions = ["6_8", "6_7", "6_6", "6_5", "6_4"]
+    source_version = source_version.strip()
+    target_version = target_version.strip()
+    debug_msg = (
+        f"get_mapping_steps called with:\n"
+        f"  source_version: '{source_version}'\n"
+        f"  target_version: '{target_version}'\n"
+        f"  versions: {versions}\n"
+    )
+    try:
+        source_idx = versions.index(source_version)
+    except ValueError:
+        raise ValueError(debug_msg + f"  ERROR: source_version '{source_version}' not in versions list!")
+    try:
+        target_idx = versions.index(target_version)
+    except ValueError:
+        raise ValueError(debug_msg + f"  ERROR: target_version '{target_version}' not in versions list!")
+    debug_msg += f"  source_idx: {source_idx}, target_idx: {target_idx}\n"
+    if source_idx < target_idx:
+        steps = []
+        for i in range(source_idx, target_idx):
+            steps.append((versions[i], versions[i + 1]))
+        debug_msg += f"  Returning steps: {steps}\n"
+        print(debug_msg)
+        return steps
+    else:
+        debug_msg += "  ERROR: Only downgrades are supported (source_idx <= target_idx)\n"
+        raise ValueError(debug_msg)
 
+# Streamlit App
+st.title("IUCLID i6z File Converter")
+st.write("Convert your IUCLID `.i6z` files to a new version of IUCLID. Currently, only version 6.7 is supported.")
+
+# File Upload
 uploaded_file = st.file_uploader("Upload an i6z file", type=["i6z"])
 
 i6d_files = []
 definition_versions = set()
 
+
 if uploaded_file:
+    # Step 1: Extract the uploaded i6z file
     with st.spinner("Extracting i6z file..."):
         extract_dir = "extracted_i6d_files"
         os.makedirs(extract_dir, exist_ok=True)
@@ -73,90 +128,98 @@ if uploaded_file:
     else:
         st.warning("No definitionVersion found in any i6d file.")
 
-    # User selects target version
-    target_version = st.selectbox("Select IUCLID Version to Convert to", ["6.7", "6.6"], index=0)
-    TARGET_VERSION = target_version.replace(".", "_")
-    ENTITY_MODELS_FOLDER = f"entity_models_{TARGET_VERSION}"
-
-    # Determine input version from definition_versions
-    input_def_ver = list(definition_versions)[0] if len(definition_versions) == 1 else None
-    input_version = None
-    for step in version_steps:
-        if step["definition_version"] == input_def_ver:
-            input_version = step["version"]
-            break
-
-    if not input_version:
-        st.error("Could not determine input IUCLID version from definitionVersion.")
-        st.stop()
-
-    # Determine conversion path
-    def get_conversion_path(input_version, target_version, version_steps):
-        idx_input = next(i for i, v in enumerate(version_steps) if v["version"] == input_version)
-        idx_target = next(i for i, v in enumerate(version_steps) if v["version"] == target_version)
-        if idx_input > idx_target:
-            # Need to step down through each version
-            return [(version_steps[i]["version"], version_steps[i+1]["version"])
-                    for i in range(idx_input, idx_target, -1)]
-        else:
-            return []
-
-    conversion_path = get_conversion_path(input_version, target_version, version_steps)
+    # Now show the version select and conversion button
+    version = st.selectbox(
+        "Select IUCLID Version to Convert to",
+        ["6.8", "6.7", "6.6", "6.5", "6.4"],
+        index=0
+    )
+    target_version = version.replace(".", "_")
 
     if st.button("Convert i6z File"):
         try:
-            current_i6d_files = i6d_files
-            for from_ver, to_ver in conversion_path:
-                folder = conversion_folders.get((from_ver, to_ver))
-                definition_version = get_definition_version(to_ver)
-                if not folder:
-                    st.error(f"No conversion folder for {from_ver} to {to_ver}")
-                    st.stop()
-                with st.spinner(f"Applying conversion: {from_ver} → {to_ver}"):
-                    definitions_files = [
-                        os.path.join(folder, f)
-                        for f in os.listdir(folder)
-                        if f.endswith(".xlsx")
-                    ]
-                    definitions_dfs = []
-                    for file_path in definitions_files:
-                        try:
-                            df = pd.read_excel(file_path, sheet_name="Definitions")
-                            df["To Value"] = df["To Value"].apply(normalize_path)
-                            df["From Value"] = df["From Value"].apply(normalize_path)
-                            definitions_dfs.append(df)
-                        except Exception as e:
-                            st.warning(f"Error loading definitions file {file_path}: {e}")
-                    if not definitions_dfs:
-                        st.error(f"No valid definitions files found in {folder}.")
-                        st.stop()
-                    definitions_df = pd.concat(definitions_dfs, ignore_index=True)
-                    # Process each i6d file for this step
-                    output_dir = f"output_{from_ver}_to_{to_ver}"
-                    os.makedirs(output_dir, exist_ok=True)
-                    next_i6d_files = []
-                    for i6d_file in current_i6d_files:
-                        st.write(f"Processing file: {i6d_file}")
-                        try:
-                            tree = etree.parse(i6d_file)
-                            root = tree.getroot()
-                            entity_type = get_entity_type(root)
-                            if entity_type.lower() == "dossier":
-                                st.info(f"Skipping dossier entity for file: {i6d_file}")
-                                continue
-                            output_file = process_single_i6d(i6d_file, definitions_df, to_ver, output_dir, definitions_df=definitions_df)
-                            next_i6d_files.append(output_file)
-                        except Exception as e:
-                            st.warning(f"Error processing file {i6d_file}: {e}")
-                    current_i6d_files = next_i6d_files
+            # Step 1: Determine source version from definitionVersion
+            target_version = version.replace(".", "_")  # e.g., "6.7" → "6_7"
+            if len(definition_versions) == 1:
+                detected_def_ver = list(definition_versions)[0]
+                major_ver = detected_def_ver.split(".")[0]  # e.g., "8"
+                source_version = f"6_{major_ver}"           # e.g., "6_8"
+                st.info(f"Detected source version: {source_version}")
+            else:
+                # fallback or error handling
+                source_version = "6_8"  # or prompt user
 
-            # After all steps, create new i6z and provide download as before
+            print(source_version)
+            definition_versions = set()
+            for i6d_file in i6d_files:
+                try:
+                    tree = etree.parse(i6d_file)
+                    root = tree.getroot()
+                    ns = {
+                        "i6c": "http://iuclid6.echa.europa.eu/namespaces/platform-container/v2",
+                        "i6m": "http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1"
+                    }
+                    def_ver_elem = root.find(".//i6c:PlatformMetadata/i6m:definitionVersion", namespaces=ns)
+                    if def_ver_elem is not None and def_ver_elem.text:
+                        definition_versions.add(def_ver_elem.text.strip())
+                except Exception as e:
+                    st.warning(f"Error reading definitionVersion from {i6d_file}: {e}")
+
+
+            # Step 2: Load definitions for path mappings
+            with st.spinner("Loading path mappings..."):
+                #source_version = "6_8"  # You can auto-detect later if needed
+                mapping_steps = get_mapping_steps(source_version, target_version)
+                all_definitions_files = []
+                for idx, step in enumerate(mapping_steps):
+                    st.info(f"Loading mapping files for step {idx + 1}: {step[0]} → {step[1]}")
+                    files = DEFINITIONS_FILES_BY_STEP[step]
+                    all_definitions_files.extend(files)
+                    st.success(f"Loaded {len(files)} mapping files for {step[0]} → {step[1]}")
+
+                definitions_dfs = []
+                for file_name in all_definitions_files:
+                    file_path = os.path.join(DEFINITIONS_FOLDER, file_name)
+                    try:
+                        st.write(f"Loading definitions file: {file_path}")
+                        df = pd.read_excel(file_path, sheet_name="Definitions")
+                        df["To Value"] = df["To Value"].apply(normalize_path)
+                        df["From Value"] = df["From Value"].apply(normalize_path)
+                        definitions_dfs.append(df)
+                        st.success(f"Loaded: {file_path}")
+                    except Exception as e:
+                        st.warning(f"Error loading definitions file {file_path}: {e}")
+                if definitions_dfs:
+                    definitions_df = pd.concat(definitions_dfs, ignore_index=True)
+                    st.success("Loaded path mappings successfully.")
+                else:
+                    st.error("No valid definitions files found.")
+                    st.stop()
+
+            # Step 3: Process each i6d file
+            with st.spinner("Processing i6d files..."):
+                output_dir = "output_directory"
+                os.makedirs(output_dir, exist_ok=True)
+                for i6d_file in i6d_files:
+                    try:
+                        tree = etree.parse(i6d_file)
+                        root = tree.getroot()
+                        entity_type = get_entity_type(root)
+                        if entity_type.lower() == "dossier":
+                            st.info(f"Skipping dossier entity for file: {i6d_file}")
+                            continue
+                        process_single_i6d(i6d_file, definitions_df, target_version, output_dir)
+                    except Exception as e:
+                        st.warning(f"Error processing file {i6d_file}: {e}")
+                st.success("All i6d files processed successfully.")
+
+            # Step 4: Create a new i6z file
             with st.spinner("Creating new i6z file..."):
-                final_output_dir = output_dir if conversion_path else extract_dir
-                new_i6z_path = os.path.join(final_output_dir, "updated_dossier.i6z")
-                create_new_i6z(final_output_dir, new_i6z_path, uploaded_file)
+                new_i6z_path = os.path.join(output_dir, "updated_dossier.i6z")
+                create_new_i6z(output_dir, new_i6z_path, uploaded_file)
                 st.success("New i6z file created successfully.")
 
+            # Step 5: Provide download button
             with open(new_i6z_path, "rb") as f:
                 st.download_button(
                     label="Download Converted i6z File",

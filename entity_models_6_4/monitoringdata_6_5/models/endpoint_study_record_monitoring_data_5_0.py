@@ -1,0 +1,1379 @@
+from dataclasses import field
+from decimal import Decimal
+from typing import List, Optional
+
+from pydantic.dataclasses import dataclass
+
+from entity_models_6_4.monitoringdata_6_5.models.common_types_oecd_v5 import (
+    A31,
+    A36,
+    F19,
+    F35,
+    F126,
+    F127,
+    F139,
+    N64,
+    N78,
+    Y143,
+    Z02,
+    Z03,
+    Z05,
+    Z06,
+    Z08,
+    Z30,
+    Z40,
+    Z52,
+    Pg660009,
+    Pg660010,
+    Pg660013,
+    Pg660038,
+    Pg660191,
+)
+
+__NAMESPACE__ = "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0"
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataApplicantSummaryAndConclusion:
+    class Meta:
+        global_type = False
+
+    conclusions: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Conclusions",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    executive_summary: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "ExecutiveSummary",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataMaterialsAndMethodsAnyOtherInformationOnMaterialsAndMethodsInclTables:
+    class Meta:
+        global_type = False
+
+    other_information: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataMaterialsAndMethodsStudyDesign:
+    class Meta:
+        global_type = False
+
+    details_on_sampling: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnSampling",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    details_on_analytical_methods: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnAnalyticalMethods",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataMaterialsAndMethodsTestMaterials:
+    class Meta:
+        global_type = False
+
+    test_material_information: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "TestMaterialInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    specific_details_on_test_material_used_for_the_study: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "SpecificDetailsOnTestMaterialUsedForTheStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    specific_details_on_test_material_used_for_the_study_confidential: List[
+        str
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "SpecificDetailsOnTestMaterialUsedForTheStudyConfidential",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataOverallRemarksAttachmentsAttachedBackgroundMaterialEntry:
+    class Meta:
+        global_type = False
+
+    attached_document: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedDocument",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataResultsAndDiscussionAnyOtherInformationOnResultsInclTables:
+    class Meta:
+        global_type = False
+
+    other_information: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataAttachedJustificationEntryReasonPurpose:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660009] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataCrossReferenceEntryReasonPurpose:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660010] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataDataProtectionLegislation:
+    class Meta:
+        global_type = False
+
+    value: Optional[N78] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataDataWaiving:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z02] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataDataWaivingJustification:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z52] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataEndpoint:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660191] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataPurposeFlag:
+    class Meta:
+        global_type = False
+
+    value: Optional[Y143] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataRationalReliability:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660013] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataReliability:
+    class Meta:
+        global_type = False
+
+    value: Optional[A36] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataStudyResultType:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z05] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataDataSourceDataAccess:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataDataSourceDataProtectionClaimed:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z30] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataMaterialsAndMethodsGlpcomplianceStatement:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z40] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataMaterialsAndMethodsGuidelineEntryDeviation:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z08] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataMaterialsAndMethodsGuidelineEntryGuideline:
+    class Meta:
+        global_type = False
+
+    value: Optional[F126] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataMaterialsAndMethodsGuidelineEntryQualifier:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z06] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataMaterialsAndMethodsMedia:
+    class Meta:
+        global_type = False
+
+    value: Optional[F35] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataMaterialsAndMethodsTypeOfMeasurement:
+    class Meta:
+        global_type = False
+
+    value: Optional[F19] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataOverallRemarksAttachmentsAttachedBackgroundMaterial:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordMonitoringDataOverallRemarksAttachmentsAttachedBackgroundMaterialEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataResultsAndDiscussionConcentrationEntryConcentration:
+    class Meta:
+        global_type = False
+
+    unit_code: Optional[F127] = field(
+        default=None,
+        metadata={
+            "name": "unitCode",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    unit_other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "unitOther",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    lower_qualifier: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "lowerQualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    upper_qualifier: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "upperQualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    lower_value: Optional[Decimal] = field(
+        default=None,
+        metadata={
+            "name": "lowerValue",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    upper_value: Optional[Decimal] = field(
+        default=None,
+        metadata={
+            "name": "upperValue",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataResultsAndDiscussionConcentrationEntryCountry:
+    class Meta:
+        global_type = False
+
+    value: Optional[A31] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataResultsAndDiscussionConcentrationEntryRemarksOnResults:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660038] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataResultsAndDiscussionConcentrationEntrySubstanceOrMetabolite:
+    class Meta:
+        global_type = False
+
+    value: Optional[F139] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataAttachedJustificationEntry:
+    class Meta:
+        global_type = False
+
+    attached_justification: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    reason_purpose: Optional[
+        EndpointStudyRecordMonitoringDataAdministrativeDataAttachedJustificationEntryReasonPurpose
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReasonPurpose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataCrossReferenceEntry:
+    class Meta:
+        global_type = False
+
+    reason_purpose: Optional[
+        EndpointStudyRecordMonitoringDataAdministrativeDataCrossReferenceEntryReasonPurpose
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReasonPurpose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    related_information: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "RelatedInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataDataProtection:
+    class Meta:
+        global_type = False
+
+    confidentiality: Optional[N64] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    justification: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    legislation: List[
+        EndpointStudyRecordMonitoringDataAdministrativeDataDataProtectionLegislation
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataDataSource:
+    class Meta:
+        global_type = False
+
+    reference: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "Reference",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    data_access: Optional[
+        EndpointStudyRecordMonitoringDataDataSourceDataAccess
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataAccess",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    data_protection_claimed: Optional[
+        EndpointStudyRecordMonitoringDataDataSourceDataProtectionClaimed
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataProtectionClaimed",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataMaterialsAndMethodsGuidelineEntry:
+    class Meta:
+        global_type = False
+
+    qualifier: Optional[
+        EndpointStudyRecordMonitoringDataMaterialsAndMethodsGuidelineEntryQualifier
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Qualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    guideline: Optional[
+        EndpointStudyRecordMonitoringDataMaterialsAndMethodsGuidelineEntryGuideline
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Guideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    version_remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "VersionRemarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    deviation: Optional[
+        EndpointStudyRecordMonitoringDataMaterialsAndMethodsGuidelineEntryDeviation
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Deviation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataOverallRemarksAttachments:
+    class Meta:
+        global_type = False
+
+    remarks_on_results: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "RemarksOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    attached_background_material: Optional[
+        EndpointStudyRecordMonitoringDataOverallRemarksAttachmentsAttachedBackgroundMaterial
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AttachedBackgroundMaterial",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    attached_study_report: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedStudyReport",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    illustration_pic_graph: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "IllustrationPicGraph",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataResultsAndDiscussionConcentrationEntry:
+    class Meta:
+        global_type = False
+
+    key_result: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "KeyResult",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+            "nillable": True,
+        },
+    )
+    country: Optional[
+        EndpointStudyRecordMonitoringDataResultsAndDiscussionConcentrationEntryCountry
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Country",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    location: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Location",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    substance_or_metabolite: Optional[
+        EndpointStudyRecordMonitoringDataResultsAndDiscussionConcentrationEntrySubstanceOrMetabolite
+    ] = field(
+        default=None,
+        metadata={
+            "name": "SubstanceOrMetabolite",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    concentration: Optional[
+        EndpointStudyRecordMonitoringDataResultsAndDiscussionConcentrationEntryConcentration
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Concentration",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    remarks_on_results: Optional[
+        EndpointStudyRecordMonitoringDataResultsAndDiscussionConcentrationEntryRemarksOnResults
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RemarksOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataAttachedJustification:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordMonitoringDataAdministrativeDataAttachedJustificationEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeDataCrossReference:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordMonitoringDataAdministrativeDataCrossReferenceEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataMaterialsAndMethodsGuideline:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordMonitoringDataMaterialsAndMethodsGuidelineEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataResultsAndDiscussionConcentration:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordMonitoringDataResultsAndDiscussionConcentrationEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataAdministrativeData:
+    class Meta:
+        global_type = False
+
+    data_protection: Optional[
+        EndpointStudyRecordMonitoringDataAdministrativeDataDataProtection
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataProtection",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    endpoint: Optional[
+        EndpointStudyRecordMonitoringDataAdministrativeDataEndpoint
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Endpoint",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    study_result_type: Optional[
+        EndpointStudyRecordMonitoringDataAdministrativeDataStudyResultType
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StudyResultType",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    purpose_flag: Optional[
+        EndpointStudyRecordMonitoringDataAdministrativeDataPurposeFlag
+    ] = field(
+        default=None,
+        metadata={
+            "name": "PurposeFlag",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    robust_study: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "RobustStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+            "nillable": True,
+        },
+    )
+    used_for_classification: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "UsedForClassification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+            "nillable": True,
+        },
+    )
+    used_for_msds: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "UsedForMSDS",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+            "nillable": True,
+        },
+    )
+    study_period: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "StudyPeriod",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    reliability: Optional[
+        EndpointStudyRecordMonitoringDataAdministrativeDataReliability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Reliability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    rational_reliability: Optional[
+        EndpointStudyRecordMonitoringDataAdministrativeDataRationalReliability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RationalReliability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    data_waiving: Optional[
+        EndpointStudyRecordMonitoringDataAdministrativeDataDataWaiving
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataWaiving",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    data_waiving_justification: List[
+        EndpointStudyRecordMonitoringDataAdministrativeDataDataWaivingJustification
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "DataWaivingJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    justification_for_type_of_information: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "JustificationForTypeOfInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    attached_justification: Optional[
+        EndpointStudyRecordMonitoringDataAdministrativeDataAttachedJustification
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AttachedJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    cross_reference: Optional[
+        EndpointStudyRecordMonitoringDataAdministrativeDataCrossReference
+    ] = field(
+        default=None,
+        metadata={
+            "name": "CrossReference",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataMaterialsAndMethods:
+    class Meta:
+        global_type = False
+
+    guideline: Optional[
+        EndpointStudyRecordMonitoringDataMaterialsAndMethodsGuideline
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Guideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    method_no_guideline: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "MethodNoGuideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    glpcompliance_statement: Optional[
+        EndpointStudyRecordMonitoringDataMaterialsAndMethodsGlpcomplianceStatement
+    ] = field(
+        default=None,
+        metadata={
+            "name": "GLPComplianceStatement",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    type_of_measurement: Optional[
+        EndpointStudyRecordMonitoringDataMaterialsAndMethodsTypeOfMeasurement
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TypeOfMeasurement",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    media: Optional[
+        EndpointStudyRecordMonitoringDataMaterialsAndMethodsMedia
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Media",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    test_materials: Optional[
+        EndpointStudyRecordMonitoringDataMaterialsAndMethodsTestMaterials
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestMaterials",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    study_design: Optional[
+        EndpointStudyRecordMonitoringDataMaterialsAndMethodsStudyDesign
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StudyDesign",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    any_other_information_on_materials_and_methods_incl_tables: Optional[
+        EndpointStudyRecordMonitoringDataMaterialsAndMethodsAnyOtherInformationOnMaterialsAndMethodsInclTables
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnyOtherInformationOnMaterialsAndMethodsInclTables",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringDataResultsAndDiscussion:
+    class Meta:
+        global_type = False
+
+    concentration: Optional[
+        EndpointStudyRecordMonitoringDataResultsAndDiscussionConcentration
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Concentration",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    details_on_results: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+    any_other_information_on_results_incl_tables: Optional[
+        EndpointStudyRecordMonitoringDataResultsAndDiscussionAnyOtherInformationOnResultsInclTables
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnyOtherInformationOnResultsInclTables",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordMonitoringData:
+    class Meta:
+        name = "ENDPOINT_STUDY_RECORD.MonitoringData"
+        namespace = "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-MonitoringData/5.0"
+
+    administrative_data: Optional[
+        EndpointStudyRecordMonitoringDataAdministrativeData
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AdministrativeData",
+            "type": "Element",
+        },
+    )
+    data_source: Optional[EndpointStudyRecordMonitoringDataDataSource] = field(
+        default=None,
+        metadata={
+            "name": "DataSource",
+            "type": "Element",
+        },
+    )
+    materials_and_methods: Optional[
+        EndpointStudyRecordMonitoringDataMaterialsAndMethods
+    ] = field(
+        default=None,
+        metadata={
+            "name": "MaterialsAndMethods",
+            "type": "Element",
+        },
+    )
+    results_and_discussion: Optional[
+        EndpointStudyRecordMonitoringDataResultsAndDiscussion
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ResultsAndDiscussion",
+            "type": "Element",
+        },
+    )
+    overall_remarks_attachments: Optional[
+        EndpointStudyRecordMonitoringDataOverallRemarksAttachments
+    ] = field(
+        default=None,
+        metadata={
+            "name": "OverallRemarksAttachments",
+            "type": "Element",
+        },
+    )
+    applicant_summary_and_conclusion: Optional[
+        EndpointStudyRecordMonitoringDataApplicantSummaryAndConclusion
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ApplicantSummaryAndConclusion",
+            "type": "Element",
+        },
+    )

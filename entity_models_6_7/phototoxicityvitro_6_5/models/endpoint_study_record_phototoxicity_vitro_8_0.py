@@ -1,0 +1,1603 @@
+from dataclasses import field
+from typing import List, Optional
+
+from pydantic.dataclasses import dataclass
+from xsdata.models.datatype import XmlDate
+
+from entity_models_6_7.phototoxicityvitro_6_5.models.common_types_oecd_v8 import (
+    A36,
+    N64,
+    N78,
+    Y143,
+    Z02,
+    Z03,
+    Z05,
+    Z06,
+    Z08,
+    Z30,
+    Z40,
+    Z52,
+    ControlsPhototox,
+    ControlSubPhototox,
+    Pg6Phototox,
+    Pg660009,
+    Pg660010,
+    Pg660013,
+    Pg661157,
+    Pg661253,
+    ResultRemarksPhototox,
+    SpeciesPhototox,
+    VehiclePhototox,
+    Z18Phototox,
+    Z52Phototox,
+)
+from entity_models_6_7.phototoxicityvitro_6_5.models.platform_fields import (
+    BaseDataProtectionField,
+    BasePicklistField,
+    DocumentReferenceMultipleField,
+    MultilingualTextField,
+    MultilingualTextFieldLarge,
+    MultilingualTextFieldMultiLine,
+    MultilingualTextFieldSmall,
+    RepeatableEntryType,
+)
+
+__NAMESPACE__ = "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0"
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataAttachedJustificationEntryReasonPurpose(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660009] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataCrossReferenceEntryReasonPurpose(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660010] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataDataProtectionLegislation:
+    class Meta:
+        global_type = False
+
+    value: Optional[N78] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataDataWaiving(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z02] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataDataWaivingJustification(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z52] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataEndpoint(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg6Phototox] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataPurposeFlag(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Y143] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataRationalReliability(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660013] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataReliability(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[A36] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataStudyResultType(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z05] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroApplicantSummaryAndConclusionValidityCriteriaFulfilled(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z08] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroDataSourceDataAccess(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroDataSourceDataProtectionClaimed(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z30] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsGlpcomplianceStatement(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z40] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsGuidelineEntryDeviation(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z08] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsGuidelineEntryGuideline(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z52Phototox] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsGuidelineEntryQualifier(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z06] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestMaterials:
+    class Meta:
+        global_type = False
+
+    test_material_information: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "TestMaterialInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    additional_test_material_information: Optional[
+        DocumentReferenceMultipleField
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AdditionalTestMaterialInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    specific_details_on_test_material_used_for_the_study: List[
+        MultilingualTextFieldLarge
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "SpecificDetailsOnTestMaterialUsedForTheStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    specific_details_on_test_material_used_for_the_study_confidential: List[
+        MultilingualTextFieldLarge
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "SpecificDetailsOnTestMaterialUsedForTheStudyConfidential",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemControlsEntryNegativeControls(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[ControlsPhototox] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemControlsEntryPositiveControlSubstance(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[ControlSubPhototox] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemControlsEntryPositiveControls(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg661253] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemSpeciesStrainEntrySpeciesStrainCell(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[SpeciesPhototox] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemVehicle(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[VehiclePhototox] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTypeOfStudy(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z18Phototox] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroOverallRemarksAttachmentsAttachedBackgroundMaterialEntryType(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg661157] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroResultsAndDiscussionAnyOtherInformationOnResultsInclTables:
+    class Meta:
+        global_type = False
+
+    other_information: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroResultsAndDiscussionRemarksOnResult(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[ResultRemarksPhototox] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataAttachedJustificationEntry(
+    RepeatableEntryType
+):
+    class Meta:
+        global_type = False
+
+    attached_justification: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    reason_purpose: Optional[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataAttachedJustificationEntryReasonPurpose
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReasonPurpose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataCrossReferenceEntry(
+    RepeatableEntryType
+):
+    class Meta:
+        global_type = False
+
+    reason_purpose: Optional[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataCrossReferenceEntryReasonPurpose
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReasonPurpose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    related_information: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "RelatedInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataDataProtection(
+    BaseDataProtectionField
+):
+    class Meta:
+        global_type = False
+
+    confidentiality: Optional[N64] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    justification: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    legislation: List[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataDataProtectionLegislation
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroApplicantSummaryAndConclusion:
+    class Meta:
+        global_type = False
+
+    validity_criteria_fulfilled: Optional[
+        EndpointStudyRecordPhototoxicityVitroApplicantSummaryAndConclusionValidityCriteriaFulfilled
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ValidityCriteriaFulfilled",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    conclusions: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "Conclusions",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    executive_summary: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "name": "ExecutiveSummary",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroDataSource:
+    class Meta:
+        global_type = False
+
+    reference: Optional[DocumentReferenceMultipleField] = field(
+        default=None,
+        metadata={
+            "name": "Reference",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    data_access: Optional[
+        EndpointStudyRecordPhototoxicityVitroDataSourceDataAccess
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataAccess",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    data_protection_claimed: Optional[
+        EndpointStudyRecordPhototoxicityVitroDataSourceDataProtectionClaimed
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataProtectionClaimed",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsGuidelineEntry(
+    RepeatableEntryType
+):
+    class Meta:
+        global_type = False
+
+    qualifier: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsGuidelineEntryQualifier
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Qualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    guideline: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsGuidelineEntryGuideline
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Guideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    version_remarks: List[MultilingualTextFieldMultiLine] = field(
+        default_factory=list,
+        metadata={
+            "name": "VersionRemarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    deviation: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsGuidelineEntryDeviation
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Deviation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemControlsEntry(
+    RepeatableEntryType
+):
+    class Meta:
+        global_type = False
+
+    negative_controls: List[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemControlsEntryNegativeControls
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "NegativeControls",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    positive_controls: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemControlsEntryPositiveControls
+    ] = field(
+        default=None,
+        metadata={
+            "name": "PositiveControls",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    positive_control_substance: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemControlsEntryPositiveControlSubstance
+    ] = field(
+        default=None,
+        metadata={
+            "name": "PositiveControlSubstance",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemSpeciesStrainEntry(
+    RepeatableEntryType
+):
+    class Meta:
+        global_type = False
+
+    species_strain_cell: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemSpeciesStrainEntrySpeciesStrainCell
+    ] = field(
+        default=None,
+        metadata={
+            "name": "SpeciesStrainCell",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    mammalian_cell_details: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "MammalianCellDetails",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroOverallRemarksAttachmentsAttachedBackgroundMaterialEntry(
+    RepeatableEntryType
+):
+    class Meta:
+        global_type = False
+
+    type_value: Optional[
+        EndpointStudyRecordPhototoxicityVitroOverallRemarksAttachmentsAttachedBackgroundMaterialEntryType
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Type",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    attached_document: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedDocument",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    attached_sanitised_docs_for_publication: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedSanitisedDocsForPublication",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroResultsAndDiscussion:
+    class Meta:
+        global_type = False
+
+    key_result: Optional[bool] = field(
+        default=None,
+        metadata={
+            "name": "KeyResult",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    results: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "Results",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    remarks_on_result: Optional[
+        EndpointStudyRecordPhototoxicityVitroResultsAndDiscussionRemarksOnResult
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RemarksOnResult",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    results_reference_substance: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "ResultsReferenceSubstance",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    statistics_error_estimates: List[MultilingualTextFieldMultiLine] = field(
+        default_factory=list,
+        metadata={
+            "name": "StatisticsErrorEstimates",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    any_other_information_on_results_incl_tables: Optional[
+        EndpointStudyRecordPhototoxicityVitroResultsAndDiscussionAnyOtherInformationOnResultsInclTables
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnyOtherInformationOnResultsInclTables",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataAttachedJustification:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataAttachedJustificationEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeDataCrossReference:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataCrossReferenceEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsGuideline:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsGuidelineEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemControls:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemControlsEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemSpeciesStrain:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemSpeciesStrainEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroOverallRemarksAttachmentsAttachedBackgroundMaterial:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordPhototoxicityVitroOverallRemarksAttachmentsAttachedBackgroundMaterialEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroAdministrativeData:
+    class Meta:
+        global_type = False
+
+    data_protection: Optional[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataDataProtection
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataProtection",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    endpoint: Optional[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataEndpoint
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Endpoint",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    study_result_type: Optional[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataStudyResultType
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StudyResultType",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    purpose_flag: Optional[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataPurposeFlag
+    ] = field(
+        default=None,
+        metadata={
+            "name": "PurposeFlag",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    robust_study: Optional[bool] = field(
+        default=None,
+        metadata={
+            "name": "RobustStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    used_for_classification: Optional[bool] = field(
+        default=None,
+        metadata={
+            "name": "UsedForClassification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    used_for_msds: Optional[bool] = field(
+        default=None,
+        metadata={
+            "name": "UsedForMSDS",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    study_period_start_date: Optional[XmlDate] = field(
+        default=None,
+        metadata={
+            "name": "StudyPeriodStartDate",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+            "nillable": True,
+        },
+    )
+    study_period_end_date: Optional[XmlDate] = field(
+        default=None,
+        metadata={
+            "name": "StudyPeriodEndDate",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+            "nillable": True,
+        },
+    )
+    study_period: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "name": "StudyPeriod",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    reliability: Optional[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataReliability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Reliability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    rational_reliability: Optional[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataRationalReliability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RationalReliability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    data_waiving: Optional[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataDataWaiving
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataWaiving",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    data_waiving_justification: List[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataDataWaivingJustification
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "DataWaivingJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    justification_for_type_of_information: List[MultilingualTextFieldLarge] = (
+        field(
+            default_factory=list,
+            metadata={
+                "name": "JustificationForTypeOfInformation",
+                "type": "Element",
+                "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+            },
+        )
+    )
+    attached_justification: Optional[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataAttachedJustification
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AttachedJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    cross_reference: Optional[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeDataCrossReference
+    ] = field(
+        default=None,
+        metadata={
+            "name": "CrossReference",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystem:
+    class Meta:
+        global_type = False
+
+    species_strain: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemSpeciesStrain
+    ] = field(
+        default=None,
+        metadata={
+            "name": "SpeciesStrain",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    controls: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemControls
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Controls",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    test_system_exp_conditions: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "TestSystemExpConditions",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    vehicle: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystemVehicle
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Vehicle",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    vehicle_solvent: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "VehicleSolvent",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    evaluation_criteria: List[MultilingualTextFieldMultiLine] = field(
+        default_factory=list,
+        metadata={
+            "name": "EvaluationCriteria",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    statistics: List[MultilingualTextFieldMultiLine] = field(
+        default_factory=list,
+        metadata={
+            "name": "Statistics",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroOverallRemarksAttachments:
+    class Meta:
+        global_type = False
+
+    remarks_on_results: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "name": "RemarksOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    attached_background_material: Optional[
+        EndpointStudyRecordPhototoxicityVitroOverallRemarksAttachmentsAttachedBackgroundMaterial
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AttachedBackgroundMaterial",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitroMaterialsAndMethods:
+    class Meta:
+        global_type = False
+
+    type_of_study: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTypeOfStudy
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TypeOfStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    guideline: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsGuideline
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Guideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    method_no_guideline: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "MethodNoGuideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    glpcompliance_statement: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsGlpcomplianceStatement
+    ] = field(
+        default=None,
+        metadata={
+            "name": "GLPComplianceStatement",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    test_materials: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestMaterials
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestMaterials",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+    test_system: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethodsTestSystem
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestSystem",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordPhototoxicityVitro:
+    class Meta:
+        name = "ENDPOINT_STUDY_RECORD.PhototoxicityVitro"
+        namespace = "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-PhototoxicityVitro/8.0"
+
+    administrative_data: Optional[
+        EndpointStudyRecordPhototoxicityVitroAdministrativeData
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AdministrativeData",
+            "type": "Element",
+        },
+    )
+    data_source: Optional[EndpointStudyRecordPhototoxicityVitroDataSource] = (
+        field(
+            default=None,
+            metadata={
+                "name": "DataSource",
+                "type": "Element",
+            },
+        )
+    )
+    materials_and_methods: Optional[
+        EndpointStudyRecordPhototoxicityVitroMaterialsAndMethods
+    ] = field(
+        default=None,
+        metadata={
+            "name": "MaterialsAndMethods",
+            "type": "Element",
+        },
+    )
+    results_and_discussion: Optional[
+        EndpointStudyRecordPhototoxicityVitroResultsAndDiscussion
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ResultsAndDiscussion",
+            "type": "Element",
+        },
+    )
+    overall_remarks_attachments: Optional[
+        EndpointStudyRecordPhototoxicityVitroOverallRemarksAttachments
+    ] = field(
+        default=None,
+        metadata={
+            "name": "OverallRemarksAttachments",
+            "type": "Element",
+        },
+    )
+    applicant_summary_and_conclusion: Optional[
+        EndpointStudyRecordPhototoxicityVitroApplicantSummaryAndConclusion
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ApplicantSummaryAndConclusion",
+            "type": "Element",
+        },
+    )

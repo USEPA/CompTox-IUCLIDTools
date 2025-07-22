@@ -1,0 +1,1994 @@
+from dataclasses import field
+from decimal import Decimal
+from typing import List, Optional
+
+from pydantic.dataclasses import dataclass
+
+from entity_models_6_4.toxicitytoterrestrialplants_6_5.models.common_types_oecd_v5 import (
+    A03,
+    A36,
+    E15,
+    E19,
+    E23,
+    E24,
+    E25,
+    E35,
+    E105,
+    E119,
+    E120,
+    E121,
+    E141,
+    F102,
+    N64,
+    N78,
+    Y143,
+    Z02,
+    Z03,
+    Z05,
+    Z06,
+    Z08,
+    Z30,
+    Z36,
+    Z38,
+    Z40,
+    Pg660009,
+    Pg660010,
+    Pg660013,
+    Pg660038,
+    Pg660240,
+    Pg660244,
+    Td360,
+)
+
+__NAMESPACE__ = "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0"
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsAnyOtherInformationOnMaterialsAndMethodsInclTables:
+    class Meta:
+        global_type = False
+
+    other_information: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestMaterials:
+    class Meta:
+        global_type = False
+
+    test_material_information: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "TestMaterialInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    specific_details_on_test_material_used_for_the_study: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "SpecificDetailsOnTestMaterialUsedForTheStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    specific_details_on_test_material_used_for_the_study_confidential: List[
+        str
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "SpecificDetailsOnTestMaterialUsedForTheStudyConfidential",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsOverallRemarksAttachmentsAttachedBackgroundMaterialEntry:
+    class Meta:
+        global_type = False
+
+    attached_document: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedDocument",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionAnyOtherInformationOnResultsInclTables:
+    class Meta:
+        global_type = False
+
+    other_information: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataAttachedJustificationEntryReasonPurpose:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660009] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataCrossReferenceEntryReasonPurpose:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660010] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataDataProtectionLegislation:
+    class Meta:
+        global_type = False
+
+    value: Optional[N78] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataDataWaiving:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z02] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataDataWaivingJustification:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660240] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataEndpoint:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660244] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataPurposeFlag:
+    class Meta:
+        global_type = False
+
+    value: Optional[Y143] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataRationalReliability:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660013] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataReliability:
+    class Meta:
+        global_type = False
+
+    value: Optional[A36] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataStudyResultType:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z05] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsApplicantSummaryAndConclusionValidityCriteriaFulfilled:
+    class Meta:
+        global_type = False
+
+    value: Optional[F102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsDataSourceDataAccess:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsDataSourceDataProtectionClaimed:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z30] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsGlpcomplianceStatement:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z40] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsGuidelineEntryDeviation:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z08] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsGuidelineEntryGuideline:
+    class Meta:
+        global_type = False
+
+    value: Optional[E24] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsGuidelineEntryQualifier:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z06] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsSamplingAndAnalysisAnalyticalMonitoring:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z36] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsStudyDesignLimitTest:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z38] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsStudyDesignStudyType:
+    class Meta:
+        global_type = False
+
+    value: Optional[E141] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsStudyDesignSubstrateType:
+    class Meta:
+        global_type = False
+
+    value: Optional[E19] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsStudyDesignTestType:
+    class Meta:
+        global_type = False
+
+    value: Optional[E119] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsStudyDesignTotalExposureDuration:
+    class Meta:
+        global_type = False
+
+    unit_code: Optional[E15] = field(
+        default=None,
+        metadata={
+            "name": "unitCode",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    value: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestConditionsReferenceSubstancePositiveControl:
+    class Meta:
+        global_type = False
+
+    value: Optional[A03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestOrganismsTestOrganismsEntryPlantGroup:
+    class Meta:
+        global_type = False
+
+    value: Optional[E120] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestOrganismsTestOrganismsEntrySpecies:
+    class Meta:
+        global_type = False
+
+    value: Optional[E23] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestSubstrateVehicle:
+    class Meta:
+        global_type = False
+
+    value: Optional[A03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsOverallRemarksAttachmentsAttachedBackgroundMaterial:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordToxicityToTerrestrialPlantsOverallRemarksAttachmentsAttachedBackgroundMaterialEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryBasisForEffect:
+    class Meta:
+        global_type = False
+
+    value: Optional[E25] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryConcBasedOn:
+    class Meta:
+        global_type = False
+
+    value: Optional[E105] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryDuration:
+    class Meta:
+        global_type = False
+
+    unit_code: Optional[E15] = field(
+        default=None,
+        metadata={
+            "name": "unitCode",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    value: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryEffectConc:
+    class Meta:
+        global_type = False
+
+    unit_code: Optional[Td360] = field(
+        default=None,
+        metadata={
+            "name": "unitCode",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    unit_other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "unitOther",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    lower_qualifier: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "lowerQualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    upper_qualifier: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "upperQualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    lower_value: Optional[Decimal] = field(
+        default=None,
+        metadata={
+            "name": "lowerValue",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    upper_value: Optional[Decimal] = field(
+        default=None,
+        metadata={
+            "name": "upperValue",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryEndpoint:
+    class Meta:
+        global_type = False
+
+    value: Optional[E121] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryNominalMeasured:
+    class Meta:
+        global_type = False
+
+    value: Optional[E35] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryRemarksOnResults:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660038] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntrySpecies:
+    class Meta:
+        global_type = False
+
+    value: Optional[E23] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataAttachedJustificationEntry:
+    class Meta:
+        global_type = False
+
+    attached_justification: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    reason_purpose: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataAttachedJustificationEntryReasonPurpose
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReasonPurpose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataCrossReferenceEntry:
+    class Meta:
+        global_type = False
+
+    reason_purpose: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataCrossReferenceEntryReasonPurpose
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReasonPurpose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    related_information: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "RelatedInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataDataProtection:
+    class Meta:
+        global_type = False
+
+    confidentiality: Optional[N64] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    justification: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    legislation: List[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataDataProtectionLegislation
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsApplicantSummaryAndConclusion:
+    class Meta:
+        global_type = False
+
+    validity_criteria_fulfilled: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsApplicantSummaryAndConclusionValidityCriteriaFulfilled
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ValidityCriteriaFulfilled",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    conclusions: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Conclusions",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    executive_summary: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "ExecutiveSummary",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsDataSource:
+    class Meta:
+        global_type = False
+
+    reference: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "Reference",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    data_access: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsDataSourceDataAccess
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataAccess",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    data_protection_claimed: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsDataSourceDataProtectionClaimed
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataProtectionClaimed",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsGuidelineEntry:
+    class Meta:
+        global_type = False
+
+    qualifier: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsGuidelineEntryQualifier
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Qualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    guideline: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsGuidelineEntryGuideline
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Guideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    version_remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "VersionRemarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    deviation: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsGuidelineEntryDeviation
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Deviation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsSamplingAndAnalysis:
+    class Meta:
+        global_type = False
+
+    analytical_monitoring: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsSamplingAndAnalysisAnalyticalMonitoring
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnalyticalMonitoring",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    details_on_sampling: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnSampling",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    details_on_analytical_methods: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnAnalyticalMethods",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsStudyDesign:
+    class Meta:
+        global_type = False
+
+    test_type: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsStudyDesignTestType
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestType",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    study_type: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsStudyDesignStudyType
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StudyType",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    substrate_type: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsStudyDesignSubstrateType
+    ] = field(
+        default=None,
+        metadata={
+            "name": "SubstrateType",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    limit_test: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsStudyDesignLimitTest
+    ] = field(
+        default=None,
+        metadata={
+            "name": "LimitTest",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    total_exposure_duration: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsStudyDesignTotalExposureDuration
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TotalExposureDuration",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    post_exposure_observation_period: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "PostExposureObservationPeriod",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    justification_for_exposure_duration: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "JustificationForExposureDuration",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestConditions:
+    class Meta:
+        global_type = False
+
+    test_temperature: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "TestTemperature",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    ph: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Ph",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    moisture: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Moisture",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    details_on_test_conditions: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnTestConditions",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    nominal_and_measured_concentrations: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "NominalAndMeasuredConcentrations",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    reference_substance_positive_control: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestConditionsReferenceSubstancePositiveControl
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReferenceSubstancePositiveControl",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestOrganismsTestOrganismsEntry:
+    class Meta:
+        global_type = False
+
+    species: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestOrganismsTestOrganismsEntrySpecies
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Species",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    plant_group: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestOrganismsTestOrganismsEntryPlantGroup
+    ] = field(
+        default=None,
+        metadata={
+            "name": "PlantGroup",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    details_on_test_organisms: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnTestOrganisms",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestSubstrate:
+    class Meta:
+        global_type = False
+
+    vehicle: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestSubstrateVehicle
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Vehicle",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    details_on_preparation_and_application_of_test_substrate: List[str] = (
+        field(
+            default_factory=list,
+            metadata={
+                "name": "DetailsOnPreparationAndApplicationOfTestSubstrate",
+                "type": "Element",
+                "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+            },
+        )
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsOverallRemarksAttachments:
+    class Meta:
+        global_type = False
+
+    remarks_on_results: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "RemarksOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    attached_background_material: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsOverallRemarksAttachmentsAttachedBackgroundMaterial
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AttachedBackgroundMaterial",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    attached_study_report: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedStudyReport",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    illustration_pic_graph: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "IllustrationPicGraph",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntry:
+    class Meta:
+        global_type = False
+
+    key_result: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "KeyResult",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+            "nillable": True,
+        },
+    )
+    species: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntrySpecies
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Species",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    duration: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryDuration
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Duration",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    endpoint: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryEndpoint
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Endpoint",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    effect_conc: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryEffectConc
+    ] = field(
+        default=None,
+        metadata={
+            "name": "EffectConc",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    nominal_measured: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryNominalMeasured
+    ] = field(
+        default=None,
+        metadata={
+            "name": "NominalMeasured",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    conc_based_on: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryConcBasedOn
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ConcBasedOn",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    basis_for_effect: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryBasisForEffect
+    ] = field(
+        default=None,
+        metadata={
+            "name": "BasisForEffect",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    remarks_on_results: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntryRemarksOnResults
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RemarksOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataAttachedJustification:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataAttachedJustificationEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataCrossReference:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataCrossReferenceEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsGuideline:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsGuidelineEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestOrganismsTestOrganisms:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestOrganismsTestOrganismsEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrations:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrationsEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeData:
+    class Meta:
+        global_type = False
+
+    data_protection: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataDataProtection
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataProtection",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    endpoint: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataEndpoint
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Endpoint",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    study_result_type: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataStudyResultType
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StudyResultType",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    purpose_flag: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataPurposeFlag
+    ] = field(
+        default=None,
+        metadata={
+            "name": "PurposeFlag",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    robust_study: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "RobustStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+            "nillable": True,
+        },
+    )
+    used_for_classification: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "UsedForClassification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+            "nillable": True,
+        },
+    )
+    used_for_msds: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "UsedForMSDS",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+            "nillable": True,
+        },
+    )
+    study_period: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "StudyPeriod",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    reliability: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataReliability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Reliability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    rational_reliability: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataRationalReliability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RationalReliability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    data_waiving: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataDataWaiving
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataWaiving",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    data_waiving_justification: List[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataDataWaivingJustification
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "DataWaivingJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    justification_for_type_of_information: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "JustificationForTypeOfInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    attached_justification: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataAttachedJustification
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AttachedJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    cross_reference: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeDataCrossReference
+    ] = field(
+        default=None,
+        metadata={
+            "name": "CrossReference",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestOrganisms:
+    class Meta:
+        global_type = False
+
+    test_organisms: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestOrganismsTestOrganisms
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestOrganisms",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussion:
+    class Meta:
+        global_type = False
+
+    effect_concentrations: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionEffectConcentrations
+    ] = field(
+        default=None,
+        metadata={
+            "name": "EffectConcentrations",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    results_details: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "ResultsDetails",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    results_ref_substance: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "ResultsRefSubstance",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    statistics: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Statistics",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    any_other_information_on_results_incl_tables: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussionAnyOtherInformationOnResultsInclTables
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnyOtherInformationOnResultsInclTables",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethods:
+    class Meta:
+        global_type = False
+
+    guideline: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsGuideline
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Guideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    method_no_guideline: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "MethodNoGuideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    glpcompliance_statement: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsGlpcomplianceStatement
+    ] = field(
+        default=None,
+        metadata={
+            "name": "GLPComplianceStatement",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    test_materials: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestMaterials
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestMaterials",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    sampling_and_analysis: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsSamplingAndAnalysis
+    ] = field(
+        default=None,
+        metadata={
+            "name": "SamplingAndAnalysis",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    test_substrate: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestSubstrate
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestSubstrate",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    test_organisms: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestOrganisms
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestOrganisms",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    study_design: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsStudyDesign
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StudyDesign",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    test_conditions: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsTestConditions
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestConditions",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+    any_other_information_on_materials_and_methods_incl_tables: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethodsAnyOtherInformationOnMaterialsAndMethodsInclTables
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnyOtherInformationOnMaterialsAndMethodsInclTables",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordToxicityToTerrestrialPlants:
+    class Meta:
+        name = "ENDPOINT_STUDY_RECORD.ToxicityToTerrestrialPlants"
+        namespace = "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-ToxicityToTerrestrialPlants/5.0"
+
+    administrative_data: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsAdministrativeData
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AdministrativeData",
+            "type": "Element",
+        },
+    )
+    data_source: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsDataSource
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataSource",
+            "type": "Element",
+        },
+    )
+    materials_and_methods: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsMaterialsAndMethods
+    ] = field(
+        default=None,
+        metadata={
+            "name": "MaterialsAndMethods",
+            "type": "Element",
+        },
+    )
+    results_and_discussion: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsResultsAndDiscussion
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ResultsAndDiscussion",
+            "type": "Element",
+        },
+    )
+    overall_remarks_attachments: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsOverallRemarksAttachments
+    ] = field(
+        default=None,
+        metadata={
+            "name": "OverallRemarksAttachments",
+            "type": "Element",
+        },
+    )
+    applicant_summary_and_conclusion: Optional[
+        EndpointStudyRecordToxicityToTerrestrialPlantsApplicantSummaryAndConclusion
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ApplicantSummaryAndConclusion",
+            "type": "Element",
+        },
+    )

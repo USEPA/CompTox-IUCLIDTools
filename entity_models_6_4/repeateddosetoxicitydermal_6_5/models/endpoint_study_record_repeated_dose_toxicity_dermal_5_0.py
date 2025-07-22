@@ -1,0 +1,2753 @@
+from dataclasses import field
+from decimal import Decimal
+from typing import List, Optional
+
+from pydantic.dataclasses import dataclass
+
+from entity_models_6_4.repeateddosetoxicitydermal_6_5.models.common_types_oecd_v5 import (
+    A03,
+    A36,
+    E105,
+    N64,
+    N78,
+    T022,
+    T24,
+    T27,
+    T48,
+    T50,
+    T102,
+    T156,
+    T263,
+    T283,
+    T23123456,
+    Y143,
+    Z02,
+    Z03,
+    Z05,
+    Z06,
+    Z08,
+    Z30,
+    Z38,
+    Z40,
+    Pg660009,
+    Pg660010,
+    Pg660013,
+    Pg660233,
+    Pg660234,
+    Pg660235,
+    Pg660242,
+    Pg660253,
+    Pg660307,
+    Pg660421,
+)
+
+__NAMESPACE__ = "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0"
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalApplicantSummaryAndConclusion:
+    class Meta:
+        global_type = False
+
+    conclusions: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Conclusions",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    executive_summary: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "ExecutiveSummary",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAnyOtherInformationOnMaterialsAndMethodsInclTables:
+    class Meta:
+        global_type = False
+
+    other_information: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsExaminations:
+    class Meta:
+        global_type = False
+
+    observations_and_examinations_performed_and_frequency: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "ObservationsAndExaminationsPerformedAndFrequency",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    sacrifice_and_pathology: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "SacrificeAndPathology",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other_examinations: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherExaminations",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    statistics: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Statistics",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsTestMaterials:
+    class Meta:
+        global_type = False
+
+    test_material_information: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "TestMaterialInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    specific_details_on_test_material_used_for_the_study: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "SpecificDetailsOnTestMaterialUsedForTheStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    specific_details_on_test_material_used_for_the_study_confidential: List[
+        str
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "SpecificDetailsOnTestMaterialUsedForTheStudyConfidential",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalOverallRemarksAttachmentsAttachedBackgroundMaterialEntry:
+    class Meta:
+        global_type = False
+
+    attached_document: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedDocument",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionAnyOtherInformationOnResultsInclTables:
+    class Meta:
+        global_type = False
+
+    other_information: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataAttachedJustificationEntryReasonPurpose:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660009] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataCrossReferenceEntryReasonPurpose:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660010] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataDataProtectionLegislation:
+    class Meta:
+        global_type = False
+
+    value: Optional[N78] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataDataWaiving:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z02] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataDataWaivingJustification:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660421] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataEndpoint:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660253] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataPurposeFlag:
+    class Meta:
+        global_type = False
+
+    value: Optional[Y143] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataRationalReliability:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660013] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataReliability:
+    class Meta:
+        global_type = False
+
+    value: Optional[A36] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataStudyResultType:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z05] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalDataSourceDataAccess:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalDataSourceDataProtectionClaimed:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z30] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureAnalyticalVerificationOfDosesOrConcentrations:
+    class Meta:
+        global_type = False
+
+    value: Optional[A03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureControlAnimals:
+    class Meta:
+        global_type = False
+
+    value: Optional[T27] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureDosesConcentrationsEntryDoseConc:
+    class Meta:
+        global_type = False
+
+    unit_code: Optional[T283] = field(
+        default=None,
+        metadata={
+            "name": "unitCode",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    unit_other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "unitOther",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    value: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureTypeOfCoverage:
+    class Meta:
+        global_type = False
+
+    value: Optional[T50] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureVehicle:
+    class Meta:
+        global_type = False
+
+    value: Optional[T48] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsGlpcomplianceStatement:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z40] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsGuidelineEntryDeviation:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z08] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsGuidelineEntryGuideline:
+    class Meta:
+        global_type = False
+
+    value: Optional[T263] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsGuidelineEntryQualifier:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z06] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsLimitTest:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z38] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsTestAnimalsSex:
+    class Meta:
+        global_type = False
+
+    value: Optional[T24] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsTestAnimalsSpecies:
+    class Meta:
+        global_type = False
+
+    value: Optional[T022] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsTestAnimalsStrain:
+    class Meta:
+        global_type = False
+
+    value: Optional[T23123456] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalOverallRemarksAttachmentsAttachedBackgroundMaterial:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordRepeatedDoseToxicityDermalOverallRemarksAttachmentsAttachedBackgroundMaterialEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntryBasedOn:
+    class Meta:
+        global_type = False
+
+    value: Optional[E105] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntryBasis:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660233] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntryEffectLevel:
+    class Meta:
+        global_type = False
+
+    unit_code: Optional[T283] = field(
+        default=None,
+        metadata={
+            "name": "unitCode",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    unit_other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "unitOther",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    lower_qualifier: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "lowerQualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    upper_qualifier: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "upperQualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    lower_value: Optional[Decimal] = field(
+        default=None,
+        metadata={
+            "name": "lowerValue",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    upper_value: Optional[Decimal] = field(
+        default=None,
+        metadata={
+            "name": "upperValue",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntryEndpoint:
+    class Meta:
+        global_type = False
+
+    value: Optional[T156] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntryRemarksOnResults:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660234] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntrySex:
+    class Meta:
+        global_type = False
+
+    value: Optional[T24] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsImmunologicalFindings:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservBodyweight:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservClinChem:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservClinSigns:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservDermalIrritation:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservFoodConsum:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservFoodEfficiency:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservGrpathol:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservHaematol:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservHistopathol:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservHistopatholNeoplastic:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservMortality:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660307] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservNeurobehaviour:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservNeuropathol:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservOphthalm:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservOrganWeights:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservUrin:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservWaterConsum:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsOtherEffects:
+    class Meta:
+        global_type = False
+
+    value: Optional[T102] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntryCriticalEffectsObserved:
+    class Meta:
+        global_type = False
+
+    value: Optional[A03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntryDoseResponseRelationship:
+    class Meta:
+        global_type = False
+
+    value: Optional[A03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntryLowestEffectiveDoseConc:
+    class Meta:
+        global_type = False
+
+    unit_code: Optional[T283] = field(
+        default=None,
+        metadata={
+            "name": "unitCode",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    unit_other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "unitOther",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    value: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntryOrgan:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660242] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntryRelevantForHumans:
+    class Meta:
+        global_type = False
+
+    value: Optional[A03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntrySystem:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660235] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntryTreatmentRelated:
+    class Meta:
+        global_type = False
+
+    value: Optional[A03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataAttachedJustificationEntry:
+    class Meta:
+        global_type = False
+
+    attached_justification: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    reason_purpose: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataAttachedJustificationEntryReasonPurpose
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReasonPurpose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataCrossReferenceEntry:
+    class Meta:
+        global_type = False
+
+    reason_purpose: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataCrossReferenceEntryReasonPurpose
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReasonPurpose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    related_information: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "RelatedInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataDataProtection:
+    class Meta:
+        global_type = False
+
+    confidentiality: Optional[N64] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    justification: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    legislation: List[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataDataProtectionLegislation
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalDataSource:
+    class Meta:
+        global_type = False
+
+    reference: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "Reference",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    data_access: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalDataSourceDataAccess
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataAccess",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    data_protection_claimed: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalDataSourceDataProtectionClaimed
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataProtectionClaimed",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureDosesConcentrationsEntry:
+    class Meta:
+        global_type = False
+
+    dose_conc: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureDosesConcentrationsEntryDoseConc
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DoseConc",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsGuidelineEntry:
+    class Meta:
+        global_type = False
+
+    qualifier: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsGuidelineEntryQualifier
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Qualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    guideline: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsGuidelineEntryGuideline
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Guideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    version_remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "VersionRemarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    deviation: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsGuidelineEntryDeviation
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Deviation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsTestAnimals:
+    class Meta:
+        global_type = False
+
+    species: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsTestAnimalsSpecies
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Species",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    strain: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsTestAnimalsStrain
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Strain",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    details_on_species_strain_selection: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnSpeciesStrainSelection",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    sex: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsTestAnimalsSex
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Sex",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    organism_details: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "OrganismDetails",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalOverallRemarksAttachments:
+    class Meta:
+        global_type = False
+
+    remarks_on_results: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "RemarksOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    attached_background_material: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalOverallRemarksAttachmentsAttachedBackgroundMaterial
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AttachedBackgroundMaterial",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    attached_study_report: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedStudyReport",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    illustration_pic_graph: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "IllustrationPicGraph",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntry:
+    class Meta:
+        global_type = False
+
+    key_result: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "KeyResult",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+            "nillable": True,
+        },
+    )
+    endpoint: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntryEndpoint
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Endpoint",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    effect_level: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntryEffectLevel
+    ] = field(
+        default=None,
+        metadata={
+            "name": "EffectLevel",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    based_on: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntryBasedOn
+    ] = field(
+        default=None,
+        metadata={
+            "name": "BasedOn",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    sex: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntrySex
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Sex",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    basis: List[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntryBasis
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "Basis",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    remarks_on_results: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntryRemarksOnResults
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RemarksOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminations:
+    class Meta:
+        global_type = False
+
+    observ_clin_signs: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservClinSigns
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservClinSigns",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_clin_signs: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservClinSigns",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_dermal_irritation: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservDermalIrritation
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservDermalIrritation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_dermal_irritation: List[str] = (
+        field(
+            default_factory=list,
+            metadata={
+                "name": "DescriptionIncidenceAndSeverityObservDermalIrritation",
+                "type": "Element",
+                "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+            },
+        )
+    )
+    observ_mortality: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservMortality
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservMortality",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_mortality: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceMortality",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_bodyweight: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservBodyweight
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservBodyweight",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_bodyweight: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservBodyweight",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_food_consum: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservFoodConsum
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservFoodConsum",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_food_consum: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservFoodConsum",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_food_efficiency: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservFoodEfficiency
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservFoodEfficiency",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_food_efficiency: List[str] = (
+        field(
+            default_factory=list,
+            metadata={
+                "name": "DescriptionIncidenceAndSeverityObservFoodEfficiency",
+                "type": "Element",
+                "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+            },
+        )
+    )
+    observ_water_consum: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservWaterConsum
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservWaterConsum",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_water_consum: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservWaterConsum",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_ophthalm: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservOphthalm
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservOphthalm",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_ophthalm: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservOphthalm",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_haematol: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservHaematol
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservHaematol",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_haematol: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservHaematol",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_clin_chem: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservClinChem
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservClinChem",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_clin_chem: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservClinChem",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_urin: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservUrin
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservUrin",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_urin: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservUrin",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_neurobehaviour: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservNeurobehaviour
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservNeurobehaviour",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_neurobehaviour: List[str] = (
+        field(
+            default_factory=list,
+            metadata={
+                "name": "DescriptionIncidenceAndSeverityObservNeurobehaviour",
+                "type": "Element",
+                "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+            },
+        )
+    )
+    immunological_findings: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsImmunologicalFindings
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ImmunologicalFindings",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_immunological_findings: List[str] = (
+        field(
+            default_factory=list,
+            metadata={
+                "name": "DescriptionIncidenceAndSeverityImmunologicalFindings",
+                "type": "Element",
+                "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+            },
+        )
+    )
+    observ_organ_weights: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservOrganWeights
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservOrganWeights",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_organ_weights: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservOrganWeights",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_grpathol: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservGrpathol
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservGrpathol",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_grpathol: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservGrpathol",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_neuropathol: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservNeuropathol
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservNeuropathol",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_neuropathol: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservNeuropathol",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_histopathol: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservHistopathol
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservHistopathol",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_histopathol: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservHistopathol",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    observ_histopathol_neoplastic: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsObservHistopatholNeoplastic
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ObservHistopatholNeoplastic",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_observ_histopathol_neoplastic: List[
+        str
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityObservHistopatholNeoplastic",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    other_effects: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminationsOtherEffects
+    ] = field(
+        default=None,
+        metadata={
+            "name": "OtherEffects",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    description_incidence_and_severity_other_effects: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DescriptionIncidenceAndSeverityOtherEffects",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    details_on_results: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntry:
+    class Meta:
+        global_type = False
+
+    key_result: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "KeyResult",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+            "nillable": True,
+        },
+    )
+    critical_effects_observed: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntryCriticalEffectsObserved
+    ] = field(
+        default=None,
+        metadata={
+            "name": "CriticalEffectsObserved",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    lowest_effective_dose_conc: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntryLowestEffectiveDoseConc
+    ] = field(
+        default=None,
+        metadata={
+            "name": "LowestEffectiveDoseConc",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    system: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntrySystem
+    ] = field(
+        default=None,
+        metadata={
+            "name": "System",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    organ: List[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntryOrgan
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "Organ",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    treatment_related: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntryTreatmentRelated
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TreatmentRelated",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    dose_response_relationship: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntryDoseResponseRelationship
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DoseResponseRelationship",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    relevant_for_humans: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntryRelevantForHumans
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RelevantForHumans",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataAttachedJustification:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataAttachedJustificationEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataCrossReference:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataCrossReferenceEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureDosesConcentrations:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureDosesConcentrationsEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsGuideline:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsGuidelineEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevel:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevelEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicity:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicityEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeData:
+    class Meta:
+        global_type = False
+
+    data_protection: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataDataProtection
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataProtection",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    endpoint: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataEndpoint
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Endpoint",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    study_result_type: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataStudyResultType
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StudyResultType",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    purpose_flag: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataPurposeFlag
+    ] = field(
+        default=None,
+        metadata={
+            "name": "PurposeFlag",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    robust_study: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "RobustStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+            "nillable": True,
+        },
+    )
+    used_for_classification: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "UsedForClassification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+            "nillable": True,
+        },
+    )
+    used_for_msds: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "UsedForMSDS",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+            "nillable": True,
+        },
+    )
+    study_period: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "StudyPeriod",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    reliability: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataReliability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Reliability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    rational_reliability: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataRationalReliability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RationalReliability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    data_waiving: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataDataWaiving
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataWaiving",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    data_waiving_justification: List[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataDataWaivingJustification
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "DataWaivingJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    justification_for_type_of_information: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "JustificationForTypeOfInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    attached_justification: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataAttachedJustification
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AttachedJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    cross_reference: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeDataCrossReference
+    ] = field(
+        default=None,
+        metadata={
+            "name": "CrossReference",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposure:
+    class Meta:
+        global_type = False
+
+    type_of_coverage: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureTypeOfCoverage
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TypeOfCoverage",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    vehicle: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureVehicle
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Vehicle",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    details_on_exposure: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnExposure",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    analytical_verification_of_doses_or_concentrations: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureAnalyticalVerificationOfDosesOrConcentrations
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnalyticalVerificationOfDosesOrConcentrations",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    details_on_analytical_verification_of_doses_or_concentrations: List[
+        str
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnAnalyticalVerificationOfDosesOrConcentrations",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    duration_of_treatment_exposure: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DurationOfTreatmentExposure",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    frequency_of_treatment: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "FrequencyOfTreatment",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    doses_concentrations: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureDosesConcentrations
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DosesConcentrations",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    no_of_animals_per_sex_per_dose: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "NoOfAnimalsPerSexPerDose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    control_animals: List[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposureControlAnimals
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "ControlAnimals",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    details_on_study_design: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnStudyDesign",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    positive_control: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "PositiveControl",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevels:
+    class Meta:
+        global_type = False
+
+    efflevel: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevelsEfflevel
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Efflevel",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicity:
+    class Meta:
+        global_type = False
+
+    target_system_organ_toxicity: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicityTargetSystemOrganToxicity
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TargetSystemOrganToxicity",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethods:
+    class Meta:
+        global_type = False
+
+    guideline: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsGuideline
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Guideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    method_no_guideline: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "MethodNoGuideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    glpcompliance_statement: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsGlpcomplianceStatement
+    ] = field(
+        default=None,
+        metadata={
+            "name": "GLPComplianceStatement",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    limit_test: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsLimitTest
+    ] = field(
+        default=None,
+        metadata={
+            "name": "LimitTest",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    test_materials: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsTestMaterials
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestMaterials",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    test_animals: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsTestAnimals
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestAnimals",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    administration_exposure: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAdministrationExposure
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AdministrationExposure",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    examinations: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsExaminations
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Examinations",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    any_other_information_on_materials_and_methods_incl_tables: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethodsAnyOtherInformationOnMaterialsAndMethodsInclTables
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnyOtherInformationOnMaterialsAndMethodsInclTables",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussion:
+    class Meta:
+        global_type = False
+
+    results_of_examinations: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionResultsOfExaminations
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ResultsOfExaminations",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    effect_levels: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionEffectLevels
+    ] = field(
+        default=None,
+        metadata={
+            "name": "EffectLevels",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    target_system_organ_toxicity: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionTargetSystemOrganToxicity
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TargetSystemOrganToxicity",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+    any_other_information_on_results_incl_tables: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussionAnyOtherInformationOnResultsInclTables
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnyOtherInformationOnResultsInclTables",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordRepeatedDoseToxicityDermal:
+    class Meta:
+        name = "ENDPOINT_STUDY_RECORD.RepeatedDoseToxicityDermal"
+        namespace = "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-RepeatedDoseToxicityDermal/5.0"
+
+    administrative_data: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalAdministrativeData
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AdministrativeData",
+            "type": "Element",
+        },
+    )
+    data_source: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalDataSource
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataSource",
+            "type": "Element",
+        },
+    )
+    materials_and_methods: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalMaterialsAndMethods
+    ] = field(
+        default=None,
+        metadata={
+            "name": "MaterialsAndMethods",
+            "type": "Element",
+        },
+    )
+    results_and_discussion: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalResultsAndDiscussion
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ResultsAndDiscussion",
+            "type": "Element",
+        },
+    )
+    overall_remarks_attachments: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalOverallRemarksAttachments
+    ] = field(
+        default=None,
+        metadata={
+            "name": "OverallRemarksAttachments",
+            "type": "Element",
+        },
+    )
+    applicant_summary_and_conclusion: Optional[
+        EndpointStudyRecordRepeatedDoseToxicityDermalApplicantSummaryAndConclusion
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ApplicantSummaryAndConclusion",
+            "type": "Element",
+        },
+    )

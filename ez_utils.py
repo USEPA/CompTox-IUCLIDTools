@@ -24,7 +24,6 @@ import typing
 import sys
 import difflib
 sys.path.append("entity_models_6_7")
-sys.path.append("entity_models_6_6")
 
 
 def split_camel_case(name):
@@ -517,7 +516,7 @@ def generate_uuid():
     return str(uuid.uuid4())
 
 
-def create_platform_metadata(oht_type, definition_version="7.0"):
+def create_platform_metadata(oht_type):
     return {
         "iuclidVersion": "7.0.7",
         "documentKey": f"{generate_uuid()}/{generate_uuid()}",
@@ -526,7 +525,7 @@ def create_platform_metadata(oht_type, definition_version="7.0"):
         "documentType": oht_type,
         "documentSubType": "",
         "orderInSectionNo": "1",
-        "definitionVersion": definition_version,
+        "definitionVersion": "8.0",
         "creationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "lastModificationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "submissionType": "",
@@ -538,11 +537,8 @@ def create_platform_metadata(oht_type, definition_version="7.0"):
         "snapshotCreationTool": "IUC6"
     }
 
-def get_oht_classes(oht_type, version="6_7"):
-    """
-    Dynamically import the OHT class and nested classes for the given version.
-    """
-    module_name = f"entity_models_{version}.{oht_type.lower()}_6_5.models"
+def get_oht_classes(oht_type, target_version="6_7"):
+    module_name = f"entity_models_{target_version}.{oht_type.lower()}_6_5.models"
     module = importlib.import_module(module_name)
     if oht_type == 'TestMaterialInformation':
         oht_class_name = oht_type
@@ -557,7 +553,9 @@ def get_oht_classes(oht_type, version="6_7"):
     oht_class = getattr(module, oht_class_name)
     nested_classes = {cls_name: getattr(module, cls_name) for cls_name in dir(module) if
                       cls_name.startswith(oht_class_name)}
+
     return oht_class, nested_classes
+
 
 
 def set_nested_field(instance, field_path, value):
@@ -653,33 +651,37 @@ def map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns
     return oht_instances
 
 
-def create_xml_serializer(oht_type, version="6_7"):
-    """
-    Create an XML serializer for the given OHT type and version.
-    """
+def create_xml_serializer(oht_type, target_version="6_7"):
+    # Initialize the XML context with the package containing the OHT models
     try:
-        context = XmlContext(models_package=f"entity_models_{version}.{oht_type.lower()}_6_5.models")
+        context = XmlContext(models_package=f"entity_models_{target_version}.{oht_type.lower()}_6_5.models")
     except Exception as e:
         print("Error in create_xml_serializer:", e)
-    context.build_recursive(get_oht_classes(oht_type, version)[0])
+    # Build the context recursively to include all related classes
+    context.build_recursive(get_oht_classes(oht_type, target_version)[0])
+
+    # Define the namespace mapping for the XML document
     ns_map = {
-        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/8.0",
-        "i6": "http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1",
+        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/8.0",  # Default namespace
+        "i6": "http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1",  # Namespace for platform fields
     }
+
+    # Configure the XML serializer with pretty print and XML declaration settings
     config = SerializerConfig(
-        pretty_print=True,
-        xml_declaration=True,
-        ignore_default_attributes=True,
+        pretty_print=True,  # Format the XML with indentation for readability
+        xml_declaration=True,  # Include the XML declaration at the top of the document
+        ignore_default_attributes=True,  # Ignore default attributes during serialization
     )
+
+    # Create the XML serializer with the specified configuration and context
     serializer = XmlSerializer(config=config, context=context)
-    return serializer, ns_map
+    return serializer, ns_map  # Return the serializer and namespace mapping
 
 
-def instance_to_i6d(instance, output_dir, oht_type, version="6_7", parent_key=None, is_attachment=False, definition_version="7.0"):
+def instance_to_i6d(instance, output_dir, oht_type, target_version="6_7", parent_key=None, is_attachment=False):
     """Convert an instance to an i6d XML file."""
-    print(f"Writing new i6d file to: {file_path}")
     # Create an XML serializer and namespace mapping for the given OHT type
-    serializer, ns_map = create_xml_serializer(oht_type, version)
+    serializer, ns_map = create_xml_serializer(oht_type, target_version)
 
     # Serialize the instance to XML
     xml_content = serializer.render(instance, ns_map)
@@ -688,7 +690,7 @@ def instance_to_i6d(instance, output_dir, oht_type, version="6_7", parent_key=No
     xml_content = xml_content.split("?>", 1)[1].strip()
     document_type = to_document_type_format(oht_type)
     # Create platform metadata for the i6d file
-    platform_metadata = create_platform_metadata(document_type, definition_version=definition_version)
+    platform_metadata = create_platform_metadata(document_type)
     if parent_key:
         platform_metadata['parentDocumentKey'] = parent_key
     platform_metadata['documentKey'] = instance.uuid
@@ -1277,7 +1279,7 @@ def normalize_path(path, base_class=None):
 
     return path
 
-def process_single_i6d(i6d_file, definitions_df, target_version, output_dir, definition_version="7.0"):
+def process_single_i6d(i6d_file, definitions_df, target_version, output_dir):
     """
     Process a single .i6d file by applying path transformations and saving the updated file.
     Args:
@@ -1323,9 +1325,9 @@ def process_single_i6d(i6d_file, definitions_df, target_version, output_dir, def
 
     # Step 5: Load the entity model class dynamically
     oht_class, nested_classes = get_oht_classes(
-        entity_type.split(".")[-1], version=target_version)  # Use the sub-entity type for ENDPOINT_STUDY_RECORD
-    st.write(f"Loaded OHT class: {oht_class}")
-    
+        entity_type.split(".")[-1], target_version)  # Use the sub-entity type for ENDPOINT_STUDY_RECORD
+    print(f"Loaded OHT class: {oht_class}")
+
     # Step 6: Convert extracted fields into a DataFrame
     extracted_fields_df = pd.DataFrame(list(extracted_fields.items()), columns=["Path", "Value"])
 
@@ -1377,7 +1379,7 @@ def process_single_i6d(i6d_file, definitions_df, target_version, output_dir, def
     #     print(f"{field_name}: {value}")
 
     # Step 11: Serialize the instance to an i6d XML file
-    instance_to_i6d(oht_instance, output_dir, entity_type.split(".")[-1], version=target_version, definition_version=definition_version)  # Use the sub-entity type for the file name
+    instance_to_i6d(oht_instance, output_dir, entity_type.split(".")[-1])  # Use the sub-entity type for the file name
 
 def get_entity_type(root):
     """
@@ -1434,7 +1436,7 @@ def process_i6d_files(i6d_files, output_dir, definitions_df, target_version):
         print(f"Processing {i6d_file} as entity type: {entity_type}")
 
         # Load the corresponding entity model class
-        oht_class, nested_classes = get_oht_classes(entity_type)
+        oht_class, nested_classes = get_oht_classes(entity_type, target_version)
 
         # Extract fields and apply path transformations
         extracted_fields = extract_fields_from_i6d(root)

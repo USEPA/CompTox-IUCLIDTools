@@ -1,0 +1,457 @@
+from enum import Enum
+
+__NAMESPACE__ = "http://iuclid6.echa.europa.eu/namespaces/oecd/v5"
+
+
+class A03(Enum):
+    VALUE = ""
+    VALUE_2480 = "2480"
+    VALUE_2158 = "2158"
+    VALUE_2207 = "2207"
+    VALUE_1173 = "1173"
+
+
+class A36(Enum):
+    VALUE = ""
+    VALUE_16 = "16"
+    VALUE_18 = "18"
+    VALUE_22 = "22"
+    VALUE_24 = "24"
+    VALUE_1342 = "1342"
+
+
+class E04(Enum):
+    VALUE = ""
+    VALUE_2113 = "2113"
+    VALUE_1976 = "1976"
+    VALUE_1839 = "1839"
+    VALUE_2468 = "2468"
+
+
+class E105(Enum):
+    VALUE = ""
+    VALUE_1758 = "1758"
+    VALUE_60281 = "60281"
+    VALUE_60282 = "60282"
+    VALUE_1754 = "1754"
+    VALUE_60283 = "60283"
+    VALUE_60284 = "60284"
+    VALUE_1756 = "1756"
+    VALUE_60285 = "60285"
+    VALUE_60286 = "60286"
+    VALUE_1755 = "1755"
+    VALUE_1757 = "1757"
+    VALUE_1342 = "1342"
+    VALUE_2207 = "2207"
+    VALUE_1173 = "1173"
+
+
+class E118(Enum):
+    VALUE = ""
+    VALUE_922 = "922"
+    VALUE_923 = "923"
+    VALUE_926 = "926"
+    VALUE_924 = "924"
+    VALUE_360 = "360"
+    VALUE_361 = "361"
+    VALUE_365 = "365"
+    VALUE_362 = "362"
+    VALUE_64847 = "64847"
+    VALUE_64848 = "64848"
+    VALUE_928 = "928"
+    VALUE_929 = "929"
+    VALUE_931 = "931"
+    VALUE_930 = "930"
+    VALUE_977 = "977"
+    VALUE_978 = "978"
+    VALUE_980 = "980"
+    VALUE_979 = "979"
+    VALUE_1129 = "1129"
+    VALUE_957 = "957"
+    VALUE_64849 = "64849"
+    VALUE_1342 = "1342"
+
+
+class E130(Enum):
+    VALUE = ""
+    VALUE_4039 = "4039"
+    VALUE_4040 = "4040"
+    VALUE_4041 = "4041"
+    VALUE_4042 = "4042"
+    VALUE_4043 = "4043"
+    VALUE_4044 = "4044"
+    VALUE_4045 = "4045"
+    VALUE_4046 = "4046"
+    VALUE_4047 = "4047"
+    VALUE_4048 = "4048"
+    VALUE_62022 = "62022"
+    VALUE_62021 = "62021"
+    VALUE_4049 = "4049"
+    VALUE_4050 = "4050"
+    VALUE_4051 = "4051"
+    VALUE_4052 = "4052"
+    VALUE_64829 = "64829"
+    VALUE_4053 = "4053"
+    VALUE_1342 = "1342"
+
+
+class E141(Enum):
+    VALUE = ""
+    VALUE_2026 = "2026"
+    VALUE_1897 = "1897"
+    VALUE_2338 = "2338"
+    VALUE_1907 = "1907"
+    VALUE_1342 = "1342"
+
+
+class E144(Enum):
+    VALUE = ""
+    VALUE_1814 = "1814"
+    VALUE_2227 = "2227"
+    VALUE_2375 = "2375"
+    VALUE_4054 = "4054"
+    VALUE_62013 = "62013"
+    VALUE_1342 = "1342"
+    VALUE_1173 = "1173"
+    VALUE_2207 = "2207"
+
+
+class E15(Enum):
+    VALUE = ""
+    VALUE_2113 = "2113"
+    VALUE_1976 = "1976"
+    VALUE_1839 = "1839"
+    VALUE_2468 = "2468"
+    VALUE_2133 = "2133"
+
+
+class E202(Enum):
+    VALUE = ""
+    VALUE_60 = "60"
+    VALUE_61 = "61"
+    VALUE_98 = "98"
+    VALUE_99 = "99"
+    VALUE_148 = "148"
+    VALUE_149 = "149"
+    VALUE_64826 = "64826"
+    VALUE_64827 = "64827"
+    VALUE_64828 = "64828"
+    VALUE_6607 = "6607"
+    VALUE_256 = "256"
+    VALUE_261 = "261"
+    VALUE_292 = "292"
+    VALUE_293 = "293"
+    VALUE_4452 = "4452"
+    VALUE_773 = "773"
+    VALUE_62014 = "62014"
+    VALUE_774 = "774"
+    VALUE_853 = "853"
+    VALUE_62015 = "62015"
+    VALUE_6605 = "6605"
+    VALUE_6606 = "6606"
+    VALUE_62016 = "62016"
+    VALUE_61948 = "61948"
+    VALUE_1100 = "1100"
+    VALUE_1101 = "1101"
+    VALUE_1325 = "1325"
+    VALUE_1326 = "1326"
+    VALUE_1327 = "1327"
+    VALUE_1328 = "1328"
+    VALUE_1332 = "1332"
+    VALUE_1333 = "1333"
+    VALUE_62017 = "62017"
+    VALUE_1335 = "1335"
+    VALUE_1356 = "1356"
+    VALUE_62018 = "62018"
+    VALUE_6608 = "6608"
+    VALUE_1391 = "1391"
+    VALUE_1399 = "1399"
+    VALUE_1400 = "1400"
+    VALUE_62019 = "62019"
+    VALUE_1440 = "1440"
+    VALUE_1441 = "1441"
+    VALUE_61949 = "61949"
+    VALUE_62020 = "62020"
+    VALUE_1615 = "1615"
+    VALUE_1623 = "1623"
+    VALUE_1624 = "1624"
+    VALUE_1626 = "1626"
+    VALUE_1642 = "1642"
+    VALUE_1342 = "1342"
+
+
+class E22(Enum):
+    VALUE = ""
+    VALUE_2135 = "2135"
+    VALUE_2315 = "2315"
+    VALUE_62029 = "62029"
+    VALUE_1845 = "1845"
+    VALUE_1949 = "1949"
+    VALUE_2134 = "2134"
+    VALUE_144 = "144"
+    VALUE_1916 = "1916"
+    VALUE_2254 = "2254"
+    VALUE_2287 = "2287"
+    VALUE_1342 = "1342"
+    VALUE_1173 = "1173"
+    VALUE_2207 = "2207"
+
+
+class E272(Enum):
+    VALUE = ""
+    VALUE_1211 = "1211"
+    VALUE_1212 = "1212"
+    VALUE_61944 = "61944"
+    VALUE_61945 = "61945"
+    VALUE_61946 = "61946"
+    VALUE_61947 = "61947"
+    VALUE_64823 = "64823"
+    VALUE_64824 = "64824"
+    VALUE_64825 = "64825"
+    VALUE_713 = "713"
+    VALUE_714 = "714"
+    VALUE_390 = "390"
+    VALUE_391 = "391"
+    VALUE_392 = "392"
+    VALUE_480 = "480"
+    VALUE_481 = "481"
+    VALUE_482 = "482"
+    VALUE_862 = "862"
+    VALUE_1342 = "1342"
+    VALUE_2246 = "2246"
+
+
+class E35(Enum):
+    VALUE = ""
+    VALUE_2178 = "2178"
+    VALUE_2002 = "2002"
+    VALUE_1941 = "1941"
+    VALUE_1736 = "1736"
+    VALUE_2421 = "2421"
+    VALUE_4038 = "4038"
+    VALUE_1685 = "1685"
+    VALUE_1884 = "1884"
+    VALUE_2207 = "2207"
+    VALUE_1173 = "1173"
+
+
+class F102(Enum):
+    VALUE = ""
+    VALUE_2480 = "2480"
+    VALUE_2158 = "2158"
+    VALUE_2207 = "2207"
+    VALUE_2193 = "2193"
+    VALUE_1173 = "1173"
+
+
+class N64(Enum):
+    VALUE = ""
+    VALUE_2732 = "2732"
+    VALUE_2859 = "2859"
+    VALUE_3441 = "3441"
+
+
+class N78(Enum):
+    VALUE = ""
+    VALUE_733 = "733"
+    VALUE_9000 = "9000"
+    VALUE_5793 = "5793"
+    VALUE_735 = "735"
+    VALUE_209 = "209"
+    VALUE_210 = "210"
+    VALUE_919 = "919"
+    VALUE_1313 = "1313"
+    VALUE_1646 = "1646"
+    VALUE_1647 = "1647"
+    VALUE_1648 = "1648"
+    VALUE_1342 = "1342"
+
+
+class Pg660009(Enum):
+    VALUE = ""
+    VALUE_60006 = "60006"
+    VALUE_60007 = "60007"
+    VALUE_60008 = "60008"
+    VALUE_60009 = "60009"
+    VALUE_60010 = "60010"
+    VALUE_60011 = "60011"
+    VALUE_60012 = "60012"
+    VALUE_60013 = "60013"
+
+
+class Pg660010(Enum):
+    VALUE = ""
+    VALUE_60014 = "60014"
+    VALUE_60006 = "60006"
+    VALUE_60007 = "60007"
+    VALUE_60015 = "60015"
+    VALUE_60008 = "60008"
+    VALUE_60009 = "60009"
+    VALUE_60016 = "60016"
+    VALUE_60017 = "60017"
+    VALUE_60018 = "60018"
+    VALUE_1342 = "1342"
+
+
+class Pg660013(Enum):
+    VALUE = ""
+    VALUE_60170 = "60170"
+    VALUE_60171 = "60171"
+    VALUE_60172 = "60172"
+    VALUE_60173 = "60173"
+    VALUE_60174 = "60174"
+    VALUE_60175 = "60175"
+    VALUE_60176 = "60176"
+    VALUE_60177 = "60177"
+    VALUE_60178 = "60178"
+    VALUE_60179 = "60179"
+    VALUE_60180 = "60180"
+    VALUE_60181 = "60181"
+    VALUE_60182 = "60182"
+    VALUE_60183 = "60183"
+    VALUE_60184 = "60184"
+    VALUE_60185 = "60185"
+    VALUE_60186 = "60186"
+    VALUE_60187 = "60187"
+    VALUE_60188 = "60188"
+    VALUE_60189 = "60189"
+    VALUE_60190 = "60190"
+    VALUE_60191 = "60191"
+    VALUE_1342 = "1342"
+
+
+class Pg660038(Enum):
+    VALUE = ""
+    VALUE_60206 = "60206"
+    VALUE_60207 = "60207"
+    VALUE_60208 = "60208"
+    VALUE_1342 = "1342"
+
+
+class Pg660240(Enum):
+    VALUE = ""
+    VALUE_61065 = "61065"
+    VALUE_61066 = "61066"
+    VALUE_1342 = "1342"
+
+
+class Pg660247(Enum):
+    VALUE = ""
+    VALUE_61067 = "61067"
+    VALUE_61068 = "61068"
+    VALUE_61069 = "61069"
+    VALUE_61982 = "61982"
+
+
+class Td350(Enum):
+    VALUE = ""
+    VALUE_8089 = "8089"
+    VALUE_8088 = "8088"
+    VALUE_2096 = "2096"
+    VALUE_8126 = "8126"
+    VALUE_8127 = "8127"
+    VALUE_8128 = "8128"
+    VALUE_2495 = "2495"
+    VALUE_64830 = "64830"
+    VALUE_1930 = "1930"
+    VALUE_2118 = "2118"
+    VALUE_2081 = "2081"
+    VALUE_2090 = "2090"
+    VALUE_2283 = "2283"
+    VALUE_2077 = "2077"
+    VALUE_62028 = "62028"
+    VALUE_1342 = "1342"
+
+
+class Y143(Enum):
+    VALUE = ""
+    VALUE_921 = "921"
+    VALUE_1590 = "1590"
+    VALUE_1661 = "1661"
+    VALUE_8108 = "8108"
+    VALUE_60020 = "60020"
+
+
+class Z02(Enum):
+    VALUE = ""
+    VALUE_1588 = "1588"
+    VALUE_1587 = "1587"
+    VALUE_982 = "982"
+    VALUE_60022 = "60022"
+    VALUE_2533 = "2533"
+
+
+class Z03(Enum):
+    VALUE = ""
+    VALUE_1838 = "1838"
+    VALUE_1837 = "1837"
+    VALUE_1835 = "1835"
+    VALUE_1836 = "1836"
+    VALUE_2193 = "2193"
+    VALUE_60023 = "60023"
+    VALUE_1342 = "1342"
+
+
+class Z05(Enum):
+    VALUE = ""
+    VALUE_1895 = "1895"
+    VALUE_1896 = "1896"
+    VALUE_60002 = "60002"
+    VALUE_14 = "14"
+    VALUE_1885 = "1885"
+    VALUE_2303 = "2303"
+    VALUE_62036 = "62036"
+    VALUE_2304 = "2304"
+    VALUE_62035 = "62035"
+    VALUE_2207 = "2207"
+    VALUE_1342 = "1342"
+    VALUE_1173 = "1173"
+
+
+class Z06(Enum):
+    VALUE = ""
+    VALUE_1680 = "1680"
+    VALUE_1880 = "1880"
+    VALUE_2172 = "2172"
+    VALUE_2171 = "2171"
+    VALUE_2175 = "2175"
+
+
+class Z08(Enum):
+    VALUE = ""
+    VALUE_2480 = "2480"
+    VALUE_2158 = "2158"
+    VALUE_2193 = "2193"
+    VALUE_2207 = "2207"
+    VALUE_1173 = "1173"
+
+
+class Z30(Enum):
+    VALUE = ""
+    VALUE_2480 = "2480"
+    VALUE_4161 = "4161"
+    VALUE_4162 = "4162"
+
+
+class Z36(Enum):
+    VALUE = ""
+    VALUE_2480 = "2480"
+    VALUE_2158 = "2158"
+    VALUE_2207 = "2207"
+    VALUE_2203 = "2203"
+    VALUE_1173 = "1173"
+
+
+class Z38(Enum):
+    VALUE = ""
+    VALUE_2480 = "2480"
+    VALUE_2158 = "2158"
+
+
+class Z40(Enum):
+    VALUE = ""
+    VALUE_4179 = "4179"
+    VALUE_2480 = "2480"
+    VALUE_2158 = "2158"
+    VALUE_2207 = "2207"
+    VALUE_1173 = "1173"

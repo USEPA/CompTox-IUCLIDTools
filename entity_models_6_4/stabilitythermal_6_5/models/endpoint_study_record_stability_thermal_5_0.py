@@ -1,0 +1,1520 @@
+from dataclasses import field
+from decimal import Decimal
+from typing import List, Optional
+
+from pydantic.dataclasses import dataclass
+
+from entity_models_6_4.stabilitythermal_6_5.models.common_types_oecd_v5 import (
+    A36,
+    A102,
+    C47,
+    E34,
+    F137,
+    N64,
+    N78,
+    P113,
+    Y143,
+    Z02,
+    Z03,
+    Z05,
+    Z06,
+    Z08,
+    Z30,
+    Z40,
+    Z52,
+    Pg660008,
+    Pg660009,
+    Pg660010,
+    Pg660013,
+    Pg660038,
+    Pg660113,
+)
+
+__NAMESPACE__ = "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0"
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalApplicantSummaryAndConclusion:
+    class Meta:
+        global_type = False
+
+    conclusions: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Conclusions",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    executive_summary: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "ExecutiveSummary",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalMaterialsAndMethodsAnyOtherInformationOnMaterialsAndMethodsInclTables:
+    class Meta:
+        global_type = False
+
+    other_information: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalMaterialsAndMethodsStudyDesign:
+    class Meta:
+        global_type = False
+
+    details_on_methods: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnMethods",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalMaterialsAndMethodsTestMaterials:
+    class Meta:
+        global_type = False
+
+    test_material_information: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "TestMaterialInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    specific_details_on_test_material_used_for_the_study: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "SpecificDetailsOnTestMaterialUsedForTheStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    specific_details_on_test_material_used_for_the_study_confidential: List[
+        str
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "SpecificDetailsOnTestMaterialUsedForTheStudyConfidential",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalOverallRemarksAttachmentsAttachedBackgroundMaterialEntry:
+    class Meta:
+        global_type = False
+
+    attached_document: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedDocument",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionAnyOtherInformationOnResultsInclTables:
+    class Meta:
+        global_type = False
+
+    other_information: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataAttachedJustificationEntryReasonPurpose:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660009] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataCrossReferenceEntryReasonPurpose:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660010] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataDataProtectionLegislation:
+    class Meta:
+        global_type = False
+
+    value: Optional[N78] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataDataWaiving:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z02] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataDataWaivingJustification:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z52] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataEndpoint:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660113] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataPurposeFlag:
+    class Meta:
+        global_type = False
+
+    value: Optional[Y143] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataRationalReliability:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660013] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataReliability:
+    class Meta:
+        global_type = False
+
+    value: Optional[A36] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataStudyResultType:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z05] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalDataSourceDataAccess:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalDataSourceDataProtectionClaimed:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z30] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalMaterialsAndMethodsGlpcomplianceStatement:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z40] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalMaterialsAndMethodsGuidelineEntryDeviation:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z08] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalMaterialsAndMethodsGuidelineEntryGuideline:
+    class Meta:
+        global_type = False
+
+    value: Optional[P113] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalMaterialsAndMethodsGuidelineEntryQualifier:
+    class Meta:
+        global_type = False
+
+    value: Optional[Z06] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalMaterialsAndMethodsOtherQualityAssurance:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660008] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalOverallRemarksAttachmentsAttachedBackgroundMaterial:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordStabilityThermalOverallRemarksAttachmentsAttachedBackgroundMaterialEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionStabilityToMetalsStableToMetals:
+    class Meta:
+        global_type = False
+
+    value: Optional[C47] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionStudyOnStabilityStableToSunlight:
+    class Meta:
+        global_type = False
+
+    value: Optional[C47] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityIdentityTransformationEntryNo:
+    class Meta:
+        global_type = False
+
+    value: Optional[F137] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityOperatingTemperatureEntryOperatingTemp:
+    class Meta:
+        global_type = False
+
+    unit_code: Optional[A102] = field(
+        default=None,
+        metadata={
+            "name": "unitCode",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    lower_qualifier: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "lowerQualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    upper_qualifier: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "upperQualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    lower_value: Optional[Decimal] = field(
+        default=None,
+        metadata={
+            "name": "lowerValue",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    upper_value: Optional[Decimal] = field(
+        default=None,
+        metadata={
+            "name": "upperValue",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityOperatingTemperatureEntryRemarksOnResults:
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660038] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    other: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilitySublimation:
+    class Meta:
+        global_type = False
+
+    value: Optional[C47] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityTestSubstanceThermallyStable:
+    class Meta:
+        global_type = False
+
+    value: Optional[C47] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityTransformationProducts:
+    class Meta:
+        global_type = False
+
+    value: Optional[E34] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataAttachedJustificationEntry:
+    class Meta:
+        global_type = False
+
+    attached_justification: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    reason_purpose: Optional[
+        EndpointStudyRecordStabilityThermalAdministrativeDataAttachedJustificationEntryReasonPurpose
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReasonPurpose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataCrossReferenceEntry:
+    class Meta:
+        global_type = False
+
+    reason_purpose: Optional[
+        EndpointStudyRecordStabilityThermalAdministrativeDataCrossReferenceEntryReasonPurpose
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReasonPurpose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    related_information: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "RelatedInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataDataProtection:
+    class Meta:
+        global_type = False
+
+    confidentiality: Optional[N64] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    justification: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    legislation: List[
+        EndpointStudyRecordStabilityThermalAdministrativeDataDataProtectionLegislation
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalDataSource:
+    class Meta:
+        global_type = False
+
+    reference: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "Reference",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    data_access: Optional[
+        EndpointStudyRecordStabilityThermalDataSourceDataAccess
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataAccess",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    data_protection_claimed: Optional[
+        EndpointStudyRecordStabilityThermalDataSourceDataProtectionClaimed
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataProtectionClaimed",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalMaterialsAndMethodsGuidelineEntry:
+    class Meta:
+        global_type = False
+
+    qualifier: Optional[
+        EndpointStudyRecordStabilityThermalMaterialsAndMethodsGuidelineEntryQualifier
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Qualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    guideline: Optional[
+        EndpointStudyRecordStabilityThermalMaterialsAndMethodsGuidelineEntryGuideline
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Guideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    version_remarks: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "VersionRemarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    deviation: Optional[
+        EndpointStudyRecordStabilityThermalMaterialsAndMethodsGuidelineEntryDeviation
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Deviation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalOverallRemarksAttachments:
+    class Meta:
+        global_type = False
+
+    remarks_on_results: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "RemarksOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    attached_background_material: Optional[
+        EndpointStudyRecordStabilityThermalOverallRemarksAttachmentsAttachedBackgroundMaterial
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AttachedBackgroundMaterial",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    attached_study_report: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedStudyReport",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    illustration_pic_graph: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "IllustrationPicGraph",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionStabilityToMetals:
+    class Meta:
+        global_type = False
+
+    stable_to_metals: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionStabilityToMetalsStableToMetals
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StableToMetals",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionStudyOnStability:
+    class Meta:
+        global_type = False
+
+    stable_to_sunlight: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionStudyOnStabilityStableToSunlight
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StableToSunlight",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityIdentityTransformationEntry:
+    class Meta:
+        global_type = False
+
+    no: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityIdentityTransformationEntryNo
+    ] = field(
+        default=None,
+        metadata={
+            "name": "No",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    reference_substance: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "ReferenceSubstance",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityOperatingTemperatureEntry:
+    class Meta:
+        global_type = False
+
+    key_result: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "KeyResult",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+            "nillable": True,
+        },
+    )
+    operating_temp: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityOperatingTemperatureEntryOperatingTemp
+    ] = field(
+        default=None,
+        metadata={
+            "name": "OperatingTemp",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    remarks_on_results: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityOperatingTemperatureEntryRemarksOnResults
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RemarksOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataAttachedJustification:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordStabilityThermalAdministrativeDataAttachedJustificationEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeDataCrossReference:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordStabilityThermalAdministrativeDataCrossReferenceEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalMaterialsAndMethodsGuideline:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordStabilityThermalMaterialsAndMethodsGuidelineEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityIdentityTransformation:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityIdentityTransformationEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityOperatingTemperature:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityOperatingTemperatureEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalAdministrativeData:
+    class Meta:
+        global_type = False
+
+    data_protection: Optional[
+        EndpointStudyRecordStabilityThermalAdministrativeDataDataProtection
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataProtection",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    endpoint: Optional[
+        EndpointStudyRecordStabilityThermalAdministrativeDataEndpoint
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Endpoint",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    study_result_type: Optional[
+        EndpointStudyRecordStabilityThermalAdministrativeDataStudyResultType
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StudyResultType",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    purpose_flag: Optional[
+        EndpointStudyRecordStabilityThermalAdministrativeDataPurposeFlag
+    ] = field(
+        default=None,
+        metadata={
+            "name": "PurposeFlag",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    robust_study: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "RobustStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+            "nillable": True,
+        },
+    )
+    used_for_classification: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "UsedForClassification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+            "nillable": True,
+        },
+    )
+    used_for_msds: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "UsedForMSDS",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+            "nillable": True,
+        },
+    )
+    study_period: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "StudyPeriod",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    reliability: Optional[
+        EndpointStudyRecordStabilityThermalAdministrativeDataReliability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Reliability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    rational_reliability: Optional[
+        EndpointStudyRecordStabilityThermalAdministrativeDataRationalReliability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RationalReliability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    data_waiving: Optional[
+        EndpointStudyRecordStabilityThermalAdministrativeDataDataWaiving
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataWaiving",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    data_waiving_justification: List[
+        EndpointStudyRecordStabilityThermalAdministrativeDataDataWaivingJustification
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "DataWaivingJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    justification_for_type_of_information: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "JustificationForTypeOfInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    attached_justification: Optional[
+        EndpointStudyRecordStabilityThermalAdministrativeDataAttachedJustification
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AttachedJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    cross_reference: Optional[
+        EndpointStudyRecordStabilityThermalAdministrativeDataCrossReference
+    ] = field(
+        default=None,
+        metadata={
+            "name": "CrossReference",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalMaterialsAndMethods:
+    class Meta:
+        global_type = False
+
+    guideline: Optional[
+        EndpointStudyRecordStabilityThermalMaterialsAndMethodsGuideline
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Guideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    method_no_guideline: List[str] = field(
+        default_factory=list,
+        metadata={
+            "name": "MethodNoGuideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    glpcompliance_statement: Optional[
+        EndpointStudyRecordStabilityThermalMaterialsAndMethodsGlpcomplianceStatement
+    ] = field(
+        default=None,
+        metadata={
+            "name": "GLPComplianceStatement",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    other_quality_assurance: Optional[
+        EndpointStudyRecordStabilityThermalMaterialsAndMethodsOtherQualityAssurance
+    ] = field(
+        default=None,
+        metadata={
+            "name": "OtherQualityAssurance",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    test_materials: Optional[
+        EndpointStudyRecordStabilityThermalMaterialsAndMethodsTestMaterials
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestMaterials",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    study_design: Optional[
+        EndpointStudyRecordStabilityThermalMaterialsAndMethodsStudyDesign
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StudyDesign",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    any_other_information_on_materials_and_methods_incl_tables: Optional[
+        EndpointStudyRecordStabilityThermalMaterialsAndMethodsAnyOtherInformationOnMaterialsAndMethodsInclTables
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnyOtherInformationOnMaterialsAndMethodsInclTables",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStability:
+    class Meta:
+        global_type = False
+
+    test_substance_thermally_stable: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityTestSubstanceThermallyStable
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestSubstanceThermallyStable",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    operating_temperature: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityOperatingTemperature
+    ] = field(
+        default=None,
+        metadata={
+            "name": "OperatingTemperature",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    sublimation: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilitySublimation
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Sublimation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    transformation_products: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityTransformationProducts
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TransformationProducts",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    identity_transformation: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStabilityIdentityTransformation
+    ] = field(
+        default=None,
+        metadata={
+            "name": "IdentityTransformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermalResultsAndDiscussion:
+    class Meta:
+        global_type = False
+
+    thermal_stability: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionThermalStability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ThermalStability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    study_on_stability: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionStudyOnStability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StudyOnStability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    stability_to_metals: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionStabilityToMetals
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StabilityToMetals",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+    any_other_information_on_results_incl_tables: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussionAnyOtherInformationOnResultsInclTables
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnyOtherInformationOnResultsInclTables",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordStabilityThermal:
+    class Meta:
+        name = "ENDPOINT_STUDY_RECORD.StabilityThermal"
+        namespace = "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-StabilityThermal/5.0"
+
+    administrative_data: Optional[
+        EndpointStudyRecordStabilityThermalAdministrativeData
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AdministrativeData",
+            "type": "Element",
+        },
+    )
+    data_source: Optional[EndpointStudyRecordStabilityThermalDataSource] = (
+        field(
+            default=None,
+            metadata={
+                "name": "DataSource",
+                "type": "Element",
+            },
+        )
+    )
+    materials_and_methods: Optional[
+        EndpointStudyRecordStabilityThermalMaterialsAndMethods
+    ] = field(
+        default=None,
+        metadata={
+            "name": "MaterialsAndMethods",
+            "type": "Element",
+        },
+    )
+    results_and_discussion: Optional[
+        EndpointStudyRecordStabilityThermalResultsAndDiscussion
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ResultsAndDiscussion",
+            "type": "Element",
+        },
+    )
+    overall_remarks_attachments: Optional[
+        EndpointStudyRecordStabilityThermalOverallRemarksAttachments
+    ] = field(
+        default=None,
+        metadata={
+            "name": "OverallRemarksAttachments",
+            "type": "Element",
+        },
+    )
+    applicant_summary_and_conclusion: Optional[
+        EndpointStudyRecordStabilityThermalApplicantSummaryAndConclusion
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ApplicantSummaryAndConclusion",
+            "type": "Element",
+        },
+    )

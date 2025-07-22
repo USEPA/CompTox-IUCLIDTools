@@ -1,0 +1,1868 @@
+from dataclasses import field
+from decimal import Decimal
+from typing import List, Optional
+
+from pydantic.dataclasses import dataclass
+
+from entity_models_6_5.acutetoxicityoral_6_5.models.common_types_oecd_v6 import (
+    A36,
+    E105,
+    N64,
+    N78,
+    T01,
+    T021,
+    T03,
+    T042,
+    T24,
+    T48,
+    T123,
+    T124,
+    T148,
+    T251,
+    T23123456,
+    Y143,
+    Z02,
+    Z03,
+    Z05,
+    Z06,
+    Z08,
+    Z30,
+    Z38,
+    Z40,
+    Pg660009,
+    Pg660010,
+    Pg660013,
+    Pg660281,
+    Pg660282,
+    Pg660287,
+)
+from entity_models_6_5.acutetoxicityoral_6_5.models.platform_fields import (
+    AttachmentListField,
+    BaseDataProtectionField,
+    BasePhysicalQuantityRangeField,
+    BasePicklistField,
+    DocumentReferenceMultipleField,
+    LowerQualifier,
+    MultilingualTextField,
+    MultilingualTextFieldLarge,
+    MultilingualTextFieldMultiLine,
+    MultilingualTextFieldSmall,
+    RepeatableEntryType,
+    UpperQualifier,
+)
+
+__NAMESPACE__ = "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0"
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataAttachedJustificationEntryReasonPurpose(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660009] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataCrossReferenceEntryReasonPurpose(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660010] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataDataProtectionLegislation:
+    class Meta:
+        global_type = False
+
+    value: Optional[N78] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataDataWaiving(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z02] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataDataWaivingJustification(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660282] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataEndpoint(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660281] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataPurposeFlag(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Y143] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataRationalReliability(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660013] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataReliability(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[A36] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataStudyResultType(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z05] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralApplicantSummaryAndConclusionInterpretationOfResults(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[T124] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralDataSourceDataAccess(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralDataSourceDataProtectionClaimed(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z30] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsAdministrationExposureControlAnimals(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[T148] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsAdministrationExposureRouteOfAdministration(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[T251] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsAdministrationExposureVehicle(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[T48] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsAnyOtherInformationOnMaterialsAndMethodsInclTables:
+    class Meta:
+        global_type = False
+
+    other_information: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsGlpcomplianceStatement(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z40] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsGuidelineEntryDeviation(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z08] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsGuidelineEntryGuideline(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[T03] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsGuidelineEntryQualifier(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z06] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsLimitTest(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Z38] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsTestAnimalsSex(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[T24] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsTestAnimalsSpecies(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[T021] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsTestAnimalsStrain(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[T23123456] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsTestMaterials:
+    class Meta:
+        global_type = False
+
+    test_material_information: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "TestMaterialInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    specific_details_on_test_material_used_for_the_study: List[
+        MultilingualTextFieldLarge
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "SpecificDetailsOnTestMaterialUsedForTheStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    specific_details_on_test_material_used_for_the_study_confidential: List[
+        MultilingualTextFieldLarge
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "SpecificDetailsOnTestMaterialUsedForTheStudyConfidential",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsTestType(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[T123] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralOverallRemarksAttachmentsAttachedBackgroundMaterialEntry(
+    RepeatableEntryType
+):
+    class Meta:
+        global_type = False
+
+    attached_document: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedDocument",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionAnyOtherInformationOnResultsInclTables:
+    class Meta:
+        global_type = False
+
+    other_information: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntryBasedOn(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[E105] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntryEffectLevel(
+    BasePhysicalQuantityRangeField
+):
+    class Meta:
+        global_type = False
+
+    unit_code: Optional[T042] = field(
+        default=None,
+        metadata={
+            "name": "unitCode",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    unit_other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "name": "unitOther",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    lower_qualifier: Optional[LowerQualifier] = field(
+        default=None,
+        metadata={
+            "name": "lowerQualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    upper_qualifier: Optional[UpperQualifier] = field(
+        default=None,
+        metadata={
+            "name": "upperQualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    lower_value: Optional[Decimal] = field(
+        default=None,
+        metadata={
+            "name": "lowerValue",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    upper_value: Optional[Decimal] = field(
+        default=None,
+        metadata={
+            "name": "upperValue",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntryEndpoint(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[T01] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntryRemarksOnResults(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[Pg660287] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntrySex(
+    BasePicklistField
+):
+    class Meta:
+        global_type = False
+
+    value: Optional[T24] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntryCl(
+    BasePhysicalQuantityRangeField
+):
+    class Meta:
+        global_type = False
+
+    lower_qualifier: Optional[LowerQualifier] = field(
+        default=None,
+        metadata={
+            "name": "lowerQualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    upper_qualifier: Optional[UpperQualifier] = field(
+        default=None,
+        metadata={
+            "name": "upperQualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    lower_value: Optional[Decimal] = field(
+        default=None,
+        metadata={
+            "name": "lowerValue",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    upper_value: Optional[Decimal] = field(
+        default=None,
+        metadata={
+            "name": "upperValue",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataAttachedJustificationEntry(
+    RepeatableEntryType
+):
+    class Meta:
+        global_type = False
+
+    attached_justification: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "AttachedJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    reason_purpose: Optional[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataAttachedJustificationEntryReasonPurpose
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReasonPurpose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataCrossReferenceEntry(
+    RepeatableEntryType
+):
+    class Meta:
+        global_type = False
+
+    reason_purpose: Optional[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataCrossReferenceEntryReasonPurpose
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ReasonPurpose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    related_information: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "RelatedInformation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "Remarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataDataProtection(
+    BaseDataProtectionField
+):
+    class Meta:
+        global_type = False
+
+    confidentiality: Optional[N64] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    justification: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    legislation: List[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataDataProtectionLegislation
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralApplicantSummaryAndConclusion:
+    class Meta:
+        global_type = False
+
+    interpretation_of_results: Optional[
+        EndpointStudyRecordAcuteToxicityOralApplicantSummaryAndConclusionInterpretationOfResults
+    ] = field(
+        default=None,
+        metadata={
+            "name": "InterpretationOfResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    conclusions: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "Conclusions",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    executive_summary: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "name": "ExecutiveSummary",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralDataSource:
+    class Meta:
+        global_type = False
+
+    reference: Optional[DocumentReferenceMultipleField] = field(
+        default=None,
+        metadata={
+            "name": "Reference",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    data_access: Optional[
+        EndpointStudyRecordAcuteToxicityOralDataSourceDataAccess
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataAccess",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    data_protection_claimed: Optional[
+        EndpointStudyRecordAcuteToxicityOralDataSourceDataProtectionClaimed
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataProtectionClaimed",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsAdministrationExposure:
+    class Meta:
+        global_type = False
+
+    route_of_administration: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsAdministrationExposureRouteOfAdministration
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RouteOfAdministration",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    vehicle: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsAdministrationExposureVehicle
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Vehicle",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    details_on_oral_exposure: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnOralExposure",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    doses: List[MultilingualTextFieldMultiLine] = field(
+        default_factory=list,
+        metadata={
+            "name": "Doses",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    no_of_animals_per_sex_per_dose: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "NoOfAnimalsPerSexPerDose",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    control_animals: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsAdministrationExposureControlAnimals
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ControlAnimals",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    details_on_study_design: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "DetailsOnStudyDesign",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    statistics: List[MultilingualTextFieldMultiLine] = field(
+        default_factory=list,
+        metadata={
+            "name": "Statistics",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsGuidelineEntry(
+    RepeatableEntryType
+):
+    class Meta:
+        global_type = False
+
+    qualifier: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsGuidelineEntryQualifier
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Qualifier",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    guideline: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsGuidelineEntryGuideline
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Guideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    version_remarks: List[MultilingualTextFieldMultiLine] = field(
+        default_factory=list,
+        metadata={
+            "name": "VersionRemarks",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    deviation: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsGuidelineEntryDeviation
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Deviation",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsTestAnimals:
+    class Meta:
+        global_type = False
+
+    species: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsTestAnimalsSpecies
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Species",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    strain: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsTestAnimalsStrain
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Strain",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    sex: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsTestAnimalsSex
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Sex",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    organism_details: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "OrganismDetails",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralOverallRemarksAttachmentsAttachedBackgroundMaterial:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordAcuteToxicityOralOverallRemarksAttachmentsAttachedBackgroundMaterialEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntry(
+    RepeatableEntryType
+):
+    class Meta:
+        global_type = False
+
+    key_result: Optional[bool] = field(
+        default=None,
+        metadata={
+            "name": "KeyResult",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    sex: Optional[
+        EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntrySex
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Sex",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    endpoint: Optional[
+        EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntryEndpoint
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Endpoint",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    effect_level: Optional[
+        EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntryEffectLevel
+    ] = field(
+        default=None,
+        metadata={
+            "name": "EffectLevel",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    based_on: Optional[
+        EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntryBasedOn
+    ] = field(
+        default=None,
+        metadata={
+            "name": "BasedOn",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    cl: Optional[
+        EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntryCl
+    ] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    remarks_on_results: Optional[
+        EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntryRemarksOnResults
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RemarksOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataAttachedJustification:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataAttachedJustificationEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeDataCrossReference:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataCrossReferenceEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsGuideline:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsGuidelineEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralOverallRemarksAttachments:
+    class Meta:
+        global_type = False
+
+    remarks_on_results: List[MultilingualTextField] = field(
+        default_factory=list,
+        metadata={
+            "name": "RemarksOnResults",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    attached_background_material: Optional[
+        EndpointStudyRecordAcuteToxicityOralOverallRemarksAttachmentsAttachedBackgroundMaterial
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AttachedBackgroundMaterial",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    attached_study_report: Optional[AttachmentListField] = field(
+        default=None,
+        metadata={
+            "name": "AttachedStudyReport",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    illustration_pic_graph: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "IllustrationPicGraph",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    attached_sanitised_docs_for_publication: Optional[AttachmentListField] = (
+        field(
+            default=None,
+            metadata={
+                "name": "AttachedSanitisedDocsForPublication",
+                "type": "Element",
+                "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+            },
+        )
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevels:
+    class Meta:
+        global_type = False
+
+    entry: List[
+        EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevelsEntry
+    ] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralAdministrativeData:
+    class Meta:
+        global_type = False
+
+    data_protection: Optional[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataDataProtection
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataProtection",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    endpoint: Optional[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataEndpoint
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Endpoint",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    study_result_type: Optional[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataStudyResultType
+    ] = field(
+        default=None,
+        metadata={
+            "name": "StudyResultType",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    purpose_flag: Optional[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataPurposeFlag
+    ] = field(
+        default=None,
+        metadata={
+            "name": "PurposeFlag",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    robust_study: Optional[bool] = field(
+        default=None,
+        metadata={
+            "name": "RobustStudy",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    used_for_classification: Optional[bool] = field(
+        default=None,
+        metadata={
+            "name": "UsedForClassification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    used_for_msds: Optional[bool] = field(
+        default=None,
+        metadata={
+            "name": "UsedForMSDS",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    study_period: List[MultilingualTextFieldSmall] = field(
+        default_factory=list,
+        metadata={
+            "name": "StudyPeriod",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    reliability: Optional[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataReliability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Reliability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    rational_reliability: Optional[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataRationalReliability
+    ] = field(
+        default=None,
+        metadata={
+            "name": "RationalReliability",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    data_waiving: Optional[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataDataWaiving
+    ] = field(
+        default=None,
+        metadata={
+            "name": "DataWaiving",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    data_waiving_justification: List[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataDataWaivingJustification
+    ] = field(
+        default_factory=list,
+        metadata={
+            "name": "DataWaivingJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    justification_for_type_of_information: List[MultilingualTextFieldLarge] = (
+        field(
+            default_factory=list,
+            metadata={
+                "name": "JustificationForTypeOfInformation",
+                "type": "Element",
+                "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+            },
+        )
+    )
+    attached_justification: Optional[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataAttachedJustification
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AttachedJustification",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    cross_reference: Optional[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeDataCrossReference
+    ] = field(
+        default=None,
+        metadata={
+            "name": "CrossReference",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralMaterialsAndMethods:
+    class Meta:
+        global_type = False
+
+    guideline: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsGuideline
+    ] = field(
+        default=None,
+        metadata={
+            "name": "Guideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    method_no_guideline: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "MethodNoGuideline",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    glpcompliance_statement: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsGlpcomplianceStatement
+    ] = field(
+        default=None,
+        metadata={
+            "name": "GLPComplianceStatement",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    test_type: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsTestType
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestType",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    limit_test: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsLimitTest
+    ] = field(
+        default=None,
+        metadata={
+            "name": "LimitTest",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    test_materials: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsTestMaterials
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestMaterials",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    test_animals: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsTestAnimals
+    ] = field(
+        default=None,
+        metadata={
+            "name": "TestAnimals",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    administration_exposure: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsAdministrationExposure
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AdministrationExposure",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    any_other_information_on_materials_and_methods_incl_tables: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethodsAnyOtherInformationOnMaterialsAndMethodsInclTables
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnyOtherInformationOnMaterialsAndMethodsInclTables",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOralResultsAndDiscussion:
+    class Meta:
+        global_type = False
+
+    preliminary: List[MultilingualTextFieldMultiLine] = field(
+        default_factory=list,
+        metadata={
+            "name": "Preliminary",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    effect_levels: Optional[
+        EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionEffectLevels
+    ] = field(
+        default=None,
+        metadata={
+            "name": "EffectLevels",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    mortality: List[MultilingualTextFieldMultiLine] = field(
+        default_factory=list,
+        metadata={
+            "name": "Mortality",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    clinical_signs: List[MultilingualTextFieldMultiLine] = field(
+        default_factory=list,
+        metadata={
+            "name": "ClinicalSigns",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    body_weight: List[MultilingualTextFieldMultiLine] = field(
+        default_factory=list,
+        metadata={
+            "name": "BodyWeight",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    gross_pathology: List[MultilingualTextFieldMultiLine] = field(
+        default_factory=list,
+        metadata={
+            "name": "GrossPathology",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    other_findings: List[MultilingualTextFieldLarge] = field(
+        default_factory=list,
+        metadata={
+            "name": "OtherFindings",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+    any_other_information_on_results_incl_tables: Optional[
+        EndpointStudyRecordAcuteToxicityOralResultsAndDiscussionAnyOtherInformationOnResultsInclTables
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AnyOtherInformationOnResultsInclTables",
+            "type": "Element",
+            "namespace": "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0",
+        },
+    )
+
+
+@dataclass
+class EndpointStudyRecordAcuteToxicityOral:
+    class Meta:
+        name = "ENDPOINT_STUDY_RECORD.AcuteToxicityOral"
+        namespace = "http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-AcuteToxicityOral/6.0"
+
+    administrative_data: Optional[
+        EndpointStudyRecordAcuteToxicityOralAdministrativeData
+    ] = field(
+        default=None,
+        metadata={
+            "name": "AdministrativeData",
+            "type": "Element",
+        },
+    )
+    data_source: Optional[EndpointStudyRecordAcuteToxicityOralDataSource] = (
+        field(
+            default=None,
+            metadata={
+                "name": "DataSource",
+                "type": "Element",
+            },
+        )
+    )
+    materials_and_methods: Optional[
+        EndpointStudyRecordAcuteToxicityOralMaterialsAndMethods
+    ] = field(
+        default=None,
+        metadata={
+            "name": "MaterialsAndMethods",
+            "type": "Element",
+        },
+    )
+    results_and_discussion: Optional[
+        EndpointStudyRecordAcuteToxicityOralResultsAndDiscussion
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ResultsAndDiscussion",
+            "type": "Element",
+        },
+    )
+    overall_remarks_attachments: Optional[
+        EndpointStudyRecordAcuteToxicityOralOverallRemarksAttachments
+    ] = field(
+        default=None,
+        metadata={
+            "name": "OverallRemarksAttachments",
+            "type": "Element",
+        },
+    )
+    applicant_summary_and_conclusion: Optional[
+        EndpointStudyRecordAcuteToxicityOralApplicantSummaryAndConclusion
+    ] = field(
+        default=None,
+        metadata={
+            "name": "ApplicantSummaryAndConclusion",
+            "type": "Element",
+        },
+    )
