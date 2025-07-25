@@ -645,7 +645,6 @@ def map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns
         oht_class, nested_classes = get_oht_classes(oht_type)
         endpoint_row_data = {col: row[col] for col in endpoint_columns if col in row}
         oht_instance = create_instance_from_csv_row(oht_class, nested_classes, endpoint_row_data)
-        #st.write(oht_instance)
 
         if test_material_columns:
             test_material_values = tuple(row[col] for col in test_material_columns if col in row)
@@ -662,7 +661,7 @@ def map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns
             oht_instance.uuid = f"{generate_uuid()}/{generate_uuid()}"
 
         oht_instances.append((oht_instance, substance_uuid))
-    #st.write('done')
+    
     return oht_instances
 
 
@@ -825,9 +824,9 @@ def generate_i6z(endpoint_instances, test_material_instances, legal_entity_insta
     for i, (instance, parent_key) in enumerate(endpoint_instances):
         # Determine the OHT type from the instance class name
         oht_type = type(instance).__name__.replace("EndpointStudyRecord", "")
-        #st.write(oht_type)
+        
         document_key = instance_to_i6d(instance, output_dir, oht_type, parent_key)
-        #st.write(document_key)
+
         i6d_file_path = f"{document_key}.i6d"
         # Define the file path for the i6d file
         #i6d_file_path = os.path.join(output_dir, f"instance_{i + 1}.i6d")
@@ -837,14 +836,13 @@ def generate_i6z(endpoint_instances, test_material_instances, legal_entity_insta
 
         # Add the i6d file name to the list
         i6d_files.append(i6d_file_path)
-    #st.write(f"Uploaded Attachments: {other_files}")
+    
     if other_files is not None:
         attach_keys = {}
         for attachment in other_files:
             document_key, attachment_path = create_i6d_for_attachment(attachment, output_dir)
-            # attach_keys.append(f"{document_key}.i6d")
             # Store document_key and attachment_path key-value pair in dictionary
-            attach_keys.update({f'{document_key}.i6d': attachment_path})
+            attach_keys[f"{document_key}.i6d"] = attachment_path
     # Define the file path for the manifest
     manifest_file_path = os.path.join(output_dir, "manifest.xml")
 
@@ -860,14 +858,12 @@ def generate_i6z(endpoint_instances, test_material_instances, legal_entity_insta
             i6z.write(os.path.join(output_dir, i6d_file), i6d_file)  # Add each i6d file
         i6z.write(main_data, os.path.basename(main_data))
         if other_files is not None:
-            for k in attach_keys.keys():
-                # with open(file_path, 'wb') as f:
-                #     f.write(other_files[i].getvalue())
+            for attach_key, attach_path in attach_keys.items():
                 # Add the attachment file with relative path
-                i6z.write(attach_keys.get(k), os.path.relpath(attach_keys.get(k), output_dir))
+                i6z.write(attach_path, os.path.relpath(attach_path, output_dir))
                 # Add the attachment i6d file with relative path
-                file_path = os.path.join(output_dir, k)
-                i6z.write(file_path, k)
+                file_path = os.path.join(output_dir, attach_key)
+                i6z.write(file_path, attach_key)
 
 
 def apply_column_mapping(column_mapping, modified_df):
@@ -1122,19 +1118,19 @@ def compute_mp5(file_content):
 
 def determine_mime_type(file_name):
     """Determine the MIME type based on the file extension"""
-    file_extension = file_name.split(".")[-1].lower()
-    if file_extension == "pdf":
+    file_extension = file_name.suffix
+    if file_extension == ".pdf":
         return "application/pdf"
-    elif file_extension == "png":
+    elif file_extension == ".png":
         return "image/png"
-    elif file_extension == "jpg" or file_extension == "jpeg":
+    elif file_extension == ".jpg" or file_extension == ".jpeg":
         return "image/jpeg"
     else:
         raise ValueError(f"Unsupported file type: {file_extension}")
 
 
 def create_i6d_for_attachment(attachment_file, output_dir):
-    file_name = attachment_file.name
+    file_name = Path(attachment_file.name)
     file_content = attachment_file.getvalue()
     md5_hash = compute_mp5(file_content)
     mime_type = determine_mime_type(file_name)
@@ -1149,13 +1145,14 @@ def create_i6d_for_attachment(attachment_file, output_dir):
     )
 
     etree.SubElement(root, 'documentKey').text = document_key
-    etree.SubElement(root, "name").text = file_name
+    etree.SubElement(root, "name").text = file_name.name
     etree.SubElement(root, "creationDate").text = creation_date
     etree.SubElement(root, "lastModificationDate").text = creation_date
     etree.SubElement(root, "md5").text = md5_hash
     etree.SubElement(root, "mimetype").text = mime_type
 
-    attachment_filename = f"attachments/{md5_hash}.{file_name.split('.')[-1]}"
+    # Get attachment path and new filename with md5 hash and same suffix
+    attachment_filename = str((Path("attachments") / md5_hash).with_suffix(file_name.suffix))
     etree.SubElement(root, "content", {
         "{http://www.w3.org/1999/xlink}href": attachment_filename,
         "{http://www.w3.org/1999/xlink}type": "simple"
