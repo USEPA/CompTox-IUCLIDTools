@@ -8,7 +8,10 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install the required dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN --mount=type=cache,target=/tmp/pip-cache,id=pip_cache \
+    pip install --cache-dir /tmp/pip-cache -r requirements.txt \
+ && pip freeze > requirements.freeze.txt \
+ && python -c "import nltk; nltk.download('stopwords'); nltk.download('punkt')"
 
 # Copy the rest of the application code
 COPY . .

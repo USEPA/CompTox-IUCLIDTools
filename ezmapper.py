@@ -82,6 +82,7 @@ def background_suggestions_logic(user_df, results):
         print('suggestions done')
         #st.rerun()
     except Exception as e:
+        print(f"Error running suggestions logic: {e}")
         st.error(f"Error running suggestions logic: {e}")
 
 
