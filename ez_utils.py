@@ -158,7 +158,7 @@ def display_data_preview(user_df: pd.DataFrame) -> None:
     if not st.session_state.classify_pressed and st.session_state.show_data_preview:
         st.dataframe(user_df.head(5))
 
-def split_numeric_and_units(input_string):
+def split_time_numeric_units(input_string):
     """
     Splits a string into its numeric and unit components.
 
@@ -245,7 +245,7 @@ def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
         duration_pattern = r"\b(?:\d+\.\d+|\d+)[\s-]*(?:day|pnd|week|month|year)" # Regex looks for number and time unit
         max_time = 0
         for match in re.findall(duration_pattern, long_string):
-            time, unit = split_numeric_and_units(match)
+            time, unit = split_time_numeric_units(match)
             time_in_days = float(time) * time_conversion[unit] # convert into days
             if time_in_days > max_time: 
                 max_time = time_in_days
