@@ -532,14 +532,24 @@ def generate_uuid():
     return str(uuid.uuid4())
 
 
-def create_platform_metadata(oht_type, main_uuid):
+def create_platform_metadata(instance, oht_type, main_uuid):
+    docType = oht_type
+    docSubType = ""
+    # TODO create list of document types to exclude - add document_type param based on earlier ifelse
+    if 'EndpointStudyRecord' in type(instance).__name__:
+       print("Setting documentType to ENDPOINT_STUDY_RECORD: 1")
+       docType = "ENDPOINT_STUDY_RECORD"
+       docSubType = snake_to_camel(oht_type)
+    else:
+        print("Setting documentType to ENDPOINT_STUDY_RECORD: 0")
+       
     return {
         "iuclidVersion": "7.0.7",
         "documentKey": f"{generate_uuid()}/{main_uuid}",
         "parentDocumentKey": "",
         "name": "",
-        "documentType": "ENDPOINT_STUDY_RECORD",
-        "documentSubType": snake_to_camel(oht_type),
+        "documentType": docType,
+        "documentSubType": docSubType,
         "orderInSectionNo": "1",
         "definitionVersion": "8.0",
         "creationDate": datetime.datetime.utcnow().isoformat() + "Z",
@@ -716,7 +726,9 @@ def instance_to_i6d(instance, output_dir, oht_type, main_uuid, parent_key=None, 
     xml_content = xml_content.split("?>", 1)[1].strip()
     document_type = to_document_type_format(oht_type)
     # Create platform metadata for the i6d file
-    platform_metadata = create_platform_metadata(document_type, main_uuid)
+    platform_metadata = create_platform_metadata(instance=instance, 
+                                                 oht_type = document_type, 
+                                                 main_uuid = main_uuid)
     if parent_key:
         platform_metadata['parentDocumentKey'] = f'{parent_key}/{main_uuid}'
     platform_metadata['documentKey'] = instance.uuid
