@@ -77,7 +77,7 @@ if uploaded_file is not None:
     user_df = upload_file_to_df(uploaded_file)
     st.session_state.user_df = user_df
 
-    base_file_name = Path(uploaded_file.name).stem
+    # base_file_name = Path(uploaded_file.name).stem
 
     # Display a preview of the data
     display_data_preview(user_df)
@@ -256,6 +256,7 @@ if st.session_state.split_done and selected_df_key != "None":
         if generate_i6z_button:
             #st.write('generating')
             main_uuid = str(uuid.uuid4())
+            parent_uuid = str(uuid.uuid4())
             try:
                 column_mapping_dict = column_mapping
                 data = apply_column_mapping(column_mapping, st.session_state.modified_df)
@@ -302,10 +303,11 @@ if st.session_state.split_done and selected_df_key != "None":
                 output_dir = 'output'
                 i6z_file_path = 'output/data.i6z'
                 generate_i6z(oht_instances, test_material_instances, legal_entity_instances, ref_sub_instances,
-                             substance_instances, output_dir, i6z_file_path, data, uploaded_other_files, main_uuid)
+                             substance_instances, output_dir, i6z_file_path, data, uploaded_other_files, 
+                             main_uuid=main_uuid, parent_uuid=parent_uuid)
 
                 st.write("Successfully Generated")
-                outfile_name = base_file_name + '.i6z'
+                outfile_name = parent_uuid + '.i6z'
                 st.download_button(
                     label='Download i6z File',
                     data=open(i6z_file_path, 'rb').read(),
