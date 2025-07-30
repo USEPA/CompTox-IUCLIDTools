@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 8506
 
 # Command to run the application
-CMD ["streamlit", "run", "ezmapper.py", "--server.port=8506", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "ezmapper.py", "--server.port=8506", "--server.address=0.0.0.0", "--logger.level=debug"]
