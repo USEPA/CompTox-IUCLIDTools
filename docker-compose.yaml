@@ -1,0 +1,12 @@
+volumes:
+  ezmapper_scispacy_datasets:
+    external: true
+
+services:
+  ezmapper:
+    image: ezmapper-${EZMAPPER_NAMESPACE}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ezmapper_scispacy_datasets:/root/.scispacy/datasets

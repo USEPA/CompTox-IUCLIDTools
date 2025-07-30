@@ -1,0 +1,5 @@
+
+services:
+  ezmapper:
+    ports:
+      - ${EZMAPPER_EXTERAL_WEB_PORT}:8506
