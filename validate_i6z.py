@@ -11,7 +11,7 @@ to validate the Content element separately.
 import sys
 from pathlib import Path
 
-# Uncomment to use xmlschema insteadof / as well as lxml
+# Uncomment to use xmlschema instead of / as well as lxml
 # import xmlschema
 from lxml import etree as ET
 
@@ -44,7 +44,7 @@ class LXMLSchema(XMLSchema):
         print(self.schema.error_log)
 
 
-# Uncomment to use xmlschema insteadof / as well as lxml
+# Uncomment to use xmlschema instead of / as well as lxml
 xmlschema = None
 
 
@@ -78,7 +78,8 @@ def validate_i6d(schema_cls: XMLSchema, xsd_folder: Path, i6d_file: Path) -> boo
     else:
         ns = i6d_tree.xpath("namespace-uri()")
         schema = "platform-container-v2.xsd" if "v2" in ns else "platform-container.xsd"
-    schema_path = next(xsd_folder.glob(f"**/{schema}"))
+    # Get the most recent schema
+    schema_path = sorted(xsd_folder.glob(f"**/{schema}"))[-1]
     print(f"Using schema: {schema_path}")
 
     schema = schema_cls(schema_path)
@@ -114,7 +115,8 @@ def validate_i6d(schema_cls: XMLSchema, xsd_folder: Path, i6d_file: Path) -> boo
         ns = content.xpath("namespace-uri()")
         schema = "-".join(ns.split("/")[-2:]) + ".xsd"
         print(f"Schema implied by namespace: {schema}")
-    schema_path = next(xsd_folder.glob(f"**/{schema}"))
+    # Get the most recent schema, probably only one choice
+    schema_path = sorted(xsd_folder.glob(f"**/{schema}"))[-1]
     print(f"Using schema: {schema_path}")
 
     schema = schema_cls(schema_path)

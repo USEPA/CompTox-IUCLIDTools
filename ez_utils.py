@@ -24,6 +24,8 @@ import typing
 import sys
 import webbrowser
 from oht_xsd_to_picklist import oht_xsd_to_picklist, phrases_to_dict
+from defs import I6, I6C, I6CXSD, I6M, XSI, XML_NS
+sys.path.append("entity_models")
 
 sys.path.append("entity_models")
 
@@ -615,7 +617,7 @@ def create_platform_metadata(instance, oht_type, main_uuid):
         "documentType": docType,
         "documentSubType": docSubType,
         "orderInSectionNo": "1",
-        "definitionVersion": "8.0",
+        "definitionVersion": "6.0",
         "creationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "lastModificationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "submissionType": "",
@@ -789,8 +791,8 @@ def create_xml_serializer(oht_type):
     
     # Define the namespace mapping for the XML document
     ns_map = {
-        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/9.0",  # Default namespace
-        "i6": "http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1",  # Namespace for platform fields
+        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/6.0",  # Default namespace
+        "i6": I6,  # Namespace for platform fields
     }
 
     # Configure the XML serializer with pretty print and XML declaration settings
@@ -830,9 +832,7 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
 
     # Format the platform metadata as an XML string
     platform_metadata_xml = f"""
-    <i6c:PlatformMetadata 
-        xmlns:i6c="http://iuclid6.echa.europa.eu/namespaces/platform-container/v2"
-        xmlns:i6m="http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1">
+    <i6c:PlatformMetadata xmlns:i6c="{I6C}" xmlns:i6m="{I6M}">
         <i6m:iuclidVersion>{platform_metadata['iuclidVersion']}</i6m:iuclidVersion>
         <i6m:documentKey>{platform_metadata['documentKey']}</i6m:documentKey>
         <i6m:parentDocumentKey>{platform_metadata['parentDocumentKey']}</i6m:parentDocumentKey>
@@ -855,14 +855,15 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
 
     # Define the namespace mapping for the entire i6d document
     ns_map = {
-        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/9.0",  # Default namespace
-        "i6c": "http://iuclid6.echa.europa.eu/namespaces/platform-container/v2",  # Namespace for platform container
-        "xsi": "http://www.w3.org/2001/XMLSchema-instance",  # XML Schema instance namespace,
-        "xml": "http://www.w3.org/XML/1998/namespace"
+        # None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/9.0",  # Default namespace
+        "i6c": I6C,  # Namespace for platform container
+        "xsi": XSI,  # XML Schema instance namespace,
+        "xml": XML_NS,  # XML namespace
     }
 
     # Create the root element for the i6d document with the specified namespaces
-    root = etree.Element("{http://iuclid6.echa.europa.eu/namespaces/platform-container/v2}Document", nsmap=ns_map)
+    root = etree.Element(f"{{{I6C}}}Document", nsmap=ns_map)
+    root.set(f"{{{XSI}}}schemaLocation", f"{I6C} {I6CXSD}")
 
     # Parse the platform metadata XML string into an XML element
     platform_metadata_element = etree.fromstring(platform_metadata_xml)
@@ -871,7 +872,7 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
     root.append(platform_metadata_element)
 
     # Create the Content element
-    content_element = etree.Element("{http://iuclid6.echa.europa.eu/namespaces/platform-container/v2}Content", nsmap=ns_map)
+    content_element = etree.Element(f"{{{I6C}}}Content", nsmap=ns_map)
 
     # Append the serialized instance content to the Content element
     content_element.append(etree.fromstring(xml_content))
@@ -880,10 +881,10 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
     root.append(content_element)
 
     # Append required empty Attachments and ModificationHistory elements
-    root.append(e:=etree.Element("{http://iuclid6.echa.europa.eu/namespaces/platform-container/v2}Attachments", nsmap=ns_map))
-    e.set("{http://www.w3.org/2001/XMLSchema-instance}nil", "true")
-    root.append(e:=etree.Element("{http://iuclid6.echa.europa.eu/namespaces/platform-container/v2}ModificationHistory", nsmap=ns_map))
-    e.set("{http://www.w3.org/2001/XMLSchema-instance}nil", "true")
+    root.append(e:=etree.Element(f"{{{I6C}}}Attachments", nsmap=ns_map))
+    e.set(f"{{{XSI}}}nil", "true")
+    root.append(e:=etree.Element(f"{{{I6C}}}ModificationHistory", nsmap=ns_map))
+    e.set(f"{{{XSI}}}nil", "true")
 
     # Create an XML tree from the root element
     tree = etree.ElementTree(root)
@@ -1340,7 +1341,7 @@ def create_i6d_for_attachment(attachment_file, output_dir, main_uuid):
                          nsmap={
                              None: "http://iuclid6.echa.europa.eu/namespaces/platform-attachment/v1",
                              "xlink": "http://www.w3.org/1999/xlink",
-                             "xsi": "http://www.w3.org/2001/XMLSchema-instance"
+                             "xsi": XSI
                          }
     )
 
