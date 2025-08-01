@@ -111,6 +111,7 @@ if uploaded_file is None:
 
 def background_suggestions_logic(user_df, results):
     global temp_field_suggestions
+    return
     try:
         placeholder_test = suggestion_logic.main(config, user_df)
         temp_field_suggestions = placeholder_test
@@ -412,4 +413,5 @@ if st.session_state.split_done and selected_df_key != "None":
                     )
             except Exception as e:
                 st.error(f"Error generating: {e}")
+                raise
 

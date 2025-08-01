@@ -22,8 +22,9 @@ from xsdata.formats.dataclass.serializers.config import SerializerConfig
 import os
 import typing
 import sys
-import tempfile
 import webbrowser
+from oht_xsd_to_picklist import oht_xsd_to_picklist, phrases_to_dict
+
 sys.path.append("entity_models")
 
 def split_camel_case(name):
@@ -677,6 +678,37 @@ def set_nested_field(instance, field_path, value):
             raise AttributeError(f"Attribute {final_field_snake_case} not found in {type(current)}")
     setattr(current, final_field_snake_case, value)
 
+def translate_value(oht_class, field_path, value):
+    """Translate value through XSD picklist / Phrases.xml.
+
+    e.g. 'rats' becomes 4149
+    """
+    oht_name = oht_class.__name__.replace("EndpointStudyRecord", "")
+    oht_xsd_filename = f"ENDPOINT_STUDY_RECORD-{oht_name}-9.0.xsd"  # FIXME
+
+    # These are @cached, otherwise phrases_to_dict is a few seconds
+    oht_picklist = oht_xsd_to_picklist(oht_xsd_filename)
+    phrases = phrases_to_dict("Phrases.xml")  # FIXME
+
+    # Exclude the last field, which is the element named "value"
+    camels = [snake_to_camel(field) for field in field_path[:-1]]
+    # FIXME entry is lower case, and check Efflevel is not eff_level
+    # ENDPOINT_STUDY_RECORD.RepeatedDoseToxicityOral/ResultsAndDiscussion/EffectLevels/Efflevel/entry/Sex -> T24
+
+    picklist_key = f"ENDPOINT_STUDY_RECORD.{oht_name}/{'/'.join(camels)}"
+    picklist = phrases[oht_picklist[picklist_key]]
+    if value not in picklist and value.lower() not in picklist:
+        other_value = list(picklist.keys())[-1]
+        print(
+            f"WARNING: Value '{value}' not found in picklist for "
+            f"{oht_picklist[picklist_key]}. Using last value: {other_value}"
+        )
+        value = other_value
+
+    # Most things are lower case, but country names etc. are not, could change
+    # that in phrases_to_dict()
+    return picklist.get(value) or picklist[value.lower()]
+
 
 def create_instance_from_csv_row(oht_class, nested_classes, row_data):
     # Create an instance of the top-level class
@@ -689,6 +721,7 @@ def create_instance_from_csv_row(oht_class, nested_classes, row_data):
         else:
             _, field_path = parse_column_name(column_name)
             if field_path:
+                value = translate_value(oht_class, field_path, value)
                 set_nested_field(oht_instance, field_path, value)
 
     return oht_instance
@@ -845,6 +878,12 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
 
     # Append the Content element to the root
     root.append(content_element)
+
+    # Append required empty Attachments and ModificationHistory elements
+    root.append(e:=etree.Element("{http://iuclid6.echa.europa.eu/namespaces/platform-container/v2}Attachments", nsmap=ns_map))
+    e.set("{http://www.w3.org/2001/XMLSchema-instance}nil", "true")
+    root.append(e:=etree.Element("{http://iuclid6.echa.europa.eu/namespaces/platform-container/v2}ModificationHistory", nsmap=ns_map))
+    e.set("{http://www.w3.org/2001/XMLSchema-instance}nil", "true")
 
     # Create an XML tree from the root element
     tree = etree.ElementTree(root)
