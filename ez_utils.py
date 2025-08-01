@@ -881,10 +881,8 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
     root.append(content_element)
 
     # Append required empty Attachments and ModificationHistory elements
-    root.append(e:=etree.Element(f"{{{I6C}}}Attachments", nsmap=ns_map))
-    e.set(f"{{{XSI}}}nil", "true")
-    root.append(e:=etree.Element(f"{{{I6C}}}ModificationHistory", nsmap=ns_map))
-    e.set(f"{{{XSI}}}nil", "true")
+    root.append(e:=etree.Element(f"{{{I6C}}}Attachments"))
+    root.append(e:=etree.Element(f"{{{I6C}}}ModificationHistory"))
 
     # Create an XML tree from the root element
     tree = etree.ElementTree(root)
@@ -930,15 +928,15 @@ def create_manifest(i6d_files, main_uuid):
     legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")
     # domain legislation
     etree.SubElement(legislation, f"{{{NS}}}id").text = "domain"
-    etree.SubElement(legislation, f"{{{NS}}}version").text = "8.0"
+    etree.SubElement(legislation, f"{{{NS}}}version").text = "6.0"  # FIXME: Should be dynamic?
     # core legislation
     legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")
     etree.SubElement(legislation, f"{{{NS}}}id").text = "core"
-    etree.SubElement(legislation, f"{{{NS}}}version").text = "8.0"
+    etree.SubElement(legislation, f"{{{NS}}}version").text = "6.0"
     # oecd legislation
     legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")
     etree.SubElement(legislation, f"{{{NS}}}id").text = "oecd"
-    etree.SubElement(legislation, f"{{{NS}}}version").text = "8.0"
+    etree.SubElement(legislation, f"{{{NS}}}version").text = "6.0"
     # TODO Is "partial" tag needed?
     # etree.SubElement(general_info, f"{{{NS}}}partial").text = "false"
 
