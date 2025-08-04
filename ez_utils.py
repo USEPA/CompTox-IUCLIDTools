@@ -506,8 +506,9 @@ def display_word_document(oht_docx_path: str) -> None:
                     p[style-name='Heading 1'] => h1.card
                     table => table.table.table-hover
                     """
-    # Custom CSS
+    # Custom CSS, add HTML tag for tab name default
     docx_css = '''
+    <title>OHT Documentation</title>
 <style>
 td, tr, th {
     border: solid 2px lightgrey;
@@ -524,18 +525,18 @@ td, tr, th {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     ''' 
 
-    with st.expander("Click to show WORD document for the OHT", icon=":material/description:"):
-        with open(oht_docx_path, 'rb') as doc:
-            result_html = mammoth.convert_to_html(doc, style_map = custom_styles)
-            html_content = result_html.value
-            edited_html = docx_css + bootstrap_css + html_content + bootstrap_js
-            # st.components.v1.html(edited_html, height=600, scrolling=True)
-            # Write HTML to file and open in new tab
-            with open("output/oht_file.html", "w") as f:
-                f.write(edited_html)
+    # with st.expander("Click to show WORD document for the OHT", icon=":material/description:"):
+    with open(oht_docx_path, 'rb') as doc:
+        result_html = mammoth.convert_to_html(doc, style_map = custom_styles)
+        html_content = result_html.value
+        edited_html = docx_css + bootstrap_css + html_content + bootstrap_js
+        # st.components.v1.html(edited_html, height=600, scrolling=True)
+        # Write HTML to file and open in new tab
+        with open("output/oht_file.html", "w") as f:
+            f.write(edited_html)
 
-            # Open the file in a new tab
-            webbrowser.open_new_tab(os.path.abspath("output/oht_file.html"))
+        # Open the file in a new tab
+        webbrowser.open_new_tab(os.path.abspath("output/oht_file.html"))
 
 def parse_column_name(column_name: str):
     if "ENDPOINT_STUDY_RECORD" in column_name:

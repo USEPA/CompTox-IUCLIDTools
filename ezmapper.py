@@ -171,6 +171,10 @@ if "edited_df" in st.session_state and st.session_state.classify_pressed:
 if st.session_state.get("split_done", False):
     st.divider() # Horizontal divider
     st.title("Step 2: DataFrame OHT Splits", anchor = 'step2')
+    
+    st.write("**Review OHT Documentation**")
+    st.write(f"Following selection, OHT documentation will automatically open in a new tab. Use the documentation to assist with formatting and mapping columns in your dataset to OHT specifications.")
+
     selected_df_key = st.selectbox(
         "Select a DataFrame to Map Columns:",
         options=["None"] + list(st.session_state.grouped_dfs.keys()),
@@ -184,14 +188,15 @@ if st.session_state.get("split_done", False):
     # Display the selected DataFrame if a valid selection is made
     # or OHT has been switched
     if selected_df_key != "None" and st.session_state.ss_selected_oht != selected_df_key:
-        st.session_state.ss_selected_oht = selected_df_key
-        print(f'Selected: {selected_df_key} and state: {st.session_state.ss_selected_oht}')
-        st.divider() # Horizontal divider
-        st.title("Step 3: Format Columns", anchor = 'step3')
-        st.session_state.selected_df = st.session_state.grouped_dfs[selected_df_key]
         st.write(
             f"DataFrame for {selected_df_key} has {len(st.session_state.selected_df)} rows."
         )
+        st.session_state.ss_selected_oht = selected_df_key
+        # print(f'Selected: {selected_df_key} and state: {st.session_state.ss_selected_oht}')
+        st.divider() # Horizontal divider
+        st.title("Step 3: Format Columns", anchor = 'step3')
+        st.session_state.selected_df = st.session_state.grouped_dfs[selected_df_key]
+        
 
         # Render OHT docx as HTML in new window
         # selected_oht = selected_df_key
@@ -199,7 +204,6 @@ if st.session_state.get("split_done", False):
         oht_docx_path = oht_files[selected_df_key]["docx"]
         st.session_state.oht_docx_path = oht_docx_path
 
-        st.write("**Review OHT Documentation**")
         # Display the associated Word document for the OHT
         with st.spinner("Opening OHT documentation in new browser tab...", show_time=True):
             display_word_document(oht_docx_path)
@@ -207,6 +211,8 @@ if st.session_state.get("split_done", False):
         # Initialize session state for the DataFrame if it doesn't exist
         if "modified_df" not in st.session_state:
             st.session_state.modified_df = st.session_state.selected_df.copy()
+    else:
+        st.session_state.ss_selected_oht = selected_df_key
 
 # Section for merging or splitting columns in the DataFrame
 if st.session_state.split_done and selected_df_key != "None":
