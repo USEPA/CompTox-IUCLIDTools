@@ -564,6 +564,8 @@ def parse_column_name(column_name: str):
 def camel_to_snake(name):
     return re.sub(r'(?<!^)(?=[A-Z])', '_', name).lower()
 
+def snake_to_camel(name):
+    return "".join([t.capitalize() for t in name.split('_')])
 
 def to_document_type_format(oht_type):
     return "_".join(re.findall(r'[A-Z][^A-Z]*', oht_type)).upper()
@@ -587,14 +589,24 @@ def generate_uuid():
     return str(uuid.uuid4())
 
 
-def create_platform_metadata(oht_type):
+def create_platform_metadata(instance, oht_type, main_uuid):
+    docType = oht_type
+    docSubType = ""
+    # TODO create list of document types to exclude - add document_type param based on earlier ifelse
+    if 'EndpointStudyRecord' in type(instance).__name__:
+       print("Setting documentType to ENDPOINT_STUDY_RECORD: 1")
+       docType = "ENDPOINT_STUDY_RECORD"
+       docSubType = snake_to_camel(oht_type)
+    else:
+        print("Setting documentType to ENDPOINT_STUDY_RECORD: 0")
+       
     return {
         "iuclidVersion": "7.0.7",
-        "documentKey": f"{generate_uuid()}/{generate_uuid()}",
+        "documentKey": f"{generate_uuid()}/{main_uuid}",
         "parentDocumentKey": "",
         "name": "",
-        "documentType": oht_type,
-        "documentSubType": "",
+        "documentType": docType,
+        "documentSubType": docSubType,
         "orderInSectionNo": "1",
         "definitionVersion": "8.0",
         "creationDate": datetime.datetime.utcnow().isoformat() + "Z",
@@ -676,7 +688,8 @@ def create_instance_from_csv_row(oht_class, nested_classes, row_data):
     return oht_instance
 
 
-def map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns, substance_uuid_map, substance_columns):
+def map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns, substance_uuid_map, substance_columns,
+                             main_uuid):
     oht_instances = []
     #st.write(data)
     for index, row in data.iterrows():
@@ -716,7 +729,7 @@ def map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns
                 substance_uuid = substance_uuid_map[substance_values]
 
         if not hasattr(oht_instance, 'uuid'):
-            oht_instance.uuid = f"{generate_uuid()}/{generate_uuid()}"
+            oht_instance.uuid = f"{generate_uuid()}/{main_uuid}"
 
         oht_instances.append((oht_instance, substance_uuid))
     
@@ -730,8 +743,11 @@ def create_xml_serializer(oht_type):
     except Exception as e:
         print("Error in create_xml_serializer:", e)
     # Build the context recursively to include all related classes
-    context.build_recursive(get_oht_classes(oht_type)[0])
-
+    try:
+        context.build_recursive(get_oht_classes(oht_type)[0])
+    except Exception as e:
+        print(f"Context build_recursive error: {e}")
+    
     # Define the namespace mapping for the XML document
     ns_map = {
         None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/9.0",  # Default namespace
@@ -750,51 +766,60 @@ def create_xml_serializer(oht_type):
     return serializer, ns_map  # Return the serializer and namespace mapping
 
 
-def instance_to_i6d(instance, output_dir, oht_type, parent_key=None, is_attachment=False):
+def instance_to_i6d(instance, output_dir, oht_type, main_uuid, parent_key=None, is_attachment=False):
     """Convert an instance to an i6d XML file."""
+    if main_uuid is None:
+        return
     # Create an XML serializer and namespace mapping for the given OHT type
     serializer, ns_map = create_xml_serializer(oht_type)
-
     # Serialize the instance to XML
-    xml_content = serializer.render(instance, ns_map)
-
+    try:
+        xml_content = serializer.render(instance, ns_map)
+    except Exception as e:
+        print(f"xml_content error: {e}")
+   
     # Remove the XML declaration from the serialized content
     xml_content = xml_content.split("?>", 1)[1].strip()
     document_type = to_document_type_format(oht_type)
     # Create platform metadata for the i6d file
-    platform_metadata = create_platform_metadata(document_type)
+    platform_metadata = create_platform_metadata(instance=instance, 
+                                                 oht_type = document_type, 
+                                                 main_uuid = main_uuid)
     if parent_key:
-        platform_metadata['parentDocumentKey'] = parent_key
+        platform_metadata['parentDocumentKey'] = f'{parent_key}/{main_uuid}'
     platform_metadata['documentKey'] = instance.uuid
 
     # Format the platform metadata as an XML string
     platform_metadata_xml = f"""
-    <PlatformMetadata xmlns="http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1">
-        <iuclidVersion>{platform_metadata['iuclidVersion']}</iuclidVersion>
-        <documentKey>{platform_metadata['documentKey']}</documentKey>
-        <parentDocumentKey>{platform_metadata['parentDocumentKey']}</parentDocumentKey>
-        <name>{platform_metadata['name']}</name>
-        <documentType>{platform_metadata['documentType']}</documentType>
-        <documentSubType>{platform_metadata['documentSubType']}</documentSubType>
-        <orderInSectionNo>{platform_metadata['orderInSectionNo']}</orderInSectionNo>
-        <definitionVersion>{platform_metadata['definitionVersion']}</definitionVersion>
-        <creationDate>{platform_metadata['creationDate']}</creationDate>
-        <lastModificationDate>{platform_metadata['lastModificationDate']}</lastModificationDate>
-        <submissionType>{platform_metadata['submissionType']}</submissionType>
-        <submissionTypeVersion>{platform_metadata['submissionTypeVersion']}</submissionTypeVersion>
-        <submittingLegalEntity>{platform_metadata['submittingLegalEntity']}</submittingLegalEntity>
-        <dossierSubject>{platform_metadata['dossierSubject']}</dossierSubject>
-        <i5Origin>{platform_metadata['i5Origin']}</i5Origin>
-        <creationTool>{platform_metadata['creationTool']}</creationTool>
-        <snapshotCreationTool>{platform_metadata['snapshotCreationTool']}</snapshotCreationTool>
-    </PlatformMetadata>
+    <i6c:PlatformMetadata 
+        xmlns:i6c="http://iuclid6.echa.europa.eu/namespaces/platform-container/v2"
+        xmlns:i6m="http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1">
+        <i6m:iuclidVersion>{platform_metadata['iuclidVersion']}</i6m:iuclidVersion>
+        <i6m:documentKey>{platform_metadata['documentKey']}</i6m:documentKey>
+        <i6m:parentDocumentKey>{platform_metadata['parentDocumentKey']}</i6m:parentDocumentKey>
+        <i6m:name>{platform_metadata['name']}</i6m:name>
+        <i6m:documentType>{platform_metadata['documentType']}</i6m:documentType>
+        <i6m:documentSubType>{platform_metadata['documentSubType']}</i6m:documentSubType>
+        <i6m:orderInSectionNo>{platform_metadata['orderInSectionNo']}</i6m:orderInSectionNo>
+        <i6m:definitionVersion>{platform_metadata['definitionVersion']}</i6m:definitionVersion>
+        <i6m:creationDate>{platform_metadata['creationDate']}</i6m:creationDate>
+        <i6m:lastModificationDate>{platform_metadata['lastModificationDate']}</i6m:lastModificationDate>
+        <i6m:submissionType>{platform_metadata['submissionType']}</i6m:submissionType>
+        <i6m:submissionTypeVersion>{platform_metadata['submissionTypeVersion']}</i6m:submissionTypeVersion>
+        <i6m:submittingLegalEntity>{platform_metadata['submittingLegalEntity']}</i6m:submittingLegalEntity>
+        <i6m:dossierSubject>{platform_metadata['dossierSubject']}</i6m:dossierSubject>
+        <i6m:i5Origin>{platform_metadata['i5Origin']}</i6m:i5Origin>
+        <i6m:creationTool>{platform_metadata['creationTool']}</i6m:creationTool>
+        <i6m:snapshotCreationTool>{platform_metadata['snapshotCreationTool']}</i6m:snapshotCreationTool>
+    </i6c:PlatformMetadata>
     """
 
     # Define the namespace mapping for the entire i6d document
     ns_map = {
         None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/9.0",  # Default namespace
         "i6c": "http://iuclid6.echa.europa.eu/namespaces/platform-container/v2",  # Namespace for platform container
-        "xsi": "http://www.w3.org/2001/XMLSchema-instance",  # XML Schema instance namespace
+        "xsi": "http://www.w3.org/2001/XMLSchema-instance",  # XML Schema instance namespace,
+        "xml": "http://www.w3.org/XML/1998/namespace"
     }
 
     # Create the root element for the i6d document with the specified namespaces
@@ -825,21 +850,102 @@ def instance_to_i6d(instance, output_dir, oht_type, parent_key=None, is_attachme
     return document_key
 
 
-def create_manifest(i6d_files, file_path):
-    """Create a manifest XML file that lists all i6d files."""
-    # Create the root element for the manifest
-    root = etree.Element("Manifest")
+def create_manifest(i6d_files, file_path, main_uuid):
+    """
+    Create a manifest XML file that lists all i6d files, with general-information and contained-documents sections.
+    Args:
+        i6d_files (list): List of i6d file paths (full or relative).
+        file_path (str): Path to write the manifest.xml.
+        main_uuid (str): The main UUID to use for base-document-uuid.
+    """
+    NS = "http://iuclid6.echa.europa.eu/namespaces/manifest/v1"
+    XLINK = "http://www.w3.org/1999/xlink"
+    NSMAP = {None: NS, "xlink": XLINK}
 
-    # Add an entry for each i6d file to the manifest
+    # Root <manifest>
+    root = etree.Element(f"{{{NS}}}manifest", nsmap=NSMAP)
+
+    # <general-information>
+    general_info = etree.SubElement(root, f"{{{NS}}}general-information")
+    etree.SubElement(general_info, f"{{{NS}}}title").text = "IUCLID 6 container manifest file"
+    etree.SubElement(general_info, f"{{{NS}}}created").text = datetime.datetime.utcnow().isoformat() + "Z"
+    etree.SubElement(general_info, f"{{{NS}}}author").text = "EZ Mapper"
+    etree.SubElement(general_info, f"{{{NS}}}application").text = "IUCLID6 (EZ Mapper Export)"
+    etree.SubElement(general_info, f"{{{NS}}}submission-type").text = "EXPERIMENTAL_DATA"
+    etree.SubElement(general_info, f"{{{NS}}}archive-type").text = "DOSSIER_DATA"
+    # TODO Add legistlations-info tags?
+    legislation_list = etree.SubElement(general_info, f"{{{NS}}}legislations-info")
+    legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")
+    # domain legislation
+    etree.SubElement(legislation, f"{{{NS}}}id").text = "domain"
+    etree.SubElement(legislation, f"{{{NS}}}version").text = "8.0"
+    # core legislation
+    legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")
+    etree.SubElement(legislation, f"{{{NS}}}id").text = "core"
+    etree.SubElement(legislation, f"{{{NS}}}version").text = "8.0"
+    # oecd legislation
+    legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")
+    etree.SubElement(legislation, f"{{{NS}}}id").text = "oecd"
+    etree.SubElement(legislation, f"{{{NS}}}version").text = "8.0"
+    # TODO Is "partial" tag needed?
+    # etree.SubElement(general_info, f"{{{NS}}}partial").text = "false"
+
+    # <base-document-uuid>
+    base_uuid = f"{main_uuid}/{main_uuid}"
+    etree.SubElement(root, f"{{{NS}}}base-document-uuid").text = base_uuid
+
+    # <contained-documents>
+    contained_docs = etree.SubElement(root, f"{{{NS}}}contained-documents")
+
     for i6d_file in i6d_files:
-        entry = etree.SubElement(root, "Entry")  # Create an Entry element
-        entry.text = i6d_file  # Set the text of the Entry element to the i6d file name
+        uuid_underscore = os.path.splitext(os.path.basename(i6d_file))[0]
+        uuid_slash = uuid_underscore.replace("_", "/")
+        file_name = os.path.basename(i6d_file)
+        file_path_full = os.path.join(os.path.dirname(file_path), i6d_file)
+        if os.path.exists(file_path_full):
+            mod_time = datetime.datetime.utcfromtimestamp(os.path.getmtime(file_path_full)).isoformat() + "Z"
+        else:
+            mod_time = datetime.datetime.utcnow().isoformat() + "Z"
 
-    # Create an XML tree from the root element
+        # --- Extract documentType and documentSubType from the i6d file ---
+        try:
+            tree = etree.parse(file_path_full)
+            nsmap = {
+                "i6c": "http://iuclid6.echa.europa.eu/namespaces/platform-container/v2",
+                "i6m": "http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1"
+            }
+            doc_type = tree.findtext(".//i6m:documentType", namespaces=nsmap)
+            doc_subtype = tree.findtext(".//i6m:documentSubType", namespaces=nsmap)
+        except Exception as e:
+            doc_type = None
+            doc_subtype = None
+
+        doc_elem = etree.SubElement(contained_docs, f"{{{NS}}}document", id=uuid_slash)
+        # Use extracted type/subtype, fallback to "DOSSIER"/"EXPERIMENTAL_DATA"
+        etree.SubElement(doc_elem, f"{{{NS}}}type").text = doc_type if doc_type else "DOSSIER"
+        if doc_subtype and doc_subtype.strip():
+            etree.SubElement(doc_elem, f"{{{NS}}}subtype").text = doc_subtype
+        name_elem = etree.SubElement(doc_elem, f"{{{NS}}}name")
+        name_elem.text = file_name
+        name_elem.attrib[f"{{{XLINK}}}type"] = "simple"
+        name_elem.attrib[f"{{{XLINK}}}href"] = f"{uuid_underscore}.i6d"
+        etree.SubElement(doc_elem, f"{{{NS}}}first-modification-date").text = mod_time
+        etree.SubElement(doc_elem, f"{{{NS}}}last-modification-date").text = mod_time
+        etree.SubElement(doc_elem, f"{{{NS}}}uuid").text = uuid_slash
+
+    # # Prepare XSL stylesheet tag
+    # stylesheet_pi = etree.ProcessingInstruction(
+    #     "xml-stylesheet", 'type="text/xsl" href="manifest.xsl"'
+    # )
+    # # Insert the processing instruction at the beginning of the tree
+    # root.addprevious(stylesheet_pi)
+    
+    # Write the XML tree to file
     tree = etree.ElementTree(root)
-
-    # Write the XML tree to a file
+    
     tree.write(file_path, pretty_print=True, xml_declaration=True, encoding="UTF-8")
+    # Print the XML with the added stylesheet instruction
+    # print(etree.tostring(tree, pretty_print=True, xml_declaration=True, encoding='UTF-8').decode())
 
 
 def save_dataframe_as_excel(data, file_path):
@@ -847,7 +953,7 @@ def save_dataframe_as_excel(data, file_path):
 
 
 def generate_i6z(endpoint_instances, test_material_instances, legal_entity_instances, ref_sub_instances,
-                 substance_instances, output_dir, i6z_file_path, data, other_files):
+                 substance_instances, output_dir, i6z_file_path, data, other_files, main_uuid, parent_uuid):
     """Generate an i6z file containing multiple instances."""
     # Ensure the output directory exists
     os.makedirs(output_dir, exist_ok=True)
@@ -857,33 +963,32 @@ def generate_i6z(endpoint_instances, test_material_instances, legal_entity_insta
         for i, instance in enumerate(test_material_instances):
             # Determine the OHT type from the instance class name
             oht_type = type(instance).__name__.replace("TestMaterialInformation", "")
-            document_key = instance_to_i6d(instance, output_dir, "TestMaterialInformation")
+            document_key = instance_to_i6d(instance, output_dir, "TestMaterialInformation", main_uuid=main_uuid, parent_key=parent_uuid)
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     if legal_entity_instances is not None:
         for i, instance in enumerate(legal_entity_instances):
-            document_key = instance_to_i6d(instance, output_dir, "LegalEntity")
+            document_key = instance_to_i6d(instance, output_dir, "LegalEntity", main_uuid=main_uuid, parent_key=parent_uuid)
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     if ref_sub_instances is not None:
         for i, instance in enumerate(ref_sub_instances):
-            document_key = instance_to_i6d(instance, output_dir, "ReferenceSubstance")
+            document_key = instance_to_i6d(instance, output_dir, "ReferenceSubstance", main_uuid=main_uuid, parent_key=parent_uuid)
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     if substance_instances is not None:
         for i, instance in enumerate(substance_instances):
-            document_key = instance_to_i6d(instance, output_dir, "Substance")
+            document_key = instance_to_i6d(instance, output_dir, "Substance", main_uuid=main_uuid, parent_key=parent_uuid)
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     for i, (instance, parent_key) in enumerate(endpoint_instances):
         # Determine the OHT type from the instance class name
         oht_type = type(instance).__name__.replace("EndpointStudyRecord", "")
-        
-        document_key = instance_to_i6d(instance, output_dir, oht_type, parent_key)
+        document_key = instance_to_i6d(instance, output_dir, oht_type, main_uuid=main_uuid, parent_key=parent_uuid)
 
         i6d_file_path = f"{document_key}.i6d"
         # Define the file path for the i6d file
@@ -898,14 +1003,14 @@ def generate_i6z(endpoint_instances, test_material_instances, legal_entity_insta
     if other_files is not None:
         attach_keys = {}
         for attachment in other_files:
-            document_key, attachment_path = create_i6d_for_attachment(attachment, output_dir)
-            # Store document_key and attachment_path key-value pair in dictionary
-            attach_keys[f"{document_key}.i6d"] = attachment_path
+            document_key = create_i6d_for_attachment(attachment, output_dir, main_uuid)
+            attach_keys.append(f"{document_key}.i6d")
+
     # Define the file path for the manifest
     manifest_file_path = os.path.join(output_dir, "manifest.xml")
 
     # Create the manifest file
-    create_manifest(i6d_files, manifest_file_path)
+    create_manifest(i6d_files, manifest_file_path, main_uuid)
     main_data = os.path.join(output_dir, "data.xlsx")
     save_dataframe_as_excel(data, main_data)
     other_file_paths = save_uploaded_files(other_files, output_dir)
@@ -1005,7 +1110,7 @@ def save_uploaded_files(uploaded_files, output_dir):
     return file_paths
 
 
-def create_test_material_instances(data, test_material_columns):
+def create_test_material_instances(data, test_material_columns, main_uuid):
     test_material_instances = []
     test_material_uuid_map = {}
 
@@ -1018,7 +1123,7 @@ def create_test_material_instances(data, test_material_columns):
             {},
             filtered_row
         )
-        uuid_str = f"{generate_uuid()}/{generate_uuid()}"
+        uuid_str = f"{generate_uuid()}/{main_uuid}"
         test_material_instance.uuid = uuid_str
         test_material_instances.append(test_material_instance)
         test_material_values = tuple(row[col] for col in test_material_columns)
@@ -1027,7 +1132,7 @@ def create_test_material_instances(data, test_material_columns):
     return test_material_instances, test_material_uuid_map
 
 
-def create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_sub_columns):
+def create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_sub_columns, main_uuid):
     substance_instances = []
     substances_uuid_map = {}
 
@@ -1040,7 +1145,7 @@ def create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_su
             {},
             filtered_row
         )
-        uuid_str = f"{generate_uuid()}/{generate_uuid()}"
+        uuid_str = f"{generate_uuid()}/{main_uuid}"
         substance_instance.uuid = uuid_str
         if ref_sub_columns:
             ref_sub_values = tuple(row[col] for col in ref_sub_columns if col in row)
@@ -1055,7 +1160,7 @@ def create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_su
     return substance_instances, substances_uuid_map
 
 
-def create_legal_entity_instances(data, legal_entity_columns):
+def create_legal_entity_instances(data, legal_entity_columns, main_uuid):
     legal_entity_instances = []
     legal_entity_uuid_map = {}
 
@@ -1068,7 +1173,7 @@ def create_legal_entity_instances(data, legal_entity_columns):
             {},
             filtered_row
         )
-        uuid_str = f"{generate_uuid()}/{generate_uuid()}"
+        uuid_str = f"{generate_uuid()}/{main_uuid}"
         legal_entity_instance.uuid = uuid_str
         legal_entity_instances.append(legal_entity_instance)
         legal_entity_values = tuple(row[col] for col in legal_entity_columns)
@@ -1077,7 +1182,7 @@ def create_legal_entity_instances(data, legal_entity_columns):
     return legal_entity_instances, legal_entity_uuid_map
 
 
-def create_ref_sub_instances(data, ref_sub_columns):
+def create_ref_sub_instances(data, ref_sub_columns, main_uuid):
     ref_sub_instances = []
     ref_sub_uuid_map = {}
 
@@ -1090,7 +1195,7 @@ def create_ref_sub_instances(data, ref_sub_columns):
             {},
             filtered_row
         )
-        uuid_str = f"{generate_uuid()}/{generate_uuid()}"
+        uuid_str = f"{generate_uuid()}/{main_uuid}"
         ref_sub_instance.uuid = uuid_str
         ref_sub_instances.append(ref_sub_instance)
         ref_sub_values = tuple(row[col] for col in ref_sub_columns)
@@ -1187,12 +1292,13 @@ def determine_mime_type(file_name):
         raise ValueError(f"Unsupported file type: {file_extension}")
 
 
-def create_i6d_for_attachment(attachment_file, output_dir):
-    file_name = Path(attachment_file.name)
+def create_i6d_for_attachment(attachment_file, output_dir, main_uuid):
+    file_name = attachment_file.name
+
     file_content = attachment_file.getvalue()
     md5_hash = compute_mp5(file_content)
     mime_type = determine_mime_type(file_name)
-    document_key = f"{generate_uuid()}/{generate_uuid()}"
+    document_key = f"{generate_uuid()}/{main_uuid}"
     creation_date = datetime.datetime.utcnow().isoformat() + "Z"
     root = etree.Element("Attachment",
                          nsmap={
