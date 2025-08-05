@@ -82,6 +82,10 @@ if "field_suggestions" not in st.session_state:
     st.session_state['field_suggestions'] = {}
 if "suggestions_done" not in st.session_state:
     st.session_state['suggestions_done'] = False
+if "ss_selected_oht" not in st.session_state:
+    st.session_state.ss_selected_oht = "None"
+if "selected_df" not in st.session_state:
+    st.session_state.selected_df = pd.DataFrame()
 
 # Create a sidebar for user inputs
 st.sidebar.title("Upload File")
@@ -193,9 +197,6 @@ if st.session_state.get("split_done", False):
         index=0,
         key="selected_df_key",
     )
-
-    if "ss_selected_oht" not in st.session_state:
-        st.session_state.ss_selected_oht = selected_df_key
 
     # Display the selected DataFrame if a valid selection is made
     # or OHT has been switched
