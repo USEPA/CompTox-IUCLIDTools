@@ -201,15 +201,14 @@ if st.session_state.get("split_done", False):
     # Display the selected DataFrame if a valid selection is made
     # or OHT has been switched
     if selected_df_key != "None" and st.session_state.ss_selected_oht != selected_df_key:
-        st.write(
-            f"DataFrame for {selected_df_key} has {len(st.session_state.selected_df)} rows."
-        )
         st.session_state.ss_selected_oht = selected_df_key
         # print(f'Selected: {selected_df_key} and state: {st.session_state.ss_selected_oht}')
         st.divider() # Horizontal divider
         st.title("Step 3: Format Columns", anchor = 'step3')
         st.session_state.selected_df = st.session_state.grouped_dfs[selected_df_key]
-        
+        st.write(
+            f"DataFrame for {selected_df_key} has {len(st.session_state.selected_df)} rows."
+        )
 
         # Render OHT docx as HTML in new window
         # selected_oht = selected_df_key
