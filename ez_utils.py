@@ -22,8 +22,9 @@ from xsdata.formats.dataclass.serializers.config import SerializerConfig
 import os
 import typing
 import sys
+import tempfile
+import webbrowser
 sys.path.append("entity_models")
-
 
 def split_camel_case(name):
     """
@@ -155,7 +156,10 @@ def display_data_preview(user_df: pd.DataFrame) -> None:
         user_df (pd.DataFrame): The user's DataFrame.
     """
     if not st.session_state.classify_pressed and st.session_state.show_data_preview:
-        st.dataframe(user_df.head(5))
+        st.dataframe(
+            user_df.head(5),
+            hide_index=True,
+            )
 
 
 def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
@@ -302,9 +306,20 @@ def display_data_editor(edited_df: pd.DataFrame, oht_files: dict) -> None:
             "OHT_Class": st.column_config.SelectboxColumn(
                 "OHT_Class",
                 options=list(oht_files.keys()),
+                help = 'Machine Classified OHT Class. Edit using the dropdown menu per record.',
                 required=True,
-            )
+            ),
+            "Classification_Reasoning": st.column_config.TextColumn(
+                'Classification_Reasoning',
+                help = 'The reason the record was machine classified as the selected OHT.'  
+                ),
+            "Calculated_Study_Duration": st.column_config.TextColumn(
+                'Calculated_Study_Duration',
+                help = 'Calculated study duration based on reported duration time/units.'  
+                ),
+                
         },
+    hide_index=True,
     )
 
 
@@ -316,13 +331,13 @@ def split_dataframe(edited_df: pd.DataFrame) -> None:
     """
     grouped_dfs = {category: df for category, df in edited_df.groupby("OHT_Class")}
     st.session_state.grouped_dfs = grouped_dfs
-    st.success(f"Original data split into: {len(grouped_dfs)} dataframes")
+    st.success(f"Original data split into: {len(grouped_dfs)} dataframes.")
     for category, df in grouped_dfs.items():
         st.write(f"DataFrame for OHT_Class '{category}' has {len(df)} rows.")
     st.session_state.split_done = True
 
 
-def merge_columns(modified_df: pd.DataFrame, merge_col1: str, merge_col2: str, new_merge_col_name: str) -> None:
+def merge_columns(modified_df: pd.DataFrame, merge_col1: str, merge_col2: str, merge_delimiter: str, new_merge_col_name: str) -> None:
     """
     Merge two columns in the modified DataFrame and create a new column with the merged values.
     Args:
@@ -334,7 +349,7 @@ def merge_columns(modified_df: pd.DataFrame, merge_col1: str, merge_col2: str, n
     if merge_col1 and merge_col2 and new_merge_col_name:
         modified_df[new_merge_col_name] = (
             modified_df[merge_col1].astype(str)
-            + " "
+            + merge_delimiter
             + modified_df[merge_col2].astype(str)
         )
         st.success(
@@ -402,19 +417,27 @@ def map_columns(modified_df: pd.DataFrame, unique_cols: set, uploaded_mappings: 
     df = pd.DataFrame(data, columns=["User Column", "OHT Column", "Machine Suggested Column Mapping", "Expected Value Type", "Picklist Values"])
     opt = ['', 'Picklist', 'Free Text']
 
-    st.write("**Map your columns:**")
+    st.divider() # Horizontal divider
+    st.title("Step 4: Map Columns to OHT Columns")
+    st.write("**Map your columns (optionally Upload Column Mapping file):**")
     column_config = {
-        "User Column": st.column_config.Column("User Column", width='large'),
+        "User Column": st.column_config.Column("User Column", 
+                                               width='large',
+                                               help='Original input column name'),
         "OHT Column": st.column_config.SelectboxColumn(
             "OHT Column",
             width="large",
+            help='Select an OHT Column',
             options=list(unique_cols),
             required=False,
         ),
-        "Machine Suggested Column Mapping": st.column_config.Column("Machine Suggested Column Mapping", width='large'),
+        "Machine Suggested Column Mapping": st.column_config.Column("Machine Suggested Column to assist with OHT Column selection", 
+                                                                    width='large',
+                                                                    help='Select a Machine Suggested OHT Column'),
         "Expected Value Type": st.column_config.SelectboxColumn(
             "Expected Value Type",
             width="medium",
+            help='Select the expected value type for the column, if applicable',
             options=opt,
             required=False
         ),
@@ -457,12 +480,14 @@ def preview_column_mapping(column_mapping: dict, modified_df: pd.DataFrame) -> N
         data=mapping_json,
         file_name="column_mapping.json",
         mime="application/json",
+        icon=":material/download:"
     )
     st.download_button(
         label="Download Modified Data",
         data=modified_df.to_csv(index=False).encode("utf-8"),
         file_name="modified_data.csv",
         mime="text/csv",
+        icon=":material/download:"
     )
 
 
@@ -472,12 +497,45 @@ def display_word_document(oht_docx_path: str) -> None:
     Args:
         oht_docx_path (str): The path to the Word document.
     """
-    with st.expander("Click to show WORD document for the OHT"):
-        with open(oht_docx_path, 'rb') as doc:
-            result_html = mammoth.convert_to_html(doc)
-            html_content = result_html.value
-            st.components.v1.html(html_content, height=600, scrolling=True)
+    # https://stackabuse.com/how-to-convert-docx-to-html-with-python-mammoth/
+    # Map Docx styles to HTML
+    custom_styles = """ 
+                    b => b.strong
+                    u => u.initialism
+                    p[style-name='Heading 1'] => h1.card
+                    table => table.table.table-hover
+                    """
+    # Custom CSS, add HTML tag for tab name default
+    docx_css = '''
+    <title>OHT Documentation</title>
+<style>
+td, tr, th {
+    border: solid 2px lightgrey;
+}
 
+</style>
+<table style="border: 5px solid #990000; border-collapse: collapse">
+    '''
+    # https://getbootstrap.com/docs/4.4/getting-started/introduction/
+    bootstrap_css = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">'
+    bootstrap_js = '''
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    ''' 
+
+    # with st.expander("Click to show WORD document for the OHT", icon=":material/description:"):
+    with open(oht_docx_path, 'rb') as doc:
+        result_html = mammoth.convert_to_html(doc, style_map = custom_styles)
+        html_content = result_html.value
+        edited_html = docx_css + bootstrap_css + html_content + bootstrap_js
+        # st.components.v1.html(edited_html, height=600, scrolling=True)
+        # Write HTML to file and open in new tab
+        with open("output/oht_file.html", "w") as f:
+            f.write(edited_html)
+
+        # Open the file in a new tab
+        webbrowser.open_new_tab(os.path.abspath("output/oht_file.html"))
 
 def parse_column_name(column_name: str):
     if "ENDPOINT_STUDY_RECORD" in column_name:

@@ -23,7 +23,7 @@ from src.custom_tokenizer import Tokenizer
 
 
 def load_normalizers():
-    print('Loading normalizers')
+    # print('Loading normalizers')
 
     # -- Set up tokenizer
     tokenizer = Tokenizer(word_tokenize, stopwords.words('english'))
