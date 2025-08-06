@@ -79,7 +79,10 @@ def validate_i6d(schema_cls: XMLSchema, xsd_folder: Path, i6d_file: Path) -> boo
         ns = i6d_tree.xpath("namespace-uri()")
         schema = "platform-container-v2.xsd" if "v2" in ns else "platform-container.xsd"
     # Get the most recent schema
-    schema_path = sorted(xsd_folder.glob(f"**/{schema}"))[-1]
+    if xsd_folder.is_file():
+        schema_path = xsd_folder
+    else:
+        schema_path = sorted(xsd_folder.glob(f"**/{schema}"))[-1]
     print(f"Using schema: {schema_path}")
 
     schema = schema_cls(schema_path)
@@ -137,9 +140,6 @@ if __name__ == "__main__":
     xsd_folder = Path(sys.argv[1])
     i6d_file = Path(sys.argv[2])
 
-    if not xsd_folder.is_dir():
-        print(f"Error: {xsd_folder} is not a directory.")
-        sys.exit(1)
     if not i6d_file.is_file():
         print(f"Error: {i6d_file} is not a file.")
         sys.exit(1)

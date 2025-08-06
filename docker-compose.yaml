@@ -4,9 +4,12 @@ volumes:
 
 services:
   ezmapper:
+    env_file:
+      - .env
     image: ezmapper-${EZMAPPER_NAMESPACE}
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - ezmapper_scispacy_datasets:/root/.scispacy/datasets
+      - ${EZMAPPER_IUCLID_FORMAT_SRC}:${EZMAPPER_IUCLID_FORMAT}

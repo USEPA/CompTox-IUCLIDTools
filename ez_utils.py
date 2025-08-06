@@ -686,11 +686,17 @@ def translate_value(oht_class, field_path, value):
     e.g. 'rats' becomes 4149
     """
     oht_name = oht_class.__name__.replace("EndpointStudyRecord", "")
-    oht_xsd_filename = f"ENDPOINT_STUDY_RECORD-{oht_name}-9.0.xsd"  # FIXME
+    # Find the most recent .xsd file
+    xsd_path = sorted(Path(os.environ["EZMAPPER_IUCLID_FORMAT"]).glob(
+        f"**/ENDPOINT_STUDY_RECORD-{oht_name}-9.0.xsd"
+    ))[-1]
+    # FIXME don't just use version 9.0
 
-    # These are @cached, otherwise phrases_to_dict is a few seconds
-    oht_picklist = oht_xsd_to_picklist(oht_xsd_filename)
-    phrases = phrases_to_dict("Phrases.xml")  # FIXME
+    oht_picklist = oht_xsd_to_picklist(xsd_path)  # @cached
+    # Find the most recent Phrases.xml file
+    phrases_path = sorted(Path(os.environ["EZMAPPER_IUCLID_FORMAT"]).glob("**/Phrases.xml"))[-1]
+    # This is @cached, otherwise phrases_to_dict is a few seconds
+    phrases = phrases_to_dict(phrases_path)
 
     # Exclude the last field, which is the element named "value"
     camels = [snake_to_camel(field) for field in field_path[:-1]]
@@ -922,7 +928,8 @@ def create_manifest(i6d_files, main_uuid):
     etree.SubElement(general_info, f"{{{NS}}}author").text = "EZ Mapper"
     etree.SubElement(general_info, f"{{{NS}}}application").text = "IUCLID6 (EZ Mapper Export)"
     etree.SubElement(general_info, f"{{{NS}}}submission-type").text = "EXPERIMENTAL_DATA"
-    etree.SubElement(general_info, f"{{{NS}}}archive-type").text = "DOSSIER_DATA"
+    # etree.SubElement(general_info, f"{{{NS}}}archive-type").text = "DOSSIER_DATA"
+    etree.SubElement(general_info, f"{{{NS}}}archive-type").text = "RAW_DATA"
     # TODO Add legistlations-info tags?
     legislation_list = etree.SubElement(general_info, f"{{{NS}}}legislations-info")
     legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")

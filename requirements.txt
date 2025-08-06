@@ -58,6 +58,7 @@ pyparsing==3.2.3
 pysbd==0.3.4
 python-dateutil==2.9.0.post0
 python-docx==1.2.0
+python-dotenv==1.1.1
 pytz==2025.2
 RapidFuzz==3.13.0
 referencing==0.36.2
@@ -78,7 +79,7 @@ spacy==3.7.5
 spacy-legacy==3.0.12
 spacy-loggers==1.0.5
 srsly==2.5.1
-streamlit==1.47.1
+streamlit==1.48.0
 tenacity==9.1.2
 thefuzz==0.22.1
 thinc==8.2.5

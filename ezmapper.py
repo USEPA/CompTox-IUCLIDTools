@@ -18,6 +18,7 @@ from configs.config import config
 import threading
 import time
 import logging
+from defs import truthy
 
 # Custom javascript to scroll to element by id
 def jump_to_anchor(element_id):
@@ -111,7 +112,10 @@ if uploaded_file is None:
 
 def background_suggestions_logic(user_df, results):
     global temp_field_suggestions
-    return
+    if not truthy(os.environ.get("EZMAPPER_MACHINE_SUGGESTION") or "Y"):
+        # Dev. option - set EZMAPPER_MACHINE_SUGGESTION to False to disable
+        # machine suggestions
+        return
     try:
         placeholder_test = suggestion_logic.main(config, user_df)
         temp_field_suggestions = placeholder_test
