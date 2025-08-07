@@ -155,11 +155,11 @@ def display_data_preview(user_df: pd.DataFrame) -> None:
     Args:
         user_df (pd.DataFrame): The user's DataFrame.
     """
-    if not st.session_state.classify_pressed and st.session_state.show_data_preview:
-        st.dataframe(
-            user_df.head(5),
-            hide_index=True,
-            )
+    # if not st.session_state.classify_pressed and st.session_state.show_data_preview:
+    st.dataframe(
+        user_df.head(5),
+        hide_index=True,
+        )
 
 
 def classify_data(user_df: pd.DataFrame) -> pd.DataFrame:
@@ -380,11 +380,19 @@ def split_column(modified_df: pd.DataFrame, column_to_split: str, split_delimite
     else:
         st.error("Please select a column and specify a delimiter.")
 
+#%%
+
+# %%
 
 def map_columns(modified_df: pd.DataFrame, unique_cols: set, uploaded_mappings: dict = None, field_suggestions: dict = None) -> dict:
+    # # If input dataframe empty, return empty list
+    # if modified_df.empty:
+    #     return list()
+    
     columns_to_map = list(modified_df.columns)
-    columns_to_map.remove('OHT_Class')
-    columns_to_map.remove('Classification_Reasoning')
+    columns_to_map = [col for col in columns_to_map if col not in ['OHT_Class', 'Classification_Reasoning']] 
+    # columns_to_map.remove('OHT_Class')
+    # columns_to_map.remove('Classification_Reasoning')
 
     data = [[user_col, "", "", "", ""] for user_col in columns_to_map]
 
@@ -530,6 +538,7 @@ td, tr, th {
         html_content = result_html.value
         edited_html = docx_css + bootstrap_css + html_content + bootstrap_js
         # st.components.v1.html(edited_html, height=600, scrolling=True)
+        # TODO Discuss how to open from a temporary file between user sessions
         # Write HTML to file and open in new tab
         with open("output/oht_file.html", "w") as f:
             f.write(edited_html)
@@ -594,11 +603,8 @@ def create_platform_metadata(instance, oht_type, main_uuid):
     docSubType = ""
     # TODO create list of document types to exclude - add document_type param based on earlier ifelse
     if 'EndpointStudyRecord' in type(instance).__name__:
-       print("Setting documentType to ENDPOINT_STUDY_RECORD: 1")
        docType = "ENDPOINT_STUDY_RECORD"
        docSubType = snake_to_camel(oht_type)
-    else:
-        print("Setting documentType to ENDPOINT_STUDY_RECORD: 0")
        
     return {
         "iuclidVersion": "7.0.7",
@@ -766,7 +772,7 @@ def create_xml_serializer(oht_type):
     return serializer, ns_map  # Return the serializer and namespace mapping
 
 
-def instance_to_i6d(instance, output_dir, oht_type, main_uuid, parent_key=None, is_attachment=False):
+def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
     """Convert an instance to an i6d XML file."""
     if main_uuid is None:
         return
@@ -843,14 +849,20 @@ def instance_to_i6d(instance, output_dir, oht_type, main_uuid, parent_key=None, 
     # Create an XML tree from the root element
     tree = etree.ElementTree(root)
     document_key = platform_metadata['documentKey'].replace("/", "_")
-    file_path = os.path.join(output_dir, f"{document_key}.i6d")
 
     # Write the XML tree to a file
-    tree.write(file_path, pretty_print=True, xml_declaration=True, encoding="UTF-8")
+    i6d_buffer = io.BytesIO()
+    tree.write(i6d_buffer, pretty_print=True, xml_declaration=True, encoding="UTF-8")
+    i6d_buffer.seek(0)
+
+    # Write to i6z zip stored in state
+    with zipfile.ZipFile(st.session_state['i6z_io_buffer'], "a", zipfile.ZIP_DEFLATED, False) as zip_file:     
+        zip_file.writestr(f"{document_key}.i6d", i6d_buffer.getvalue())            
+    
     return document_key
 
 
-def create_manifest(i6d_files, file_path, main_uuid):
+def create_manifest(i6d_files, main_uuid):
     """
     Create a manifest XML file that lists all i6d files, with general-information and contained-documents sections.
     Args:
@@ -897,42 +909,43 @@ def create_manifest(i6d_files, file_path, main_uuid):
     # <contained-documents>
     contained_docs = etree.SubElement(root, f"{{{NS}}}contained-documents")
 
-    for i6d_file in i6d_files:
-        uuid_underscore = os.path.splitext(os.path.basename(i6d_file))[0]
-        uuid_slash = uuid_underscore.replace("_", "/")
-        file_name = os.path.basename(i6d_file)
-        file_path_full = os.path.join(os.path.dirname(file_path), i6d_file)
-        if os.path.exists(file_path_full):
-            mod_time = datetime.datetime.utcfromtimestamp(os.path.getmtime(file_path_full)).isoformat() + "Z"
-        else:
-            mod_time = datetime.datetime.utcnow().isoformat() + "Z"
+    # Loop through the i6z_io_buffer for i6d file information
+    with zipfile.ZipFile(st.session_state['i6z_io_buffer'], 'r') as i6z_io_buffer:
+        for filename in i6z_io_buffer.namelist():
+            if filename in i6d_files:
+                with i6z_io_buffer.open(filename) as i6d_file:
+                    file_name = os.path.basename(i6d_file.name)
+                    uuid_underscore = os.path.splitext(file_name)[0]
+                    uuid_slash = uuid_underscore.replace("_", "/")
+                    mod_time = datetime.datetime.utcnow().isoformat() + "Z"
 
-        # --- Extract documentType and documentSubType from the i6d file ---
-        try:
-            tree = etree.parse(file_path_full)
-            nsmap = {
-                "i6c": "http://iuclid6.echa.europa.eu/namespaces/platform-container/v2",
-                "i6m": "http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1"
-            }
-            doc_type = tree.findtext(".//i6m:documentType", namespaces=nsmap)
-            doc_subtype = tree.findtext(".//i6m:documentSubType", namespaces=nsmap)
-        except Exception as e:
-            doc_type = None
-            doc_subtype = None
+                    # --- Extract documentType and documentSubType from the i6d file ---
+                    try:
+                        tree = etree.parse(i6d_file)
+                        nsmap = {
+                            "i6c": "http://iuclid6.echa.europa.eu/namespaces/platform-container/v2",
+                            "i6m": "http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1"
+                        }
+                        doc_type = tree.findtext(".//i6m:documentType", namespaces=nsmap)
+                        doc_subtype = tree.findtext(".//i6m:documentSubType", namespaces=nsmap)
+                    except Exception as e:
+                        doc_type = None
+                        doc_subtype = None
 
-        doc_elem = etree.SubElement(contained_docs, f"{{{NS}}}document", id=uuid_slash)
-        # Use extracted type/subtype, fallback to "DOSSIER"/"EXPERIMENTAL_DATA"
-        etree.SubElement(doc_elem, f"{{{NS}}}type").text = doc_type if doc_type else "DOSSIER"
-        if doc_subtype and doc_subtype.strip():
-            etree.SubElement(doc_elem, f"{{{NS}}}subtype").text = doc_subtype
-        name_elem = etree.SubElement(doc_elem, f"{{{NS}}}name")
-        name_elem.text = file_name
-        name_elem.attrib[f"{{{XLINK}}}type"] = "simple"
-        name_elem.attrib[f"{{{XLINK}}}href"] = f"{uuid_underscore}.i6d"
-        etree.SubElement(doc_elem, f"{{{NS}}}first-modification-date").text = mod_time
-        etree.SubElement(doc_elem, f"{{{NS}}}last-modification-date").text = mod_time
-        etree.SubElement(doc_elem, f"{{{NS}}}uuid").text = uuid_slash
+                    doc_elem = etree.SubElement(contained_docs, f"{{{NS}}}document", id=uuid_slash)
+                    # Use extracted type/subtype, fallback to "DOSSIER"/"EXPERIMENTAL_DATA"
+                    etree.SubElement(doc_elem, f"{{{NS}}}type").text = doc_type if doc_type else "DOSSIER"
+                    if doc_subtype and doc_subtype.strip():
+                        etree.SubElement(doc_elem, f"{{{NS}}}subtype").text = doc_subtype
+                    name_elem = etree.SubElement(doc_elem, f"{{{NS}}}name")
+                    name_elem.text = file_name
+                    name_elem.attrib[f"{{{XLINK}}}type"] = "simple"
+                    name_elem.attrib[f"{{{XLINK}}}href"] = f"{uuid_underscore}.i6d"
+                    etree.SubElement(doc_elem, f"{{{NS}}}first-modification-date").text = mod_time
+                    etree.SubElement(doc_elem, f"{{{NS}}}last-modification-date").text = mod_time
+                    etree.SubElement(doc_elem, f"{{{NS}}}uuid").text = uuid_slash
 
+    # TODO Eventually add optional XSL stylesheet tag
     # # Prepare XSL stylesheet tag
     # stylesheet_pi = etree.ProcessingInstruction(
     #     "xml-stylesheet", 'type="text/xsl" href="manifest.xsl"'
@@ -942,91 +955,75 @@ def create_manifest(i6d_files, file_path, main_uuid):
     
     # Write the XML tree to file
     tree = etree.ElementTree(root)
-    
-    tree.write(file_path, pretty_print=True, xml_declaration=True, encoding="UTF-8")
-    # Print the XML with the added stylesheet instruction
-    # print(etree.tostring(tree, pretty_print=True, xml_declaration=True, encoding='UTF-8').decode())
 
+    # Write the XML tree to a file
+    manifest_buffer = io.BytesIO()
+    tree.write(manifest_buffer, pretty_print=True, xml_declaration=True, encoding="UTF-8")
+    manifest_buffer.seek(0)
 
-def save_dataframe_as_excel(data, file_path):
-    data.to_excel(file_path, index=False)
+    # Write to i6z zip stored in state
+    with zipfile.ZipFile(st.session_state['i6z_io_buffer'], "a", zipfile.ZIP_DEFLATED, False) as zip_file:     
+        zip_file.writestr("manifest.xml", manifest_buffer.getvalue())
 
+def save_dataframe_as_excel(data):
+    # Write the data to XLSX buffer file
+    excel_buffer = io.BytesIO()
+    with pd.ExcelWriter(excel_buffer, engine='openpyxl') as writer:
+        data.to_excel(writer, sheet_name='Sheet1', index=False)
+    excel_buffer.seek(0)
 
+    # Write to i6z zip stored in state
+    with zipfile.ZipFile(st.session_state['i6z_io_buffer'], "a", zipfile.ZIP_DEFLATED, False) as zip_file:     
+        zip_file.writestr("data.xlsx", excel_buffer.getvalue())     
+
+@st.cache_data
 def generate_i6z(endpoint_instances, test_material_instances, legal_entity_instances, ref_sub_instances,
-                 substance_instances, output_dir, i6z_file_path, data, other_files, main_uuid, parent_uuid):
+                 substance_instances, data, other_files, main_uuid, parent_uuid):
     """Generate an i6z file containing multiple instances."""
-    # Ensure the output directory exists
-    os.makedirs(output_dir, exist_ok=True)
-
     i6d_files = []  # List to store the names of i6d files
     if test_material_instances is not None:
         for i, instance in enumerate(test_material_instances):
             # Determine the OHT type from the instance class name
             oht_type = type(instance).__name__.replace("TestMaterialInformation", "")
-            document_key = instance_to_i6d(instance, output_dir, "TestMaterialInformation", main_uuid=main_uuid, parent_key=parent_uuid)
+            document_key = instance_to_i6d(instance, "TestMaterialInformation", main_uuid=main_uuid, parent_key=parent_uuid)
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     if legal_entity_instances is not None:
         for i, instance in enumerate(legal_entity_instances):
-            document_key = instance_to_i6d(instance, output_dir, "LegalEntity", main_uuid=main_uuid, parent_key=parent_uuid)
+            document_key = instance_to_i6d(instance, "LegalEntity", main_uuid=main_uuid, parent_key=parent_uuid)
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     if ref_sub_instances is not None:
         for i, instance in enumerate(ref_sub_instances):
-            document_key = instance_to_i6d(instance, output_dir, "ReferenceSubstance", main_uuid=main_uuid, parent_key=parent_uuid)
+            document_key = instance_to_i6d(instance, "ReferenceSubstance", main_uuid=main_uuid, parent_key=parent_uuid)
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     if substance_instances is not None:
         for i, instance in enumerate(substance_instances):
-            document_key = instance_to_i6d(instance, output_dir, "Substance", main_uuid=main_uuid, parent_key=parent_uuid)
+            document_key = instance_to_i6d(instance, "Substance", main_uuid=main_uuid, parent_key=parent_uuid)
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     for i, (instance, parent_key) in enumerate(endpoint_instances):
         # Determine the OHT type from the instance class name
         oht_type = type(instance).__name__.replace("EndpointStudyRecord", "")
-        document_key = instance_to_i6d(instance, output_dir, oht_type, main_uuid=main_uuid, parent_key=parent_uuid)
+        document_key = instance_to_i6d(instance, oht_type, main_uuid=main_uuid, parent_key=parent_uuid)
 
         i6d_file_path = f"{document_key}.i6d"
-        # Define the file path for the i6d file
-        #i6d_file_path = os.path.join(output_dir, f"instance_{i + 1}.i6d")
-
-        # Convert the instance to an i6d file
-        #instance_to_i6d(instance, i6d_file_path, oht_type)
 
         # Add the i6d file name to the list
         i6d_files.append(i6d_file_path)
-    
     if other_files is not None:
-        attach_keys = {}
         for attachment in other_files:
-            document_key = create_i6d_for_attachment(attachment, output_dir, main_uuid)
-            attach_keys.append(f"{document_key}.i6d")
-
-    # Define the file path for the manifest
-    manifest_file_path = os.path.join(output_dir, "manifest.xml")
+            create_i6d_for_attachment(attachment, main_uuid)
 
     # Create the manifest file
-    create_manifest(i6d_files, manifest_file_path, main_uuid)
-    main_data = os.path.join(output_dir, "data.xlsx")
-    save_dataframe_as_excel(data, main_data)
-    other_file_paths = save_uploaded_files(other_files, output_dir)
-    # Create a zip file (i6z file) containing the manifest and i6d files
-    with zipfile.ZipFile(i6z_file_path, 'w', zipfile.ZIP_DEFLATED) as i6z:
-        i6z.write(manifest_file_path, os.path.basename(manifest_file_path))  # Add the manifest file
-        for i6d_file in i6d_files:
-            i6z.write(os.path.join(output_dir, i6d_file), i6d_file)  # Add each i6d file
-        i6z.write(main_data, os.path.basename(main_data))
-        if other_files is not None:
-            for attach_key, attach_path in attach_keys.items():
-                # Add the attachment file with relative path
-                i6z.write(attach_path, os.path.relpath(attach_path, output_dir))
-                # Add the attachment i6d file with relative path
-                file_path = os.path.join(output_dir, attach_key)
-                i6z.write(file_path, attach_key)
+    create_manifest(i6d_files, main_uuid)
+    # Save input file to i6z
+    save_dataframe_as_excel(data)
 
 
 def apply_column_mapping(column_mapping, modified_df):
@@ -1293,7 +1290,7 @@ def determine_mime_type(file_name):
 
 
 def create_i6d_for_attachment(attachment_file, output_dir, main_uuid):
-    file_name = attachment_file.name
+    file_name = Path(attachment_file.name)
 
     file_content = attachment_file.getvalue()
     md5_hash = compute_mp5(file_content)
@@ -1322,32 +1319,18 @@ def create_i6d_for_attachment(attachment_file, output_dir, main_uuid):
         "{http://www.w3.org/1999/xlink}type": "simple"
     })
 
-    # Write attachment file to subfolder
-    os.makedirs(os.path.join(output_dir, "attachments"), exist_ok=True)
-    attachment_path = os.path.join(output_dir, attachment_filename)
-    with open(attachment_path, 'wb') as f:
-        f.write(attachment_file.getvalue())
+    # Write to i6z zip stored in state
+    with zipfile.ZipFile(st.session_state['i6z_io_buffer'], "a", zipfile.ZIP_DEFLATED, False) as zip_file:     
+        zip_file.writestr(attachment_filename, attachment_file.getvalue())            
 
-    # etree.SubElement(root, "content",
-    #                  attrib={"{http://www.w3.org/1999/xlink}href": f"attachments/{md5_hash}.{file_name.split('.')[-1]}",
-    #                          "{http://www.w3.org/1999/xlink}type": "simple"})
-
-    # attachment_content = f"""
-    # <Attachment xmlns="http://iuclid6.echa.europa.eu/namespaces/platform-attachment/v1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    #     <documentKey>{document_key}</documentKey>
-    #     <name>{file_name}</name>
-    #     <creationDate>{creation_date}</creationDate>
-    #     <lastModificationDate>{creation_date}</lastModificationDate>
-    #     <md5>{md5_hash}</md5>
-    #     <mimetype>{mime_type}</mimetype>
-    #     <content xlink:href="attachments/{md5_hash}.{file_name.split('.')[-1]}" xlink:type="simple"/>
-    # </Attachment>
-    # """
     document_key_clean = document_key.replace("/", "_")
-    file_path = os.path.join(output_dir, f"{document_key_clean}.i6d")
-    #root = etree.fromstring(attachment_content)
-    #root = root.split("?>", 1)[1].strip()
-
     tree = etree.ElementTree(root)
-    tree.write(file_path, pretty_print=True, xml_declaration=True, encoding="UTF-8")
-    return document_key_clean, attachment_path
+
+    # Write the XML tree to a file
+    i6d_buffer = io.BytesIO()
+    tree.write(i6d_buffer, pretty_print=True, xml_declaration=True, encoding="UTF-8")
+    i6d_buffer.seek(0)
+
+    # Write to i6z zip stored in state
+    with zipfile.ZipFile(st.session_state['i6z_io_buffer'], "a", zipfile.ZIP_DEFLATED, False) as zip_file:     
+        zip_file.writestr(f"{document_key_clean}.i6d", i6d_buffer.getvalue())            
