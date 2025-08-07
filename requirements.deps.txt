@@ -1,0 +1,22 @@
+# Packages that are directly imported by the codebase.
+jsonlines
+lxml
+mammoth
+matplotlib
+nltk
+numpy
+openpyxl
+pandas
+pydantic
+python-docx
+rapidfuzz
+regex
+scikit-learn
+scipy
+scispacy
+seaborn
+spacy
+streamlit
+thefuzz
+xsdata
+https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.4/en_core_sci_md-0.5.4.tar.gz
