@@ -728,7 +728,7 @@ def create_instance_from_csv_row(oht_class, nested_classes, row_data):
             continue
         else:
             _, field_path = parse_column_name(column_name)
-            if field_path:
+            if field_path and "EndpointStudyRecord" in oht_class.__name__:
                 value = translate_value(oht_class, field_path, value)
                 set_nested_field(oht_instance, field_path, value)
 
