@@ -17,6 +17,7 @@ import main as suggestion_logic
 from configs.config import config
 import threading
 import time
+import traceback
 import logging
 from defs import truthy
 
@@ -128,7 +129,7 @@ def background_suggestions_logic(user_df, results):
         # print('suggestions done')
         #st.rerun()
     except Exception as e:
-        print(f"Error running suggestions logic: {e}", file=sys.stderr)
+        print(f"Error running suggestions logic: {traceback.format_exc()}", file=sys.stderr)
         st.error(f"Error running suggestions logic: {e}")
 
 
