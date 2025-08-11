@@ -1,4 +1,5 @@
 import hashlib
+import traceback
 import io
 import json
 from pathlib import Path
@@ -24,7 +25,7 @@ import typing
 import sys
 import webbrowser
 from oht_xsd_to_picklist import oht_xsd_to_picklist, phrases_to_dict
-from defs import I6, I6C, I6CXSD, I6M, XSI, XML_NS
+from defs import DEFVER, I6, I6C, I6CXSD, I6M, I6MAN, XSI, XML_NS
 sys.path.append("entity_models")
 
 sys.path.append("entity_models")
@@ -608,6 +609,7 @@ def create_platform_metadata(instance, oht_type, main_uuid):
     if 'EndpointStudyRecord' in type(instance).__name__:
        docType = "ENDPOINT_STUDY_RECORD"
        docSubType = snake_to_camel(oht_type)
+       # FIXME: handle Substance here?
        
     return {
         "iuclidVersion": "7.0.7",
@@ -617,7 +619,7 @@ def create_platform_metadata(instance, oht_type, main_uuid):
         "documentType": docType,
         "documentSubType": docSubType,
         "orderInSectionNo": "1",
-        "definitionVersion": "6.0",
+        "definitionVersion": DEFVER,
         "creationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "lastModificationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "submissionType": "",
@@ -688,9 +690,8 @@ def translate_value(oht_class, field_path, value):
     oht_name = oht_class.__name__.replace("EndpointStudyRecord", "")
     # Find the most recent .xsd file
     xsd_path = sorted(Path(os.environ["EZMAPPER_IUCLID_FORMAT"]).glob(
-        f"**/ENDPOINT_STUDY_RECORD-{oht_name}-9.0.xsd"
+        f"**/ENDPOINT_STUDY_RECORD-{oht_name}-{DEFVER}.xsd"
     ))[-1]
-    # FIXME don't just use version 9.0
 
     oht_picklist = oht_xsd_to_picklist(xsd_path)  # @cached
     # Find the most recent Phrases.xml file
@@ -824,6 +825,7 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
         xml_content = serializer.render(instance, ns_map)
     except Exception as e:
         print(f"xml_content error: {e}")
+        print(f"xml_content error: {traceback.format_exc()}")
    
     # Remove the XML declaration from the serialized content
     xml_content = xml_content.split("?>", 1)[1].strip()
@@ -906,6 +908,28 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
     return document_key
 
 
+def link_substance_endpoints(contained_docs):
+    """
+    Add <links/> to Substance elements, and CHILD links from
+    ENDPOINT_STUDY_RECORDs to Substance.
+    """
+    substances = contained_docs.xpath("//man:document[./man:type/text()='SUBSTANCE']", namespaces={"man": I6MAN})
+    if len(substances) != 1:
+        raise ValueError("Expected exactly one Substance document in the manifest.")
+    substance_uuid = substances[0].get("id")
+    etree.SubElement(substances[0], f"{{{I6MAN}}}links")
+    endpoints = contained_docs.xpath("//man:document[./man:type/text()='ENDPOINT_STUDY_RECORD']", namespaces={"man": I6MAN})
+    if not endpoints:
+        raise ValueError("No ENDPOINT_STUDY_RECORD documents found in the manifest.")
+    for endpoint in endpoints:
+        links = etree.SubElement(endpoint, f"{{{I6MAN}}}links")
+        link = etree.SubElement(links, f"{{{I6MAN}}}link")
+        etree.SubElement(link, f"{{{I6MAN}}}ref-uuid").text = substance_uuid
+        etree.SubElement(link, f"{{{I6MAN}}}ref-type").text = "CHILD"
+
+    return substance_uuid
+
+
 def create_manifest(i6d_files, main_uuid):
     """
     Create a manifest XML file that lists all i6d files, with general-information and contained-documents sections.
@@ -935,22 +959,19 @@ def create_manifest(i6d_files, main_uuid):
     legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")
     # domain legislation
     etree.SubElement(legislation, f"{{{NS}}}id").text = "domain"
-    etree.SubElement(legislation, f"{{{NS}}}version").text = "6.0"  # FIXME: Should be dynamic?
+    etree.SubElement(legislation, f"{{{NS}}}version").text = DEFVER
     # core legislation
     legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")
     etree.SubElement(legislation, f"{{{NS}}}id").text = "core"
-    etree.SubElement(legislation, f"{{{NS}}}version").text = "6.0"
+    etree.SubElement(legislation, f"{{{NS}}}version").text = DEFVER
     # oecd legislation
     legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")
     etree.SubElement(legislation, f"{{{NS}}}id").text = "oecd"
-    etree.SubElement(legislation, f"{{{NS}}}version").text = "6.0"
+    etree.SubElement(legislation, f"{{{NS}}}version").text = DEFVER
     # TODO Is "partial" tag needed?
     # etree.SubElement(general_info, f"{{{NS}}}partial").text = "false"
 
-    # <base-document-uuid>
-    base_uuid = f"{main_uuid}/{main_uuid}"
-    etree.SubElement(root, f"{{{NS}}}base-document-uuid").text = base_uuid
-
+    base_doc_id = etree.SubElement(root, f"{{{NS}}}base-document-uuid")
     # <contained-documents>
     contained_docs = etree.SubElement(root, f"{{{NS}}}contained-documents")
 
@@ -989,6 +1010,11 @@ def create_manifest(i6d_files, main_uuid):
                     etree.SubElement(doc_elem, f"{{{NS}}}first-modification-date").text = mod_time
                     etree.SubElement(doc_elem, f"{{{NS}}}last-modification-date").text = mod_time
                     etree.SubElement(doc_elem, f"{{{NS}}}uuid").text = uuid_slash
+
+    # <base-document-uuid>
+    base_uuid = link_substance_endpoints(contained_docs)
+    base_doc_id.text = base_uuid
+
 
     # TODO Eventually add optional XSL stylesheet tag
     # # Prepare XSL stylesheet tag
@@ -1048,14 +1074,16 @@ def generate_i6z(endpoint_instances, test_material_instances, legal_entity_insta
 
     if substance_instances is not None:
         for i, instance in enumerate(substance_instances):
-            document_key = instance_to_i6d(instance, "Substance", main_uuid=main_uuid, parent_key=parent_uuid)
+            document_key = instance_to_i6d(instance, "Substance", main_uuid=main_uuid, parent_key=None)
+            substance_uuid = document_key.split("_")[0] 
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     for i, (instance, parent_key) in enumerate(endpoint_instances):
         # Determine the OHT type from the instance class name
         oht_type = type(instance).__name__.replace("EndpointStudyRecord", "")
-        document_key = instance_to_i6d(instance, oht_type, main_uuid=main_uuid, parent_key=parent_uuid)
+        # FIXME substance_uuid might not be defined, but if that's the case we're broken anyway
+        document_key = instance_to_i6d(instance, oht_type, main_uuid=main_uuid, parent_key=substance_uuid)
 
         i6d_file_path = f"{document_key}.i6d"
 

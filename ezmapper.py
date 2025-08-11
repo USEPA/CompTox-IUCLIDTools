@@ -358,6 +358,7 @@ if st.session_state.split_done and selected_df_key != "None":
         if generate_i6z_button:
             #st.write('generating')
             main_uuid = str(uuid.uuid4())
+            main_uuid = "0"
             parent_uuid = str(uuid.uuid4())
             try:
                 column_mapping_dict = column_mapping
