@@ -87,6 +87,8 @@ if "ss_selected_oht" not in st.session_state:
     st.session_state.ss_selected_oht = "None"
 if "selected_df" not in st.session_state:
     st.session_state.selected_df = pd.DataFrame()
+if "i6z_io_buffer" not in st.session_state:
+    st.session_state['i6z_io_buffer'] = io.BytesIO()
 
 # Create a sidebar for user inputs
 st.sidebar.title("Upload File")
@@ -112,13 +114,13 @@ def background_suggestions_logic(user_df, results):
     try:
         placeholder_test = suggestion_logic.main(config, user_df)
         temp_field_suggestions = placeholder_test
-        print(temp_field_suggestions)
+        # print(temp_field_suggestions)
         st.session_state['suggestions_done'] = True
         st.session_state['field_suggestions'] = temp_field_suggestions
         results[0] = temp_field_suggestions
-        print(st.session_state['field_suggestions'])
+        # print(st.session_state['field_suggestions'])
     #st.session_state['suggestions_running'] = False
-        print('suggestions done')
+        # print('suggestions done')
         #st.rerun()
     except Exception as e:
         print(f"Error running suggestions logic: {e}", file=sys.stderr)
@@ -130,14 +132,12 @@ if uploaded_file is not None:
     user_df = upload_file_to_df(uploaded_file)
     st.session_state.user_df = user_df
 
-    # base_file_name = Path(uploaded_file.name).stem
+    # Classify data based on predefined criteria
+    user_df = classify_data(user_df)
 
     st.title("Uploaded File Preview")
     # Display a preview of the data
     display_data_preview(user_df)
-
-    # Classify data based on predefined criteria
-    user_df = classify_data(user_df)
 
     if not st.session_state["suggestions_done"]:
         with st.spinner("Running machine suggestions in the background..."):
@@ -205,13 +205,7 @@ if st.session_state.get("split_done", False):
     if selected_df_key != "None" and st.session_state.ss_selected_oht != selected_df_key:
         st.session_state.ss_selected_oht = selected_df_key
         # print(f'Selected: {selected_df_key} and state: {st.session_state.ss_selected_oht}')
-        st.divider() # Horizontal divider
-        st.title("Step 3: Format Columns", anchor = 'step3')
         st.session_state.selected_df = st.session_state.grouped_dfs[selected_df_key]
-        st.write(
-            f"DataFrame for {selected_df_key} has {len(st.session_state.selected_df)} rows."
-        )
-
         # Render OHT docx as HTML in new window
         # selected_oht = selected_df_key
         st.session_state.selected_oht = selected_df_key
@@ -230,7 +224,12 @@ if st.session_state.get("split_done", False):
 
 # Section for merging or splitting columns in the DataFrame
 if st.session_state.split_done and selected_df_key != "None":
-    jump_to_anchor("step3")
+    st.divider() # Horizontal divider
+    st.title("Step 3: Format Columns", anchor = 'step3')
+    st.write(
+        f"DataFrame for {selected_df_key} has {len(st.session_state.selected_df)} rows."
+    )
+    # jump_to_anchor("step3")
     st.write("**Merge Columns**")
     col1, col2, merge_delimiter, new_col_name = st.columns(4)
     with col1:
@@ -397,20 +396,20 @@ if st.session_state.split_done and selected_df_key != "None":
 
                 oht_instances = map_csv_to_oht_instances(data, test_material_uuid_map, test_material_columns,
                                                          substance_uuid_map, substance_columns, main_uuid)
-                output_dir = 'output'
-                i6z_file_path = 'output/data.i6z'
+
                 generate_i6z(oht_instances, test_material_instances, legal_entity_instances, ref_sub_instances,
-                             substance_instances, output_dir, i6z_file_path, data, uploaded_other_files, 
+                             substance_instances, data, uploaded_other_files, 
                              main_uuid=main_uuid, parent_uuid=parent_uuid)
 
-                st.write("Successfully Generated")
-                outfile_name = parent_uuid + '.i6z'
-                st.download_button(
-                    label='Download i6z File',
-                    data=open(i6z_file_path, 'rb').read(),
-                    file_name=outfile_name,
-                    mime='application/octet-stream'
-                )
+                if st.session_state['i6z_io_buffer'] is not None:
+                    st.write("Successfully Generated")
+                    outfile_name = parent_uuid + '.i6z'
+                    st.download_button(
+                        label='Download i6z File',
+                        data=st.session_state['i6z_io_buffer'].getvalue(),
+                        file_name=outfile_name,
+                        mime='application/octet-stream'
+                    )
             except Exception as e:
                 st.error(f"Error generating: {e}")
 
