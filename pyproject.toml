@@ -1,2 +1,5 @@
 [tool.pytest.ini_options]
 norecursedirs = ["entity_models"]
+
+[tool.ruff.lint]
+extend-select = ["D", "I"]

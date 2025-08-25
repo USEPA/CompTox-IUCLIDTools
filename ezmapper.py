@@ -20,6 +20,9 @@ import time
 import traceback
 import logging
 from defs import truthy
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Custom javascript to scroll to element by id
 def jump_to_anchor(element_id):
