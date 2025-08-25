@@ -619,7 +619,7 @@ def create_platform_metadata(instance, oht_type, main_uuid):
         "documentType": docType,
         "documentSubType": docSubType,
         "orderInSectionNo": "1",
-        "definitionVersion": DEFVER,
+        "definitionVersion": "6.0" if "ENDPOINT" in docType else DEFVER,  # FIXME
         "creationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "lastModificationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "submissionType": "",
@@ -797,8 +797,9 @@ def create_xml_serializer(oht_type):
         print(f"Context build_recursive error: {e}")
     
     # Define the namespace mapping for the XML document
+    defver = "6.0" if oht_type == "RepeatedDoseToxicityOral" else DEFVER  # FIXME
     ns_map = {
-        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/6.0",  # Default namespace
+        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/{defver}",  # Default namespace
         "i6": I6,  # Namespace for platform fields
     }
 
@@ -1217,6 +1218,8 @@ def create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_su
         )
         uuid_str = f"{generate_uuid()}/{main_uuid}"
         substance_instance.uuid = uuid_str
+        substance_instance.chemical_name = "Rupert"
+        substance_instance.templates = []
         if ref_sub_columns:
             ref_sub_values = tuple(row[col] for col in ref_sub_columns if col in row)
             if ref_sub_values in ref_sub_uuid_map:

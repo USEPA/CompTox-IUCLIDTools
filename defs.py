@@ -2,7 +2,7 @@
 
 DEFVER = "9.0"  # definitionVersion in the .i6d
 I6C = "http://iuclid6.echa.europa.eu/namespaces/platform-container/v2"
-I6CXSD = "platform-container.xsd"
+I6CXSD = "platform-container-v2.xsd"  # WARNING: match with I6C
 I6M = "http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1"
 I6MAN = "http://iuclid6.echa.europa.eu/namespaces/manifest/v1"
 I6 = "http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1"
