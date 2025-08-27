@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 # Uncomment to use xmlschema instead of / as well as lxml
-# import xmlschema
+import xmlschema
 from lxml import etree as ET
 
 xsd_folder = Path(sys.argv[1])
@@ -45,7 +45,7 @@ class LXMLSchema(XMLSchema):
 
 
 # Uncomment to use xmlschema instead of / as well as lxml
-xmlschema = None
+# xmlschema = None
 
 
 class XMLSchemaSchema(XMLSchema):
@@ -145,5 +145,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
     schema_cls = XMLSchemaSchema
-    schema_cls = LXMLSchema
+    # schema_cls = LXMLSchema
     validate_i6d(schema_cls, xsd_folder, i6d_file)

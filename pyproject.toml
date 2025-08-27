@@ -2,4 +2,4 @@
 norecursedirs = ["entity_models"]
 
 [tool.ruff.lint]
-extend-select = ["D", "I"]
+extend-select = ["D", "I", "E", "F"]
