@@ -615,7 +615,7 @@ def create_platform_metadata(instance, oht_type, main_uuid):
         "iuclidVersion": "7.0.7",
         "documentKey": f"{generate_uuid()}/{main_uuid}",
         "parentDocumentKey": "",
-        "name": "",
+        "name": "Name in metadata",
         "documentType": docType,
         "documentSubType": docSubType,
         "orderInSectionNo": "1",
@@ -842,7 +842,6 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
     # Format the platform metadata as an XML string
     platform_metadata_xml = f"""
     <i6c:PlatformMetadata xmlns:i6c="{I6C}" xmlns:i6m="{I6M}">
-        <i6m:iuclidVersion>{platform_metadata['iuclidVersion']}</i6m:iuclidVersion>
         <i6m:documentKey>{platform_metadata['documentKey']}</i6m:documentKey>
         <i6m:parentDocumentKey>{platform_metadata['parentDocumentKey']}</i6m:parentDocumentKey>
         <i6m:name>{platform_metadata['name']}</i6m:name>
@@ -852,13 +851,8 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
         <i6m:definitionVersion>{platform_metadata['definitionVersion']}</i6m:definitionVersion>
         <i6m:creationDate>{platform_metadata['creationDate']}</i6m:creationDate>
         <i6m:lastModificationDate>{platform_metadata['lastModificationDate']}</i6m:lastModificationDate>
-        <i6m:submissionType>{platform_metadata['submissionType']}</i6m:submissionType>
-        <i6m:submissionTypeVersion>{platform_metadata['submissionTypeVersion']}</i6m:submissionTypeVersion>
-        <i6m:submittingLegalEntity>{platform_metadata['submittingLegalEntity']}</i6m:submittingLegalEntity>
-        <i6m:dossierSubject>{platform_metadata['dossierSubject']}</i6m:dossierSubject>
         <i6m:i5Origin>{platform_metadata['i5Origin']}</i6m:i5Origin>
         <i6m:creationTool>{platform_metadata['creationTool']}</i6m:creationTool>
-        <i6m:snapshotCreationTool>{platform_metadata['snapshotCreationTool']}</i6m:snapshotCreationTool>
     </i6c:PlatformMetadata>
     """
 
@@ -890,8 +884,13 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
     root.append(content_element)
 
     # Append required empty Attachments and ModificationHistory elements
-    root.append(e:=etree.Element(f"{{{I6C}}}Attachments"))
-    root.append(e:=etree.Element(f"{{{I6C}}}ModificationHistory"))
+    root.append(e:=etree.Element(
+        f"{{{I6C}}}Attachments",
+        **{f"{{{XSI}}}schemaLocation": "http://iuclid6.echa.europa.eu/namespaces/"
+           "platform-attachment/v1 platform-attachment.xsd"}))
+    root.append(e:=etree.Element(f"{{{I6C}}}ModificationHistory",
+        **{f"{{{XSI}}}schemaLocation": "http://iuclid6.echa.europa.eu/namespaces/"
+           "platform-attachment/v1 platform-attachment.xsd"}))
 
     # Create an XML tree from the root element
     tree = etree.ElementTree(root)
@@ -971,7 +970,8 @@ def create_manifest(i6d_files, main_uuid):
     etree.SubElement(legislation, f"{{{NS}}}version").text = DEFVER
     # TODO Is "partial" tag needed?
     # etree.SubElement(general_info, f"{{{NS}}}partial").text = "false"
-
+    # omitting minOccurs=0 <comment/> enough by itself to prevent dataset upload
+    etree.SubElement(root, f"{{{NS}}}comment")
     base_doc_id = etree.SubElement(root, f"{{{NS}}}base-document-uuid")
     # <contained-documents>
     contained_docs = etree.SubElement(root, f"{{{NS}}}contained-documents")
