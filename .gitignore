@@ -1,0 +1,7 @@
+*.pyc
+__pycache__
+output
+.env
+iuclid-format
+venv
+*.code-workspace
