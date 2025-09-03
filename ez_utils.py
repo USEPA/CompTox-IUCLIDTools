@@ -619,7 +619,7 @@ def create_platform_metadata(instance, oht_type, main_uuid):
         "documentType": docType,
         "documentSubType": docSubType,
         "orderInSectionNo": "1",
-        "definitionVersion": "6.0" if "ENDPOINT" in docType else DEFVER,  # FIXME
+        "definitionVersion": DEFVER,
         "creationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "lastModificationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "submissionType": "",
@@ -797,9 +797,8 @@ def create_xml_serializer(oht_type):
         print(f"Context build_recursive error: {e}")
     
     # Define the namespace mapping for the XML document
-    defver = "6.0" if oht_type == "RepeatedDoseToxicityOral" else DEFVER  # FIXME
     ns_map = {
-        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/{defver}",  # Default namespace
+        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/{DEFVER}",  # Default namespace
         "i6": I6,  # Namespace for platform fields
     }
 
