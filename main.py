@@ -41,7 +41,7 @@ START = 0
 def show_elapsed_time(name):
     global START
     elapsed = time.time() - START
-    logger.info(f"Elapsed time for {name}: {elapsed:.2f} seconds", file=sys.stderr)
+    logger.info(f"Elapsed time for {name}: {elapsed:.2f} seconds")
     START = time.time()
 
 def main(config, user_df):

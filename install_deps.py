@@ -33,7 +33,7 @@ def install_deps():
 
     with TemporaryDirectory() as tmp_folder:
         subprocess.run(
-            f"git clone {os.environ['EZMAPPER_IUCLID_FORMAT_REPO']} {tmp_folder}"
+            ["git", "clone", os.environ['EZMAPPER_IUCLID_FORMAT_REPO'], tmp_folder]
         )
         outpath = Path(os.environ["EZMAPPER_IUCLID_FORMAT"])
         outpath.mkdir(exist_ok=True, parents=True)

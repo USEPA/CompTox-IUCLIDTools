@@ -1,4 +1,4 @@
-"""Validate and .i6d file.
+"""Validate an .i6d file.
 
 Usage: python validate_i6d.py <xsd_folder> <file.i6d>
 

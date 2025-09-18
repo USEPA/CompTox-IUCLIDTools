@@ -110,7 +110,8 @@ prefixes = defaultdict(set)
 # First map namespaces.
 for arg in sys.argv[1:3]:
     handler = GetNSprefixes(prefixes=prefixes)
-    tree = ET.parse(open(arg))
+    with open(arg) as stream:
+        tree = ET.parse(stream)
     lxml.sax.saxify(tree, handler)
 
 # Then check for conflicts.
@@ -133,6 +134,7 @@ for pfx, ns in prefix2ns.items():
 # Then compare files.
 for arg in sys.argv[1:3]:
     print(arg)
-    handler= CanXML(prefixes=prefixes)
-    tree = ET.parse(open(arg))
+    handler = CanXML(prefixes=prefixes)
+    with open(arg) as stream:
+        tree = ET.parse(stream)
     lxml.sax.saxify(tree, handler)

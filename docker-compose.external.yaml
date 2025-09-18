@@ -2,4 +2,4 @@
 services:
   ezmapper:
     ports:
-      - ${EZMAPPER_EXTERAL_WEB_PORT}:8506
+      - ${EZMAPPER_EXTERNAL_WEB_PORT}:8506
