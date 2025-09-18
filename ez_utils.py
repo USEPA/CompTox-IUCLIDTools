@@ -1,4 +1,5 @@
 import hashlib
+import traceback
 import io
 import json
 from pathlib import Path
@@ -22,8 +23,11 @@ from xsdata.formats.dataclass.serializers.config import SerializerConfig
 import os
 import typing
 import sys
-import tempfile
 import webbrowser
+from oht_xsd_to_picklist import oht_xsd_to_picklist, phrases_to_dict
+from defs import DEFVER, I6, I6C, I6CXSD, I6M, I6MAN, XSI, XML_NS
+sys.path.append("entity_models")
+
 sys.path.append("entity_models")
 
 def split_camel_case(name):
@@ -605,16 +609,17 @@ def create_platform_metadata(instance, oht_type, main_uuid):
     if 'EndpointStudyRecord' in type(instance).__name__:
        docType = "ENDPOINT_STUDY_RECORD"
        docSubType = snake_to_camel(oht_type)
+       # FIXME: handle Substance here?
        
     return {
         "iuclidVersion": "7.0.7",
         "documentKey": f"{generate_uuid()}/{main_uuid}",
         "parentDocumentKey": "",
-        "name": "",
+        "name": "Name in metadata",
         "documentType": docType,
         "documentSubType": docSubType,
         "orderInSectionNo": "1",
-        "definitionVersion": "8.0",
+        "definitionVersion": DEFVER,
         "creationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "lastModificationDate": datetime.datetime.utcnow().isoformat() + "Z",
         "submissionType": "",
@@ -677,6 +682,42 @@ def set_nested_field(instance, field_path, value):
             raise AttributeError(f"Attribute {final_field_snake_case} not found in {type(current)}")
     setattr(current, final_field_snake_case, value)
 
+def translate_value(oht_class, field_path, value):
+    """Translate value through XSD picklist / Phrases.xml.
+
+    e.g. 'rats' becomes 4149
+    """
+    oht_name = oht_class.__name__.replace("EndpointStudyRecord", "")
+    # Find the most recent .xsd file
+    xsd_path = sorted(Path(os.environ["EZMAPPER_IUCLID_FORMAT"]).glob(
+        f"**/ENDPOINT_STUDY_RECORD-{oht_name}-{DEFVER}.xsd"
+    ))[-1]
+
+    oht_picklist = oht_xsd_to_picklist(xsd_path)  # @cached
+    # Find the most recent Phrases.xml file
+    phrases_path = sorted(Path(os.environ["EZMAPPER_IUCLID_FORMAT"]).glob("**/Phrases.xml"))[-1]
+    # This is @cached, otherwise phrases_to_dict is a few seconds
+    phrases = phrases_to_dict(phrases_path)
+
+    # Exclude the last field, which is the element named "value"
+    camels = [snake_to_camel(field) for field in field_path[:-1]]
+    # FIXME entry is lower case, and check Efflevel is not eff_level
+    # ENDPOINT_STUDY_RECORD.RepeatedDoseToxicityOral/ResultsAndDiscussion/EffectLevels/Efflevel/entry/Sex -> T24
+
+    picklist_key = f"ENDPOINT_STUDY_RECORD.{oht_name}/{'/'.join(camels)}"
+    picklist = phrases[oht_picklist[picklist_key]]
+    if value not in picklist and value.lower() not in picklist:
+        other_value = list(picklist.keys())[-1]
+        print(
+            f"WARNING: Value '{value}' not found in picklist for "
+            f"{oht_picklist[picklist_key]}. Using last value: {other_value}"
+        )
+        value = other_value
+
+    # Most things are lower case, but country names etc. are not, could change
+    # that in phrases_to_dict()
+    return picklist.get(value) or picklist[value.lower()]
+
 
 def create_instance_from_csv_row(oht_class, nested_classes, row_data):
     # Create an instance of the top-level class
@@ -688,7 +729,8 @@ def create_instance_from_csv_row(oht_class, nested_classes, row_data):
             continue
         else:
             _, field_path = parse_column_name(column_name)
-            if field_path:
+            if field_path and "EndpointStudyRecord" in oht_class.__name__:
+                value = translate_value(oht_class, field_path, value)
                 set_nested_field(oht_instance, field_path, value)
 
     return oht_instance
@@ -756,8 +798,8 @@ def create_xml_serializer(oht_type):
     
     # Define the namespace mapping for the XML document
     ns_map = {
-        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/9.0",  # Default namespace
-        "i6": "http://iuclid6.echa.europa.eu/namespaces/platform-fields/v1",  # Namespace for platform fields
+        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/{DEFVER}",  # Default namespace
+        "i6": I6,  # Namespace for platform fields
     }
 
     # Configure the XML serializer with pretty print and XML declaration settings
@@ -783,6 +825,7 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
         xml_content = serializer.render(instance, ns_map)
     except Exception as e:
         print(f"xml_content error: {e}")
+        print(f"xml_content error: {traceback.format_exc()}")
    
     # Remove the XML declaration from the serialized content
     xml_content = xml_content.split("?>", 1)[1].strip()
@@ -797,10 +840,7 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
 
     # Format the platform metadata as an XML string
     platform_metadata_xml = f"""
-    <i6c:PlatformMetadata 
-        xmlns:i6c="http://iuclid6.echa.europa.eu/namespaces/platform-container/v2"
-        xmlns:i6m="http://iuclid6.echa.europa.eu/namespaces/platform-metadata/v1">
-        <i6m:iuclidVersion>{platform_metadata['iuclidVersion']}</i6m:iuclidVersion>
+    <i6c:PlatformMetadata xmlns:i6c="{I6C}" xmlns:i6m="{I6M}">
         <i6m:documentKey>{platform_metadata['documentKey']}</i6m:documentKey>
         <i6m:parentDocumentKey>{platform_metadata['parentDocumentKey']}</i6m:parentDocumentKey>
         <i6m:name>{platform_metadata['name']}</i6m:name>
@@ -810,26 +850,22 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
         <i6m:definitionVersion>{platform_metadata['definitionVersion']}</i6m:definitionVersion>
         <i6m:creationDate>{platform_metadata['creationDate']}</i6m:creationDate>
         <i6m:lastModificationDate>{platform_metadata['lastModificationDate']}</i6m:lastModificationDate>
-        <i6m:submissionType>{platform_metadata['submissionType']}</i6m:submissionType>
-        <i6m:submissionTypeVersion>{platform_metadata['submissionTypeVersion']}</i6m:submissionTypeVersion>
-        <i6m:submittingLegalEntity>{platform_metadata['submittingLegalEntity']}</i6m:submittingLegalEntity>
-        <i6m:dossierSubject>{platform_metadata['dossierSubject']}</i6m:dossierSubject>
         <i6m:i5Origin>{platform_metadata['i5Origin']}</i6m:i5Origin>
         <i6m:creationTool>{platform_metadata['creationTool']}</i6m:creationTool>
-        <i6m:snapshotCreationTool>{platform_metadata['snapshotCreationTool']}</i6m:snapshotCreationTool>
     </i6c:PlatformMetadata>
     """
 
     # Define the namespace mapping for the entire i6d document
     ns_map = {
-        None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/9.0",  # Default namespace
-        "i6c": "http://iuclid6.echa.europa.eu/namespaces/platform-container/v2",  # Namespace for platform container
-        "xsi": "http://www.w3.org/2001/XMLSchema-instance",  # XML Schema instance namespace,
-        "xml": "http://www.w3.org/XML/1998/namespace"
+        # None: f"http://iuclid6.echa.europa.eu/namespaces/ENDPOINT_STUDY_RECORD-{oht_type}/9.0",  # Default namespace
+        "i6c": I6C,  # Namespace for platform container
+        "xsi": XSI,  # XML Schema instance namespace,
+        "xml": XML_NS,  # XML namespace
     }
 
     # Create the root element for the i6d document with the specified namespaces
-    root = etree.Element("{http://iuclid6.echa.europa.eu/namespaces/platform-container/v2}Document", nsmap=ns_map)
+    root = etree.Element(f"{{{I6C}}}Document", nsmap=ns_map)
+    root.set(f"{{{XSI}}}schemaLocation", f"{I6C} {I6CXSD}")
 
     # Parse the platform metadata XML string into an XML element
     platform_metadata_element = etree.fromstring(platform_metadata_xml)
@@ -838,13 +874,22 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
     root.append(platform_metadata_element)
 
     # Create the Content element
-    content_element = etree.Element("{http://iuclid6.echa.europa.eu/namespaces/platform-container/v2}Content", nsmap=ns_map)
+    content_element = etree.Element(f"{{{I6C}}}Content", nsmap=ns_map)
 
     # Append the serialized instance content to the Content element
     content_element.append(etree.fromstring(xml_content))
 
     # Append the Content element to the root
     root.append(content_element)
+
+    # Append required empty Attachments and ModificationHistory elements
+    root.append(e:=etree.Element(
+        f"{{{I6C}}}Attachments",
+        **{f"{{{XSI}}}schemaLocation": "http://iuclid6.echa.europa.eu/namespaces/"
+           "platform-attachment/v1 platform-attachment.xsd"}))
+    root.append(e:=etree.Element(f"{{{I6C}}}ModificationHistory",
+        **{f"{{{XSI}}}schemaLocation": "http://iuclid6.echa.europa.eu/namespaces/"
+           "platform-attachment/v1 platform-attachment.xsd"}))
 
     # Create an XML tree from the root element
     tree = etree.ElementTree(root)
@@ -860,6 +905,28 @@ def instance_to_i6d(instance, oht_type, main_uuid, parent_key=None):
         zip_file.writestr(f"{document_key}.i6d", i6d_buffer.getvalue())            
     
     return document_key
+
+
+def link_substance_endpoints(contained_docs):
+    """
+    Add <links/> to Substance elements, and CHILD links from
+    ENDPOINT_STUDY_RECORDs to Substance.
+    """
+    substances = contained_docs.xpath("//man:document[./man:type/text()='SUBSTANCE']", namespaces={"man": I6MAN})
+    if len(substances) != 1:
+        raise ValueError("Expected exactly one Substance document in the manifest.")
+    substance_uuid = substances[0].get("id")
+    etree.SubElement(substances[0], f"{{{I6MAN}}}links")
+    endpoints = contained_docs.xpath("//man:document[./man:type/text()='ENDPOINT_STUDY_RECORD']", namespaces={"man": I6MAN})
+    if not endpoints:
+        raise ValueError("No ENDPOINT_STUDY_RECORD documents found in the manifest.")
+    for endpoint in endpoints:
+        links = etree.SubElement(endpoint, f"{{{I6MAN}}}links")
+        link = etree.SubElement(links, f"{{{I6MAN}}}link")
+        etree.SubElement(link, f"{{{I6MAN}}}ref-uuid").text = substance_uuid
+        etree.SubElement(link, f"{{{I6MAN}}}ref-type").text = "CHILD"
+
+    return substance_uuid
 
 
 def create_manifest(i6d_files, main_uuid):
@@ -884,28 +951,27 @@ def create_manifest(i6d_files, main_uuid):
     etree.SubElement(general_info, f"{{{NS}}}author").text = "EZ Mapper"
     etree.SubElement(general_info, f"{{{NS}}}application").text = "IUCLID6 (EZ Mapper Export)"
     etree.SubElement(general_info, f"{{{NS}}}submission-type").text = "EXPERIMENTAL_DATA"
-    etree.SubElement(general_info, f"{{{NS}}}archive-type").text = "DOSSIER_DATA"
+    # etree.SubElement(general_info, f"{{{NS}}}archive-type").text = "DOSSIER_DATA"
+    etree.SubElement(general_info, f"{{{NS}}}archive-type").text = "RAW_DATA"
     # TODO Add legistlations-info tags?
     legislation_list = etree.SubElement(general_info, f"{{{NS}}}legislations-info")
     legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")
     # domain legislation
     etree.SubElement(legislation, f"{{{NS}}}id").text = "domain"
-    etree.SubElement(legislation, f"{{{NS}}}version").text = "8.0"
+    etree.SubElement(legislation, f"{{{NS}}}version").text = DEFVER
     # core legislation
     legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")
     etree.SubElement(legislation, f"{{{NS}}}id").text = "core"
-    etree.SubElement(legislation, f"{{{NS}}}version").text = "8.0"
+    etree.SubElement(legislation, f"{{{NS}}}version").text = DEFVER
     # oecd legislation
     legislation = etree.SubElement(legislation_list, f"{{{NS}}}legislation")
     etree.SubElement(legislation, f"{{{NS}}}id").text = "oecd"
-    etree.SubElement(legislation, f"{{{NS}}}version").text = "8.0"
+    etree.SubElement(legislation, f"{{{NS}}}version").text = DEFVER
     # TODO Is "partial" tag needed?
     # etree.SubElement(general_info, f"{{{NS}}}partial").text = "false"
-
-    # <base-document-uuid>
-    base_uuid = f"{main_uuid}/{main_uuid}"
-    etree.SubElement(root, f"{{{NS}}}base-document-uuid").text = base_uuid
-
+    # omitting minOccurs=0 <comment/> enough by itself to prevent dataset upload
+    etree.SubElement(root, f"{{{NS}}}comment")
+    base_doc_id = etree.SubElement(root, f"{{{NS}}}base-document-uuid")
     # <contained-documents>
     contained_docs = etree.SubElement(root, f"{{{NS}}}contained-documents")
 
@@ -944,6 +1010,11 @@ def create_manifest(i6d_files, main_uuid):
                     etree.SubElement(doc_elem, f"{{{NS}}}first-modification-date").text = mod_time
                     etree.SubElement(doc_elem, f"{{{NS}}}last-modification-date").text = mod_time
                     etree.SubElement(doc_elem, f"{{{NS}}}uuid").text = uuid_slash
+
+    # <base-document-uuid>
+    base_uuid = link_substance_endpoints(contained_docs)
+    base_doc_id.text = base_uuid
+
 
     # TODO Eventually add optional XSL stylesheet tag
     # # Prepare XSL stylesheet tag
@@ -1003,14 +1074,16 @@ def generate_i6z(endpoint_instances, test_material_instances, legal_entity_insta
 
     if substance_instances is not None:
         for i, instance in enumerate(substance_instances):
-            document_key = instance_to_i6d(instance, "Substance", main_uuid=main_uuid, parent_key=parent_uuid)
+            document_key = instance_to_i6d(instance, "Substance", main_uuid=main_uuid, parent_key=None)
+            substance_uuid = document_key.split("_")[0] 
             i6d_file_path = f"{document_key}.i6d"
             i6d_files.append(i6d_file_path)
 
     for i, (instance, parent_key) in enumerate(endpoint_instances):
         # Determine the OHT type from the instance class name
         oht_type = type(instance).__name__.replace("EndpointStudyRecord", "")
-        document_key = instance_to_i6d(instance, oht_type, main_uuid=main_uuid, parent_key=parent_uuid)
+        # FIXME substance_uuid might not be defined, but if that's the case we're broken anyway
+        document_key = instance_to_i6d(instance, oht_type, main_uuid=main_uuid, parent_key=substance_uuid)
 
         i6d_file_path = f"{document_key}.i6d"
 
@@ -1144,6 +1217,8 @@ def create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_su
         )
         uuid_str = f"{generate_uuid()}/{main_uuid}"
         substance_instance.uuid = uuid_str
+        substance_instance.chemical_name = "Rupert"
+        substance_instance.templates = []
         if ref_sub_columns:
             ref_sub_values = tuple(row[col] for col in ref_sub_columns if col in row)
             if ref_sub_values in ref_sub_uuid_map:
@@ -1301,7 +1376,7 @@ def create_i6d_for_attachment(attachment_file, output_dir, main_uuid):
                          nsmap={
                              None: "http://iuclid6.echa.europa.eu/namespaces/platform-attachment/v1",
                              "xlink": "http://www.w3.org/1999/xlink",
-                             "xsi": "http://www.w3.org/2001/XMLSchema-instance"
+                             "xsi": XSI
                          }
     )
 

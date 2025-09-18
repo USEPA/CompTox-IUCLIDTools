@@ -6,6 +6,9 @@ Created on Mon Jul 22 12:53:30 2024
 """
 
 import os
+from logging import getLogger
+import sys
+import time
 
 from configs.config import config
 from src.load_normalizers import load_normalizers
@@ -25,6 +28,7 @@ from src.get_field_selections import (get_n_field_selections,
                                       merge_selection_dicts
                                       )
 
+logger = getLogger(__name__)
 
 def makedir(dirname):
     try:
@@ -32,8 +36,17 @@ def makedir(dirname):
     except FileExistsError:
         print(f"Warning: {dirname} already exists")
 
+START = 0
+
+def show_elapsed_time(name):
+    global START
+    elapsed = time.time() - START
+    logger.info(f"Elapsed time for {name}: {elapsed:.2f} seconds")
+    START = time.time()
 
 def main(config, user_df):
+    global START
+    START = time.time()
     # load config params
     update_ohts = config['update_ohts']
     update_input = config['update_input']
@@ -65,6 +78,8 @@ def main(config, user_df):
     makedir(oht_pickle_dir)
     makedir(input_pickle_dir)
 
+    show_elapsed_time("Setup")
+
     # process oht forms and save off information for later use
     if update_ohts:
         # pull OHT picklist data from OHT .docx files
@@ -72,6 +87,7 @@ def main(config, user_df):
                         oht_docx_path,
                         oht_picklist_file
                         )
+        show_elapsed_time("scrape_oht_docx")
         ## NOTE! Manually update `oht_picklist_file` to add a field for
         ##  "Simplified Endpoint" (see example https://usepa.sharepoint.com/:x:/r/sites/ocspp_Work/edsp_chemical_testing/_layouts/15/Doc.aspx?sourcedoc=%7B98121568-D3A4-488B-ADBD-3A3F8FA31D81%7D&file=OHT%20Picklists%20-%20Simple%20Endpoints.xlsx&action=default&mobileredirect=true),
         ##  update `oht_record_fields` in config to replace "Endpoint" with
@@ -84,6 +100,7 @@ def main(config, user_df):
                         fuzz_process=True,
                         counts=False
                         )
+        show_elapsed_time("preprocess_opts")
 
     # process input data and save off information for later use
     if update_input:
@@ -93,6 +110,7 @@ def main(config, user_df):
                         input_picklist_file,
                         input_numeric_file
                         )
+        show_elapsed_time("scrape_input_df")
 
         # select picklist field candidates based on preliminary matching to
         #  `oht_picklist_file`
@@ -101,6 +119,7 @@ def main(config, user_df):
                                 oht_picklist_file,
                                 norm_tools
                                 )
+        show_elapsed_time("select_field_candidates")
 
         # perform lemmatization, CUI matching, and word vector extraction
         #   on input picklist options and save results
@@ -110,6 +129,7 @@ def main(config, user_df):
                         fuzz_process=True,
                         counts=True
                         )
+        show_elapsed_time("preprocess_opts")
 
     # map fields over all OHTs at once, for just record-mapping fields
     map_picklist_fields(user_df,
@@ -119,6 +139,7 @@ def main(config, user_df):
                         oht_record_fields,
                         match_params
                         )
+    show_elapsed_time("map_picklist_fields")
 
     # get selections of oht fields
     mapped_fields_records = get_n_field_selections(user_df,
@@ -126,12 +147,14 @@ def main(config, user_df):
                                                    # oht_lookup_fields,
                                                    num_selections=3
                                                    )
+    show_elapsed_time("get_n_field_selections")
 
     # !! dev note: allow for `mapped_fields_records` to be down-selected by user?
     #    This stop is optional, built in to bypass user selection
     #    dictionary in format {oht_field: [input, fields, selected]} is required
     #    for next steps, however.
     oht_field_dict_records = get_top_selection_dict(mapped_fields_records)
+    show_elapsed_time("get_top_selection_dict")
 
     # map records to oht
     map_records_to_ohts(user_df,
@@ -141,6 +164,7 @@ def main(config, user_df):
                         oht_field_dict_records,
                         match_params
                         )
+    show_elapsed_time("map_records_to_ohts")
 
     # --------------------------------------------------------------------------
     # Optional: for this next phase, loop over `input_file`s that have been

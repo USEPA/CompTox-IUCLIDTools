@@ -17,7 +17,12 @@ import main as suggestion_logic
 from configs.config import config
 import threading
 import time
+import traceback
 import logging
+from defs import truthy
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Custom javascript to scroll to element by id
 def jump_to_anchor(element_id):
@@ -111,6 +116,10 @@ if uploaded_file is None:
 
 def background_suggestions_logic(user_df, results):
     global temp_field_suggestions
+    if not truthy(os.environ.get("EZMAPPER_MACHINE_SUGGESTION") or "Y"):
+        # Dev. option - set EZMAPPER_MACHINE_SUGGESTION to False to disable
+        # machine suggestions
+        return
     try:
         placeholder_test = suggestion_logic.main(config, user_df)
         temp_field_suggestions = placeholder_test
@@ -123,7 +132,7 @@ def background_suggestions_logic(user_df, results):
         # print('suggestions done')
         #st.rerun()
     except Exception as e:
-        print(f"Error running suggestions logic: {e}", file=sys.stderr)
+        print(f"Error running suggestions logic: {traceback.format_exc()}", file=sys.stderr)
         st.error(f"Error running suggestions logic: {e}")
 
 
@@ -352,6 +361,7 @@ if st.session_state.split_done and selected_df_key != "None":
         if generate_i6z_button:
             #st.write('generating')
             main_uuid = str(uuid.uuid4())
+            main_uuid = "0"
             parent_uuid = str(uuid.uuid4())
             try:
                 column_mapping_dict = column_mapping
@@ -412,4 +422,5 @@ if st.session_state.split_done and selected_df_key != "None":
                     )
             except Exception as e:
                 st.error(f"Error generating: {e}")
+                raise
 

@@ -9,6 +9,7 @@ openpyxl
 pandas
 pydantic
 python-docx
+python-dotenv
 rapidfuzz
 regex
 scikit-learn

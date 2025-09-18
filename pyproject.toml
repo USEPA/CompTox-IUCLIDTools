@@ -1,0 +1,7 @@
+[tool.pytest.ini_options]
+norecursedirs = ["entity_models"]
+
+[tool.ruff.lint]
+extend-select = ["D", "I", "E", "F"]
+# Temporarily ignore docstring formatting issues and line length.
+extend-ignore = ["D205", "D212", "D411", "D413", "E501"]

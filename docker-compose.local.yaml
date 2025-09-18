@@ -1,0 +1,4 @@
+services:
+  ezmapper:
+    volumes:
+      - ${PWD}:/app
