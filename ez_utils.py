@@ -1,32 +1,32 @@
+import datetime
 import hashlib
-import traceback
+import importlib
 import io
 import json
-from pathlib import Path
-from typing import Dict, Union, get_type_hints
+import os
 import re
-import datetime
-from lxml import etree
+import sys
+import traceback
+import typing
 import uuid
+import webbrowser
+import zipfile
+from pathlib import Path
+from typing import Dict, Union
+
 import mammoth
 import pandas as pd
 import streamlit as st
-from streamlit import components
-from streamlit.components import v1
-import importlib
-import pydantic
-import zipfile
-from io import BytesIO
+from lxml import etree
+from pandas import DataFrame
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
-import os
-import typing
-import sys
-import webbrowser
+
+from defs import DEFVER, I6, I6C, I6CXSD, I6M, I6MAN, XML_NS, XSI
 from oht_xsd_to_picklist import oht_xsd_to_picklist, phrases_to_dict
-from defs import DEFVER, I6, I6C, I6CXSD, I6M, I6MAN, XSI, XML_NS
-sys.path.append("entity_models")
+
+type UnknownType = None
 
 sys.path.append("entity_models")
 
@@ -605,17 +605,22 @@ def generate_uuid():
 def create_platform_metadata(instance, oht_type, main_uuid):
     docType = oht_type
     docSubType = ""
+    name = "Name in metadata"
     # TODO create list of document types to exclude - add document_type param based on earlier ifelse
     if 'EndpointStudyRecord' in type(instance).__name__:
        docType = "ENDPOINT_STUDY_RECORD"
        docSubType = snake_to_camel(oht_type)
        # FIXME: handle Substance here?
+       try:
+           name = f"Tested on {instance.materials_and_methods.test_animals.species.value}s"
+       except AttributeError:
+           name = "Unknown spp."
        
     return {
         "iuclidVersion": "7.0.7",
         "documentKey": f"{generate_uuid()}/{main_uuid}",
         "parentDocumentKey": "",
-        "name": "Name in metadata",
+        "name": name,
         "documentType": docType,
         "documentSubType": docSubType,
         "orderInSectionNo": "1",
@@ -1202,7 +1207,13 @@ def create_test_material_instances(data, test_material_columns, main_uuid):
     return test_material_instances, test_material_uuid_map
 
 
-def create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_sub_columns, main_uuid):
+def create_substance_instances(
+        data: DataFrame,
+        substance_columns: list[str],
+        ref_sub_uuid_map: UnknownType,
+        ref_sub_columns: list[str],
+        main_uuid:str
+    ):
     substance_instances = []
     substances_uuid_map = {}
 
@@ -1217,7 +1228,8 @@ def create_substance_instances(data, substance_columns, ref_sub_uuid_map, ref_su
         )
         uuid_str = f"{generate_uuid()}/{main_uuid}"
         substance_instance.uuid = uuid_str
-        substance_instance.chemical_name = "Rupert"
+        # FIXME: what if there's more than one substance column?
+        substance_instance.chemical_name = str(data[substance_columns[0]][0])
         substance_instance.templates = []
         if ref_sub_columns:
             ref_sub_values = tuple(row[col] for col in ref_sub_columns if col in row)
