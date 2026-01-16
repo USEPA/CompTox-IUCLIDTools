@@ -84,5 +84,8 @@ config = {
     'input_numeric_file': 'output/toxval_numeric_fields.xlsx',
 
     # Name of the output directory to store NLP-processed input data
-    'input_pickle_dir': 'output/ToxVal Info'
+    'input_pickle_dir': 'output/ToxVal Info',
+
+    # For ezmapper_extract_attachment.py - Set path to directory where removed files will be stored
+    'i6z_removed_file_final_parent_dir': 'set_path_in_config'
 }
